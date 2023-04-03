@@ -1,2 +1,0 @@
-DATE: 2023-03-22 07:39:10 PM  login attempt
-DATE: 2023-03-22 07:39:10 PM  Admin Login successful
