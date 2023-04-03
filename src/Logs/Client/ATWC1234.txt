@@ -1,0 +1,16 @@
+DATE: 2023-02-12 07:13:45 p.m.  login attempt
+DATE: 2023-02-12 07:13:45 p.m.  Customer Login successful
+DATE: 2023-02-12 07:13:53 p.m.  attempting to book Movie
+DATE: 2023-02-12 07:13:53 p.m. Client Action:  bookMovie | RequestParameters:  movieID: ATWM121212 movieName: Avatar  | Server Response: Success: Movie ATWM121212 Booked Successfully
+DATE: 2023-02-13 08:01:13 p.m.  login attempt
+DATE: 2023-02-13 08:01:13 p.m.  Customer Login successful
+DATE: 2023-02-13 08:01:25 p.m.  attempting to book Movie
+DATE: 2023-02-13 08:01:25 p.m. Client Action:  bookMovie | RequestParameters:  movieID: ATWM120223 movieName: Avatar  | Server Response: Success: Movie ATWM120223 Booked Successfully for 5 tickets!
+DATE: 2023-02-13 08:01:32 p.m.  attempting to Logout
+DATE: 2023-02-13 08:01:57 p.m.  login attempt
+DATE: 2023-02-13 08:01:57 p.m.  Customer Login successful
+DATE: 2023-02-13 08:01:59 p.m.  attempting to getBookingSchedule
+DATE: 2023-02-13 08:01:59 p.m. Client Action:  bookMovie | RequestParameters:  null  | Server Response: Avatar:
+ATWA120223 ||
+=====================================
+

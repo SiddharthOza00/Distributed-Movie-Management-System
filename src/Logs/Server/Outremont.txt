@@ -1,0 +1,158 @@
+DATE: 2023-02-12 07:02:00 p.m.  Server is Up & Running
+DATE: 2023-02-12 07:02:00 p.m.  UDP Server Started at port 3333
+DATE: 2023-02-13 07:59:47 p.m.  Server is Up & Running
+DATE: 2023-02-13 07:59:47 p.m.  UDP Server Started at port 3333
+DATE: 2023-02-19 12:29:18 a.m.  Server is Up & Running
+DATE: 2023-02-19 12:29:18 a.m.  UDP Server Started at port 3333
+DATE: 2023-02-19 12:29:42 a.m. ClientID: Admin | RequestType:  UDP reply sent listMovieAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-02-19 12:29:42 a.m. ClientID: Admin | RequestType:  UDP reply sent listMovieAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-02-27 10:53:21 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-27 10:53:21 PM  Server Shutting down
+DATE: 2023-02-27 10:53:55 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-27 10:53:55 PM  Server Shutting down
+DATE: 2023-02-27 10:54:41 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-27 10:54:41 PM  Server Shutting down
+DATE: 2023-02-27 11:13:11 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-27 11:13:11 PM  Server Shutting down
+DATE: 2023-02-28 08:32:22 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-28 08:32:22 PM  Server Shutting down
+DATE: 2023-02-28 08:33:16 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-28 08:33:16 PM  Server Shutting down
+DATE: 2023-02-28 08:39:04 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-28 08:39:04 PM  Server Shutting down
+DATE: 2023-02-28 08:44:09 PM Exception: org.omg.CORBA.BAD_PARAM:   vmcid: 0x0  minor code: 0  completed: No
+DATE: 2023-02-28 08:44:09 PM  Server Shutting down
+DATE: 2023-03-03 09:39:17 PM  Server is Up & Running
+DATE: 2023-03-03 09:39:17 PM  UDP Server Started at port 3333
+DATE: 2023-03-05 12:09:59 PM Exception: org.omg.CORBA.COMM_FAILURE:   vmcid: SUN  minor code: 201  completed: No
+DATE: 2023-03-05 12:09:59 PM  Server Shutting down
+DATE: 2023-03-05 12:11:40 PM  Server is Up & Running
+DATE: 2023-03-05 12:11:40 PM  UDP Server Started at port 3333
+DATE: 2023-03-05 12:12:05 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-03-05 12:12:05 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:20:17 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:20:17 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:22:19 PM  Server is Up & Running
+DATE: 2023-03-05 12:22:19 PM  UDP Server Started at port 3333
+DATE: 2023-03-05 12:26:41 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-03-05 12:26:41 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:27:05 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:27:05 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:27:54 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:27:54 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:28:15 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:28:15 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 12:33:59 PM  Server is Up & Running
+DATE: 2023-03-05 12:33:59 PM  UDP Server Started at port 3333
+DATE: 2023-03-05 04:29:31 PM  Server is Up & Running
+DATE: 2023-03-05 04:29:31 PM  UDP Server Started at port 3333
+DATE: 2023-03-05 04:32:01 PM  Server is Up & Running
+DATE: 2023-03-05 04:32:01 PM  UDP Server Started at port 3333
+DATE: 2023-03-05 04:36:21 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-03-05 04:36:21 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
+DATE: 2023-03-05 05:12:35 PM  Server is Up & Running
+DATE: 2023-03-05 05:12:35 PM  UDP Server Started at port 3333
+DATE: 2023-03-06 06:13:50 PM  Server is Up & Running
+DATE: 2023-03-06 06:13:50 PM  UDP Server Started at port 3333
+DATE: 2023-03-06 06:14:36 PM ClientID: Admin | RequestType:  CORBA addMovieSlots  | RequestParameters:  movieID: OUTA121223 movieName: Avatar bookingCapacity 20  | ServerResponse: Success: Movie OUTA121223 added successfully
+DATE: 2023-03-06 06:14:47 PM ClientID: OUTA1234 | RequestType:  UDP request sent bookMovieTickets  | RequestParameters:  movieID: ATWA121223 movieName: Avatar  | ServerResponse:  ... 
+DATE: 2023-03-06 06:14:47 PM ClientID: OUTA1234 | RequestType:  UDP reply receivedbookMovieTickets  | RequestParameters:  movieID: ATWA121223 movieName: Avatar  | ServerResponse: Success: Movie ATWA121223 Booked Successfully
+DATE: 2023-03-06 06:14:47 PM ClientID: OUTA1234 | RequestType:  CORBA bookMovieTickets  | RequestParameters:  movieID: ATWA121223 movieName: Avatar  | ServerResponse: Success: Movie ATWA121223 Booked Successfully
+DATE: 2023-03-06 06:14:53 PM ClientID: OUTA1234 | RequestType:  CORBA getBookingSchedule  | RequestParameters: null | ServerResponse: Avatar:
+ATWA121223 - 5 Tickets ||
+=====================================
+
+DATE: 2023-03-06 06:15:19 PM ClientID: OUTA1234 | RequestType:  CORBA bookMovieTickets  | RequestParameters:  movieID: OUTA121223 movieName: Avatar  | ServerResponse: Success: Movie OUTA121223 Booked Successfully
+DATE: 2023-03-06 06:15:19 PM ClientID: OUTA1234 | RequestType:  UDP request sent cancelMovieTickets  | RequestParameters:  movieID: ATWA121223 movieName: Avatar  | ServerResponse:  ... 
+DATE: 2023-03-06 06:15:19 PM ClientID: OUTA1234 | RequestType:  UDP reply receivedcancelMovieTickets  | RequestParameters:  movieID: ATWA121223 movieName: Avatar  | ServerResponse: Success: Movie ATWA121223 Canceled for OUTA1234
+DATE: 2023-03-06 06:15:19 PM ClientID: OUTA1234 | RequestType:  CORBA cancelMovieTickets  | RequestParameters:  movieID: ATWA121223 movieName: Avatar  | ServerResponse: Success: Movie ATWA121223 Canceled for OUTA1234
+DATE: 2023-03-06 06:15:19 PM ClientID: OUTA1234 | RequestType:  CORBA exchangeTickets  | RequestParameters:  oldMovieID: ATWA121223 oldMovieName: Avatar newMovieID: OUTA121223 newMovieName: Avatar  | ServerResponse: Success: Movie ATWA121223 exchanged with OUTA121223
+DATE: 2023-03-06 06:15:23 PM ClientID: OUTA1234 | RequestType:  CORBA getBookingSchedule  | RequestParameters: null | ServerResponse: Avatar:
+OUTA121223 - 3 Tickets ||ATWA121223 - 2 Tickets ||
+=====================================
+
+DATE: 2023-03-06 06:20:07 PM ClientID: Admin | RequestType:  CORBA addMovieSlots  | RequestParameters:  movieID: OUTM121223 movieName: Avatar bookingCapacity 2  | ServerResponse: Success: Movie OUTM121223 added successfully
+DATE: 2023-03-06 06:20:49 PM ClientID: ATWA1234 | RequestType:  CORBA bookMovieTickets  | RequestParameters:  movieID: OUTA121223 movieName: Avatar  | ServerResponse: Success: Movie OUTA121223 Booked Successfully
+DATE: 2023-03-06 06:20:49 PM ClientID: ATWA1234 | RequestType:  UDP reply sent bookMovieTickets  | RequestParameters:  movieID: OUTA121223 movieName: Avatar  | ServerResponse: 
+DATE: 2023-03-06 06:20:49 PM ClientID: ATWA1234 | RequestType:  UDP reply sent bookMovieTickets  | RequestParameters:  movieID: OUTA121223 movieName: Avatar  | ServerResponse: Success: Movie OUTA121223 Booked Successfully;
+DATE: 2023-03-06 06:21:11 PM ClientID: ATWA1234 | RequestType:  CORBA bookMovieTickets  | RequestParameters:  movieID: OUTM121223 movieName: Avatar  | ServerResponse: Failed: Movie OUTM121223 is Full
+DATE: 2023-03-06 06:21:11 PM ClientID: ATWA1234 | RequestType:  UDP reply sent bookMovieTickets  | RequestParameters:  movieID: OUTM121223 movieName: Avatar  | ServerResponse: Success: Movie OUTA121223 Booked Successfully;
+DATE: 2023-03-06 06:21:11 PM ClientID: ATWA1234 | RequestType:  UDP reply sent bookMovieTickets  | RequestParameters:  movieID: OUTM121223 movieName: Avatar  | ServerResponse: Failed: Movie OUTM121223 is Full;
+DATE: 2023-03-06 06:49:41 PM  Server is Up & Running
+DATE: 2023-03-06 06:49:41 PM  UDP Server Started at port 3333
+DATE: 2023-03-06 07:07:51 PM  Server is Up & Running
+DATE: 2023-03-06 07:07:51 PM  UDP Server Started at port 3333
+DATE: 2023-03-06 07:22:47 PM  Server is Up & Running
+DATE: 2023-03-06 07:22:47 PM  UDP Server Started at port 3333
+DATE: 2023-03-09 08:55:57 PM  Server Started...
+DATE: 2023-03-09 08:55:58 PM  Server is Up & Running
+DATE: 2023-03-09 08:55:58 PM  UDP Server Started at port 3333
+DATE: 2023-03-09 09:13:39 PM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM121223 movieName: Avatar bookingCapacity 20  | ServerResponse: Failed: Cannot Add Movie to servers other than Outremont
+DATE: 2023-03-09 09:13:49 PM ClientID: VERA1234 | RequestType:  UDP request sent bookMovieTickets  | RequestParameters:  movieID: VERM121223 movieName: Avatar  | ServerResponse:  ... 
+DATE: 2023-03-09 09:13:49 PM ClientID: VERA1234 | RequestType:  UDP reply receivedbookMovieTickets  | RequestParameters:  movieID: VERM121223 movieName: Avatar  | ServerResponse: Failed: Movie VERM121223 Does not exists
+DATE: 2023-03-09 09:13:49 PM ClientID: VERA1234 | RequestType:  CORBA bookMovieTickets  | RequestParameters:  movieID: VERM121223 movieName: Avatar  | ServerResponse: Failed: Movie VERM121223 Does not exists
+DATE: 2023-03-09 09:16:28 PM  Server Started...
+DATE: 2023-03-09 09:16:29 PM  Server is Up & Running
+DATE: 2023-03-09 09:16:29 PM  UDP Server Started at port 3333
+DATE: 2023-03-09 09:20:11 PM Exception: com.sun.xml.internal.ws.server.ServerRtException: Server Runtime Error: java.net.BindException: Address already in use
+DATE: 2023-03-09 09:20:23 PM  Server is Up & Running
+DATE: 2023-03-09 09:20:23 PM  UDP Server Started at port 3333
+DATE: 2023-03-22 07:35:46 PM  Server is Up & Running
+DATE: 2023-03-22 07:35:46 PM  UDP Server Started at port 3333
+DATE: 2023-03-22 07:39:44 PM  Server is Up & Running
+DATE: 2023-03-22 07:39:44 PM  UDP Server Started at port 3333
+DATE: 2023-03-22 07:41:25 PM  Server is Up & Running
+DATE: 2023-03-22 07:41:25 PM  UDP Server Started at port 3333
+DATE: 2023-03-22 07:54:39 PM  Server is Up & Running
+DATE: 2023-03-22 07:54:39 PM  UDP Server Started at port 3333
+DATE: 2023-03-22 08:00:58 PM Exception: com.sun.xml.internal.ws.server.ServerRtException: Server Runtime Error: java.net.SocketException: Permission denied
+DATE: 2023-03-22 08:02:08 PM Exception: com.sun.xml.internal.ws.server.ServerRtException: Server Runtime Error: java.net.BindException: Address already in use
+DATE: 2023-03-22 08:02:22 PM Exception: com.sun.xml.internal.ws.server.ServerRtException: Server Runtime Error: java.net.BindException: Address already in use
+DATE: 2023-03-22 08:02:46 PM Exception: com.sun.xml.internal.ws.server.ServerRtException: Server Runtime Error: java.net.BindException: Address already in use
+DATE: 2023-03-22 08:03:04 PM Exception: com.sun.xml.internal.ws.server.ServerRtException: Server Runtime Error: java.net.BindException: Address already in use
+DATE: 2023-03-22 08:03:35 PM Exception: com.sun.xml.internal.ws.server.ServerRtException: Server Runtime Error: java.net.BindException: Address already in use
+DATE: 2023-03-22 08:17:28 PM  Server is Up & Running
+DATE: 2023-03-22 08:17:28 PM  UDP Server Started at port 3333
+DATE: 2023-03-22 10:46:41 PM  Server is Up & Running
+DATE: 2023-03-22 10:46:41 PM  UDP Server Started at port 3333
+DATE: 2023-03-22 10:47:11 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-03-22 10:47:11 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+No Movies of Type Avatar
+=====================================
+;
