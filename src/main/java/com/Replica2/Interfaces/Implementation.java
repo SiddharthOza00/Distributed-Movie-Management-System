@@ -14,7 +14,7 @@ import java.net.SocketException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@WebService(endpointInterface = "com.Interfaces.WebInterface")
+@WebService(endpointInterface = "com.Replica2.Interfaces.WebInterface")
 
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 
