@@ -4,8 +4,6 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import com.FrontEnd.FrontendInterface;
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -60,9 +58,9 @@ public class WebserviceImpl implements Webservice {
     }
 
     @Override
-    public String addMovieSlots(String movieID, String movieName, int bookingCapacity) {
+    public boolean addMovieSlots(String movieID, String movieName, int bookingCapacity) {
         System.out.println("Called addMovieSlots from ServerIDLImpl for " + getServerName() + " server");
-        String addedSlots = null;
+        boolean addedSlots = false;
         Integer bookingCapacityInt = bookingCapacity;
 
         try {
@@ -108,7 +106,7 @@ public class WebserviceImpl implements Webservice {
                             printMovieDataForAMovie(movieName);
 
                         }
-                        addedSlots = "Success";
+                        addedSlots = true;
                     } else {
                         System.out.println("Movie does not exist! Adding movie to the database");
                         getMovieData().put(movieName, new ConcurrentHashMap<String, List<String>>() {
@@ -123,15 +121,15 @@ public class WebserviceImpl implements Webservice {
                         });
                         System.out.println("Added " + movieName + " to the database!");
                         printMovieDataForAMovie(movieName);
-                        addedSlots = "Success";
+                        addedSlots = true;
                     }
                 } else {
                     System.out.println("Tickets which are more than a week from today cannot be booked!");
-                    addedSlots = "Failure";
+                    addedSlots = false;
                 }
             } else {
                 System.out.println("Sorry! Admin cannot book slots for different server");
-                addedSlots = "Failure";
+                addedSlots = false;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,9 +141,9 @@ public class WebserviceImpl implements Webservice {
     }
 
     @Override
-    public String removeMovieSlots(String movieID, String movieName) {
+    public boolean removeMovieSlots(String movieID, String movieName) {
         System.out.println("Called removeMovieSlots from ServerIDLImpl for " + getServerName() + " server");
-        String movieSlotsRemoved = null;
+        boolean movieSlotsRemoved = false;
 
         if (movieID.startsWith(((Character) getServerName().charAt(0)).toString())) {
             System.out.println("Admin is removing slots for the same server.");
@@ -348,23 +346,23 @@ public class WebserviceImpl implements Webservice {
 
                         }
 
-                        movieSlotsRemoved = "Success";
+                        movieSlotsRemoved = true;
                     } else {
                         System.out.println("Admin cannot remove as the date is before today's date");
-                        movieSlotsRemoved = "Failure";
+                        movieSlotsRemoved = false;
                     }
 
                 } else {
                     System.out.println("Movie ID not exist for this show! Deletion could not be performed");
-                    movieSlotsRemoved = "Success";
+                    movieSlotsRemoved = false;
                 }
             } else {
                 System.out.println("Movie does not exist for this show! Deletion could not be performed");
-                movieSlotsRemoved = "Failure";
+                movieSlotsRemoved = false;
             }
         } else {
             System.out.println("Sorry! Admin cannot remove slots for different server");
-            movieSlotsRemoved = "Failure";
+            movieSlotsRemoved = false;
         }
 
         return movieSlotsRemoved;

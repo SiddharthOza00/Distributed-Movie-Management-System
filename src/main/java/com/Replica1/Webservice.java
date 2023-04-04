@@ -8,8 +8,8 @@ import javax.jws.soap.SOAPBinding.Style;
 @SOAPBinding(style=Style.RPC)
 public interface Webservice {
 
-    public String addMovieSlots(String movieID, String movieName, int bookingCapacity);
-    public String removeMovieSlots(String movieID, String movieName);
+    public boolean addMovieSlots(String movieID, String movieName, int bookingCapacity);
+    public boolean removeMovieSlots(String movieID, String movieName);
     public String listMovieShowsAvailability(String movieName, boolean isOwnClient);
     public String bookMovieTickets(String customerID, String movieID, String movieName, int numberOfTickets, boolean isOwnClient);
     public String getBookingSchedule(String customerID, boolean isOwnClient);
