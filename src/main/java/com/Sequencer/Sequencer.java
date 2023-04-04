@@ -23,6 +23,7 @@ public class Sequencer {
                 String sentence = new String(request.getData(), 0,
                         request.getLength());
 
+                //new comment
 //                String[] parts = sentence.split(";");
 //                int sequencerId1 = Integer.parseInt(parts[0]);
 //                String ip = request.getAddress().getHostAddress();
