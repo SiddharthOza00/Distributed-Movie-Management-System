@@ -21,15 +21,9 @@ public class FrontEnd {
 
         //TODO: Assign port numbers to all devices
         Runnable thread1 = new FrontendThread(44553, feImpl);
-        Runnable thread2 = new FrontendThread(44554, feImpl);
-        Runnable thread3 = new FrontendThread(44555, feImpl);
-        Runnable thread4 = new FrontendThread(44556, feImpl);
 
-        Executor executor = Executors.newFixedThreadPool(4);
+        Executor executor = Executors.newFixedThreadPool(1);
         executor.execute(thread1);
-        executor.execute(thread2);
-        executor.execute(thread3);
-        executor.execute(thread4);
     }
 
 
