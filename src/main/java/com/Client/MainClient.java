@@ -116,7 +116,7 @@ public class MainClient {
             // }
 
             URL url = new URL("http://localhost:8080/frontend?wsdl");
-            QName qName = new QName("http://webservices.com/", "FrontendInterfaceImplService");
+            QName qName = new QName("http://FrontEnd.com/", "FrontendImplService");
             
             Service service = Service.create(url, qName);
             FrontendInterface helloService = service.getPort(FrontendInterface.class);
@@ -139,7 +139,7 @@ public class MainClient {
                         userLogger.logger.info("User has called addMovieSlots for the movie " + movieName + " ,movieID "
                                 + movieID + " and number of tickets " + tickets);
                         String res = helloService.addMovieSlots(customerID, movieID, movieName, Integer.parseInt(tickets));
-                        if (res.equals("Success")) {
+                        if (res!=null && res.equals("Success")) {
                             System.out.println("Successsfully added movie slots");
                         } else {
                             System.out.println("Could not add movie slots");
