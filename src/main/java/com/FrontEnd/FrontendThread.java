@@ -36,16 +36,16 @@ public class FrontendThread implements Runnable {
                 String arr = new String(packet.getData()).trim();
                 System.out.print("VIA UDP - Message received from port -- " + packet.getPort()+ " to Frontend server: " + arr);
 
-                String result = MethodMapper(arr, feImpl);
+                // String result = MethodMapper(arr, feImpl);
                 // String result = "Hello check";
 
-                byte[] b = result.getBytes();
+                // byte[] b = result.getBytes();
 
                 //REsult to be checked
-                InetAddress ip = InetAddress.getLocalHost();
-                DatagramPacket packetResult = new DatagramPacket(b, b.length, ip, packet.getPort());
-                serverSocket.send(packetResult);
-                System.out.print("VIA UDP - Message sent from Frontend server to : " + packet.getPort());
+                // InetAddress ip = InetAddress.getLocalHost();
+                // DatagramPacket packetResult = new DatagramPacket(b, b.length, ip, packet.getPort());
+                // serverSocket.send(packetResult);
+                // System.out.print("VIA UDP - Message sent from Frontend server to : " + packet.getPort());
                 serverSocket.close();
             }
 
