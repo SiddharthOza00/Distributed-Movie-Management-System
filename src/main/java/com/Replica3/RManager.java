@@ -57,6 +57,8 @@ public class RManager {
 
                 System.out.println("Received : " + dataReceived);
 
+                sendUnicast(dataReceived, "192.168.247.35");
+
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -64,17 +66,18 @@ public class RManager {
     }
 
     private static void sendUnicast(String reply, String ipAddress) {
-        System.out.println("Unicast - " + reply);
-        int port = 0000;
-        int port2 = 0000;
+        System.out.println("Trying Unicast - " + reply);
+        int FEport = 44553;
+        int RMport = 9955;
         DatagramSocket ds = null;
         try {
-            ds = new DatagramSocket(port);
+            ds = new DatagramSocket(RMport);
             byte[] arr = reply.getBytes();
             InetAddress address = InetAddress.getByName(ipAddress);
 
-            DatagramPacket dp = new DatagramPacket(arr, arr.length, address, port2);
+            DatagramPacket dp = new DatagramPacket(arr, arr.length, address, FEport);
             ds.send(dp);
+            System.out.println("Unicast sent to FE (IP:" + ipAddress + ")");
         } catch(Exception e) {
             e.printStackTrace();
         }
