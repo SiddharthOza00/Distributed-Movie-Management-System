@@ -5,17 +5,14 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.MulticastSocket;
-import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Condition;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import com.Replica3.Impl.BookingImpl;
 import com.Replica3.Impl.IBooking;
 import com.Request.RequestData;
 
@@ -56,7 +53,10 @@ public class RManager {
 
                 System.out.println("Received : " + dataReceived);
 
-                sendUnicast(dataReceived, "192.168.247.35");
+                String serverReply = requestToReplica(dataReceived);
+                System.out.println(serverReply);
+
+                sendUnicast(serverReply, "192.168.247.35");
 
             }
         } catch(Exception e) {
@@ -65,7 +65,7 @@ public class RManager {
     }
 
     private static void sendUnicast(String reply, String ipAddress) {
-        System.out.println("Trying Unicast - " + reply);
+        // System.out.println("Trying Unicast - " + reply);
         int FEport = 44553;
         int RMport = 9955;
         DatagramSocket ds = null;
@@ -111,25 +111,35 @@ public class RManager {
         }
     }
 
-    private static String requestToReplica(RequestData myObject) throws MalformedURLException {
+    private static String requestToReplica(String dataReceived) throws MalformedURLException {
 
         URL url;
         QName qName;
+
+        String[] requestParams = dataReceived.split(",");
+        String methodName = requestParams[0];
+        String customerID = requestParams[1];
+        String movieID = requestParams[2];
+        String movieName = requestParams[3];
+        String newMovieID = requestParams[4];
+        String newMovieName = requestParams[5];
+        int numberOfTickets = Integer.parseInt(requestParams[6]);
+        String sequenceID = requestParams[7];
         
 
-        if(myObject.getCustomerID().substring(0,3).equals("ATW")) {
+        if(customerID.substring(0,3).equals("ATW")) {
            url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
-           qName = new QName("http://Impl/","BookingImplService");
+           qName = new QName("http://Impl.Replica3.com/","BookingImplService");
         }
 
-        else if(myObject.getCustomerID().substring(0,3).equals("VER")) {
+        else if(customerID.substring(0,3).equals("VER")) {
             url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
-            qName = new QName("http://Impl/","BookingImplService");
+            qName = new QName("http://Impl.Replica3.com/","BookingImplService");
         }
 
-        else if(myObject.getCustomerID().substring(0,3).equals("OUT")) {
+        else if(customerID.substring(0,3).equals("OUT")) {
             url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
-            qName = new QName("http://Impl/","BookingImplService");
+            qName = new QName("http://Impl.Replica3.com/","BookingImplService");
         }
         else {
             return "No response";
@@ -139,42 +149,54 @@ public class RManager {
 
         IBooking impl = service.getPort(IBooking.class);
 
-        String customerID = myObject.getCustomerID();
-        String serverID = customerID.substring(0,3);
-        String serverName;
-
-        String typeOfUser = myObject.getCustomerID().substring(3,4);
+        String typeOfUser = customerID.substring(3,4);
         
         switch(typeOfUser) {
             case "A":
-                if(myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
-                    String serverReply = impl.addMovieSlots(myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                if(methodName.equalsIgnoreCase("addMovieSlots")) {
+                    String serverReply = impl.addMovieSlots(movieID, movieName, numberOfTickets);
                     return serverReply;
                 }
-                if(myObject.getMethod().equalsIgnoreCase("removeMovieSlots")) {
-                    String serverReply = impl.removeMovieSlots(myObject.getMovieID(), myObject.getMovieName());
+                if(methodName.equalsIgnoreCase("removeMovieSlots")) {
+                    String serverReply = impl.removeMovieSlots(movieID, movieName);
                     return serverReply;
                 }
-                if(myObject.getMethod().equalsIgnoreCase("listMovieShowsAvailability")) {
-                    String serverReply = impl.listMovieShowsAvailability(myObject.getMovieName());
+                if(methodName.equalsIgnoreCase("listMovieShowsAvailability")) {
+                    String serverReply = impl.listMovieShowsAvailability(movieName);
+                    return serverReply;
+                }
+                if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                    String serverReply = impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    return serverReply;
+                }
+                if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                    String serverReply = impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    return serverReply;
+                }
+                if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                    String serverReply = impl.getBookingSchedule(customerID);
+                    return serverReply;
+                }
+                if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                    String serverReply = impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
                     return serverReply;
                 }
                 break;
             case "C":
-                if(myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
-                    String serverReply = impl.bookMovieTickets(myObject.getCustomerID(),myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                    String serverReply = impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
                     return serverReply;
                 }
-                if(myObject.getMethod().equalsIgnoreCase("cancelMovieTickets")) {
-                    String serverReply = impl.cancelMovieTickets(myObject.getCustomerID(),myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                    String serverReply = impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
                     return serverReply;
                 }
-                if(myObject.getMethod().equalsIgnoreCase("getBookingSchedule")) {
-                    String serverReply = impl.getBookingSchedule(myObject.getCustomerID());
+                if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                    String serverReply = impl.getBookingSchedule(customerID);
                     return serverReply;
                 }
-                if(myObject.getMethod().equalsIgnoreCase("exchangeTickets")) {
-                    String serverReply = impl.exchangeTickets(myObject.getCustomerID(), myObject.getMovieName(), myObject.getMovieID(), myObject.getnewMovieID(), myObject.getnewMovieName(), myObject.getnumberOfTickets());
+                if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                    String serverReply = impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
                     return serverReply;
                 }
                 break;
