@@ -14,7 +14,7 @@ public class RequestData {
     }
 
     public RequestData(String method, String customerID, String movieID, String movieName,
-            String newMovieID, String newMovieName, int numberOfTickets, int sequenceId) {
+            String newMovieID, String newMovieName, int numberOfTickets) {
         this.method = method;
         this.customerID = customerID;
         this.movieID = movieID;
@@ -22,7 +22,6 @@ public class RequestData {
         this.newMovieID = newMovieID;
         this.newMovieName = newMovieName;
         this.numberOfTickets = numberOfTickets;
-        this.sequenceId = sequenceId;
     }
     
 

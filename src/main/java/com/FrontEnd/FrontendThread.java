@@ -36,7 +36,7 @@ public class FrontendThread implements Runnable {
                 String arr = new String(packet.getData()).trim();
                 System.out.print("VIA UDP - Message received from port -- " + packet.getPort()+ " to Frontend server: " + arr);
 
-                
+
 
                 // String result = MethodMapper(arr, feImpl);
                 // String result = "Hello check";
@@ -64,8 +64,10 @@ public class FrontendThread implements Runnable {
             System.out.println("Calling  server's listMovieShowsAvailability method");
             String[] meth = arr.split(",");
             String movieName = meth[1];
+            //TODO: PASS CUSTOMER ID IN ARR
+            String customerID = meth[2];
             try {
-                res = methImpl.listMovieShowsAvailability(movieName, false);
+                res = methImpl.listMovieShowsAvailability(customerID, movieName, false);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(
