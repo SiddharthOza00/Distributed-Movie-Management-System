@@ -2,13 +2,12 @@ package com.Replica2;
 
 import com.Replica2.Interfaces.Implementation;
 import com.Replica2.Interfaces.WebInterface;
+import com.Request.RequestData;
 
 import javax.jws.WebService;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.UnknownHostException;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -112,7 +111,7 @@ public class ReplicaManager2 {
     private static void sendUnicast(String reply, String ipAddress) {
         System.out.println("Trying Unicast - " + reply);
         int FEport = 44553;
-        int RMport = 9955;
+        int RMport = 9957;
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(RMport);
@@ -131,18 +130,83 @@ public class ReplicaManager2 {
         }
     }
 
-//    private static void contactRM(Request request) {
-//        int port = 0000;
-//        String ipAddress = " ";
-//        try {
-//            DatagramSocket ds = new DatagramSocket();
-//            byte[] arr = request.toString().getBytes();
-//            InetAddress addr = InetAddress.getByName(ipAddress);
-//            DatagramPacket dp = new DatagramPacket(arr, arr.length, addr, port);
-//            ds.send(dp);
-//            System.out.println("Sent to other RM - " + request.toString());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private static void contactRM(RequestData request) {
+        int port = 0000;
+        String ipAddress = " ";
+        try {
+            DatagramSocket ds = new DatagramSocket();
+            byte[] arr = request.toString().getBytes();
+            InetAddress addr = InetAddress.getByName(ipAddress);
+            DatagramPacket dp = new DatagramPacket(arr, arr.length, addr, port);
+            ds.send(dp);
+            System.out.println("Sent to other RM - " + request.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String requestToReplica(RequestData myObject) throws MalformedURLException {
+
+        URL url;
+        QName qName;
+
+        if (myObject.getCustomerID().substring(0, 3).equals("ATW")) {
+            url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
+            qName = new QName("http://Impl/", "BookingImplService");
+        } else if (myObject.getCustomerID().substring(0, 3).equals("VER")) {
+            url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
+            qName = new QName("http://Impl/", "BookingImplService");
+        } else if (myObject.getCustomerID().substring(0, 3).equals("OUT")) {
+            url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
+            qName = new QName("http://Impl/", "BookingImplService");
+        } else {
+            return "No response";
+        }
+
+        Service service = Service.create(url, qName);
+
+        WebInterface impl = service.getPort(WebInterface.class);
+
+        String customerID = myObject.getCustomerID();
+        String serverID = customerID.substring(0, 3);
+        String serverName;
+
+        String typeOfUser = myObject.getCustomerID().substring(3, 4);
+
+        switch (typeOfUser) {
+            case "A":
+                if (myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
+                    String serverReply = impl.addMovieSlots(myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                if (myObject.getMethod().equalsIgnoreCase("removeMovieSlots")) {
+                    String serverReply = impl.removeMovieSlots(myObject.getMovieID(), myObject.getMovieName());
+                    return serverReply;
+                }
+                if (myObject.getMethod().equalsIgnoreCase("listMovieShowsAvailability")) {
+                    String serverReply = impl.listMovieShowsAvailability(myObject.getMovieName());
+                    return serverReply;
+                }
+                break;
+            case "C":
+                if (myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
+                    String serverReply = impl.bookMovieTickets(myObject.getCustomerID(), myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                if (myObject.getMethod().equalsIgnoreCase("cancelMovieTickets")) {
+                    String serverReply = impl.cancelMovieTickets(myObject.getCustomerID(), myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                if (myObject.getMethod().equalsIgnoreCase("getBookingSchedule")) {
+                    String serverReply = impl.getBookingSchedule(myObject.getCustomerID());
+                    return serverReply;
+                }
+                if (myObject.getMethod().equalsIgnoreCase("exchangeTickets")) {
+                    String serverReply = impl.exchangeTickets(myObject.getCustomerID(), myObject.getMovieName(), myObject.getMovieID(), myObject.getnewMovieID(), myObject.getnewMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                break;
+        }
+        return "No response";
+    }
 }
