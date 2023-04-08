@@ -19,6 +19,7 @@ import org.omg.CORBA.Request;
 
 import com.Replica3.Impl.BookingImpl;
 import com.Replica3.Impl.IBooking;
+import com.Request.RequestData;
 
 public class RManager {
 
@@ -98,8 +99,8 @@ public class RManager {
     // }
 
     private static void contactRM(Request request) {
-        int port = 0000;
-        String ipAddress = " ";
+        int port = 0000; //change this
+        String ipAddress = " "; //change this
         try {
             DatagramSocket ds = new DatagramSocket();
             byte[] arr = request.toString().getBytes();
@@ -112,77 +113,77 @@ public class RManager {
         }
     }
 
-    // private static String requestToReplica(Request myObject) throws MalformedURLException {
+    private static String requestToReplica(RequestData myObject) throws MalformedURLException {
 
-    //     URL url;
-    //     QName qName;
+        URL url;
+        QName qName;
         
 
-    //     if(myObject.userID.substring(0,3).equals("ATW")) {
-    //        url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
-    //        qName = new QName("http://Impl/","BookingImplService");
-    //     }
+        if(myObject.getCustomerID().substring(0,3).equals("ATW")) {
+           url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
+           qName = new QName("http://Impl/","BookingImplService");
+        }
 
-    //     else if(myObject.userID.substring(0,3).equals("VER")) {
-    //         url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
-    //         qName = new QName("http://Impl/","BookingImplService");
-    //     }
+        else if(myObject.getCustomerID().substring(0,3).equals("VER")) {
+            url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
+            qName = new QName("http://Impl/","BookingImplService");
+        }
 
-    //     else {
-    //         //OUTREMONT
-    //         url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
-    //         qName = new QName("http://Impl/","BookingImplService");
-    //     }
+        else if(myObject.getCustomerID().substring(0,3).equals("OUT")) {
+            url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
+            qName = new QName("http://Impl/","BookingImplService");
+        }
+        else {
+            return "No response";
+        }
 
-    //     Service service = Service.create(url, qName);
+        Service service = Service.create(url, qName);
 
-    //     IBooking impl = service.getPort(IBooking.class);
+        IBooking impl = service.getPort(IBooking.class);
 
-    //     String customerID = myObject.userID;
-    //     String serverID = customerID.substring(0,3);
-    //     String serverName;
+        String customerID = myObject.getCustomerID();
+        String serverID = customerID.substring(0,3);
+        String serverName;
 
-    //     // BookingImpl impl = new BookingImpl(serverID, serverName);
-
-    //     String typeOfUser = myObject.userID.substring(3,4);
+        String typeOfUser = myObject.getCustomerID().substring(3,4);
         
-    //     switch(typeOfUser) {
-    //         case "A":
-    //             if(myObject.actionToPerform.equalsIgnoreCase("bookMovieTickets")) {
-    //                 String serverReply = impl.addMovieSlots(myObject.movieID, myObject.movieName, myObject.bookingCapacity);
-    //                 return serverReply;
-    //             }
-    //             if(myObject.actionToPerform.equalsIgnoreCase("removeMovieSlots")) {
-    //                 String serverReply = impl.removeMovieSlots(myObject.movieID, myObject.movieName);
-    //                 return serverReply;
-    //             }
-    //             if(myObject.actionToPerform.equalsIgnoreCase("listMovieShowsAvailability")) {
-    //                 String serverReply = impl.listMovieShowsAvailability(myObject.movieName);
-    //                 return serverReply;
-    //             }
-    //             break;
-    //         case "C":
-    //             if(myObject.actionToPerform.equalsIgnoreCase("bookMovieTickets")) {
-    //                 String serverReply = impl.bookMovieTickets(myObject.customerID,myObject.movieID, myObject.movieName, myObject.numberOfTickets);
-    //                 return serverReply;
-    //             }
-    //             if(myObject.actionToPerform.equalsIgnoreCase("cancelMovieTickets")) {
-    //                 String serverReply = impl.cancelMovieTickets(myObject.customerID,myObject.movieID, myObject.movieName, myObject.numberOfTickets);
-    //                 return serverReply;
-    //             }
-    //             if(myObject.actionToPerform.equalsIgnoreCase("getBookingSchedule")) {
-    //                 String serverReply = impl.getBookingSchedule(myObject.customerID);
-    //                 return serverReply;
-    //             }
-    //             if(myObject.actionToPerform.equalsIgnoreCase("exchangeTickets")) {
-    //                 String serverReply = impl.exchangeTickets(myObject.customerID, myObject.movieName, myObject.movieID, myObject.new_movieID, myObject.new_movieName, myObject.numberOfTickets);
-    //                 return serverReply;
-    //             }
-    //             break;
-            // }
+        switch(typeOfUser) {
+            case "A":
+                if(myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
+                    String serverReply = impl.addMovieSlots(myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                if(myObject.getMethod().equalsIgnoreCase("removeMovieSlots")) {
+                    String serverReply = impl.removeMovieSlots(myObject.getMovieID(), myObject.getMovieName());
+                    return serverReply;
+                }
+                if(myObject.getMethod().equalsIgnoreCase("listMovieShowsAvailability")) {
+                    String serverReply = impl.listMovieShowsAvailability(myObject.getMovieName());
+                    return serverReply;
+                }
+                break;
+            case "C":
+                if(myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
+                    String serverReply = impl.bookMovieTickets(myObject.getCustomerID(),myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                if(myObject.getMethod().equalsIgnoreCase("cancelMovieTickets")) {
+                    String serverReply = impl.cancelMovieTickets(myObject.getCustomerID(),myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                if(myObject.getMethod().equalsIgnoreCase("getBookingSchedule")) {
+                    String serverReply = impl.getBookingSchedule(myObject.getCustomerID());
+                    return serverReply;
+                }
+                if(myObject.getMethod().equalsIgnoreCase("exchangeTickets")) {
+                    String serverReply = impl.exchangeTickets(myObject.getCustomerID(), myObject.getMovieName(), myObject.getMovieID(), myObject.getnewMovieID(), myObject.getnewMovieName(), myObject.getnumberOfTickets());
+                    return serverReply;
+                }
+                break;
+            }
 
 
-        // return "";
-    // }
+        return "No response";
+    }
     
 }

@@ -28,14 +28,14 @@ public class LogData {
         // System.out.println(dir);
         if (logType == SERVER) {
             if (ID.equalsIgnoreCase("ATW")) {
-                fileName = dir + "\\Logs\\Server\\Atwater.txt";
+                fileName = dir + "\\src\\main\\java\\com\\Replica3\\Logs\\Server\\Atwater.txt";
             } else if (ID.equalsIgnoreCase("VER")) {
-                fileName = dir + "\\Logs\\Server\\Verdun.txt";
+                fileName = dir + "\\src\\main\\java\\com\\Replica3\\Logs\\Server\\Verdun.txt";
             } else if (ID.equalsIgnoreCase("OUT")) {
-                fileName = dir + "\\Logs\\Server\\Outremont.txt";
+                fileName = dir + "\\src\\main\\java\\com\\Replica3\\Logs\\Server\\Outremont.txt";
             }
         } else {
-            fileName = dir + "\\Logs\\Client\\" + ID + ".txt";
+            fileName = dir + "\\src\\main\\java\\com\\Replica3\\Logs\\Client" + ID + ".txt";
         }
         return fileName;
     }
