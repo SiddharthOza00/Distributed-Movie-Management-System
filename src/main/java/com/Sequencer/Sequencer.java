@@ -20,7 +20,7 @@ public class Sequencer {
 
                 aSocket.receive(request);
                 String sentence = new String(request.getData(), 0, request.getLength());
-                sendMessage(sentence,0);
+                sendMessage(sentence, 0);
 //                System.out.println(sentence);
 
                 //new comment
@@ -28,13 +28,13 @@ public class Sequencer {
 //                int sequencerId1 = Integer.parseInt(parts[7]);
 //                String ip = request.getAddress().getHostAddress();
 //
-//                String sentence1 = ip + "," +
+//                String sentence1 = parts[0] + "," +
+//                        parts[1] + "," +
 //                        parts[2] + "," +
 //                        parts[3] + "," +
 //                        parts[4] + "," +
 //                        parts[5] + "," +
-//                        parts[6] + "," +
-//                        parts[7] + ",";
+//                        parts[6] + ",";
 ////
 //                System.out.println(sentence);
 //                sendMessage(sentence1, sequencerId1);
@@ -47,12 +47,13 @@ public class Sequencer {
 //                DatagramPacket request1 = new DatagramPacket(SeqId,
 //                        SeqId.length, aHost1, port1);
 //                aSocket.send(request1);
+//            }
+//
+//        } catch (SocketException e) {
+//            System.out.println("Socket: " + e.getMessage());
+//        } catch (IOException e) {
+//            System.out.println("IO: " + e.getMessage());
             }
-
-        } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
         }
     }
 
@@ -63,8 +64,9 @@ public class Sequencer {
             sequencerId1 = ++sequencerId;
         }
 //        String finalMessage = "this is a test";
-//        String finalMessage = message + "," + sequencerId1;
-          String finalMessage = message;
+        String finalMessage = message + "," + sequencerId1;
+//          String finalMessage = message;
+        System.out.println("Message: " + finalMessage);
         try (DatagramSocket aSocket = new DatagramSocket()) {
 
             byte[] messages = finalMessage.getBytes();
