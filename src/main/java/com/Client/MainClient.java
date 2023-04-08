@@ -166,7 +166,7 @@ public class MainClient {
                         System.out.println("Enter the movie name: ");
                         String name = sc.nextLine();
                         userLogger.logger.info("User has called listMovieShowsAvailability for the movie " + name);
-                        String finalRes = helloService.listMovieShowsAvailability(name, true);
+                        String finalRes = helloService.listMovieShowsAvailability(customerID, name, true);
                         if (finalRes == null || finalRes.equals("")) {
                             System.out.println("There are no movie slots for this movie in any server");
                         } else {

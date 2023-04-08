@@ -59,28 +59,28 @@ public class AllServerTemplate {
     }
 
     private void testData(BookingImpl impl) {
-        switch (serverID) {
-            case "ATW":
-                impl.addMovieSlots("ATWM250323", "Avatar", 100);
-                impl.addMovieSlots("ATWA250323", "Avatar", 100);
-                impl.addMovieSlots("ATWE250323", "Avatar", 100);
-                impl.addMovieSlots("ATWM260323", "Avatar", 100);
-                break;
+        // switch (serverID) {
+        //     case "ATW":
+        //         impl.addMovieSlots("ATWM250323", "Avatar", 100);
+        //         impl.addMovieSlots("ATWA250323", "Avatar", 100);
+        //         impl.addMovieSlots("ATWE250323", "Avatar", 100);
+        //         impl.addMovieSlots("ATWM260323", "Avatar", 100);
+        //         break;
 
-            case "VER":
-                impl.addMovieSlots("VERM270323", "Avengers", 100);
-                impl.addMovieSlots("VERA270323", "Avengers", 100);
-                impl.addMovieSlots("VERE270323", "Avatar", 100);
-                impl.addMovieSlots("VERM280323", "Avatar", 100);
-                break;
+        //     case "VER":
+        //         impl.addMovieSlots("VERM270323", "Avengers", 100);
+        //         impl.addMovieSlots("VERA270323", "Avengers", 100);
+        //         impl.addMovieSlots("VERE270323", "Avatar", 100);
+        //         impl.addMovieSlots("VERM280323", "Avatar", 100);
+        //         break;
 
-            case "OUT":
-                impl.addMovieSlots("OUTM290323", "Titanic", 100);
-                impl.addMovieSlots("OUTA290323", "Titanic", 100);
-                impl.addMovieSlots("OUTE290323", "Avatar", 100);
-                impl.addMovieSlots("OUTM300323", "Avatar", 100);
-                break;
-        }
+        //     case "OUT":
+        //         impl.addMovieSlots("OUTM290323", "Titanic", 100);
+        //         impl.addMovieSlots("OUTA290323", "Titanic", 100);
+        //         impl.addMovieSlots("OUTE290323", "Avatar", 100);
+        //         impl.addMovieSlots("OUTM300323", "Avatar", 100);
+        //         break;
+        // }
     }
 
     private static void UDPListener(BookingImpl obj, int sUDPPort, String serverName, String serverID) {

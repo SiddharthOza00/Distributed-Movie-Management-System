@@ -12,3 +12,57 @@ DATE: 2023-04-07 11:05:45 PM ClientID:   | RequestType:  addMovieSlots  | Reques
 DATE: 2023-04-07 11:05:45 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM280323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
 DATE: 2023-04-07 11:05:49 PM  server has started successfully 
 DATE: 2023-04-07 11:05:49 PM  UDP started 
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERA270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERE270323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM280323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:06 PM  server has started successfully 
+DATE: 2023-04-07 11:43:06 PM  UDP started 
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERA270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERE270323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM280323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:42 PM  server has started successfully 
+DATE: 2023-04-07 11:47:42 PM  UDP started 
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERA270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERE270323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM280323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:57 PM  server has started successfully 
+DATE: 2023-04-07 11:49:57 PM  UDP started 
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERA270323 movieName: Avengers bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERE270323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: VERM280323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:47 PM  server has started successfully 
+DATE: 2023-04-07 11:59:47 PM  UDP started 
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+_
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+_
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+_
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+_
+DATE: 2023-04-08 12:15:55 AM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avengers  | ServerResponse:  
+DATE: 2023-04-08 12:15:55 AM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: Verdun Server Avengers:
+Can't find events Avengers
+ ################################# 
+_
+DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avengers  | ServerResponse:  
+DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: Verdun Server Avengers:
+Can't find events Avengers
+ ################################# 
+_
