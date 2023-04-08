@@ -14,7 +14,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-@WebService(endpointInterface = "Impl.IBooking")
+@WebService(endpointInterface = "com.Replica3.Impl.IBooking")
 @SOAPBinding(style = Style.RPC)
 
 public class BookingImpl implements IBooking {
