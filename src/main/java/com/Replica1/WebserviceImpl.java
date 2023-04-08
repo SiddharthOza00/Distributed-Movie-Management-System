@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-// @WebService(endpointInterface = "com.frontend.FrontendInterface")
-// @SOAPBinding(style = Style.RPC)
+@WebService(endpointInterface = "com.frontend.FrontendInterface")
+@SOAPBinding(style = Style.RPC)
 public class WebserviceImpl implements Webservice {
 
     public WebserviceImpl() {
