@@ -99,7 +99,7 @@ public class ReplicaManager {
     private static void sendToFrontend(String dataReceived, String ipAddress) {
         System.out.println("Trying Unicast - " + dataReceived);
         int FEport = 44553;
-        int RMport = 9955;
+        int RMport = 9956;
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(RMport);

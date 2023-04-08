@@ -24,7 +24,7 @@ public class FrontendImpl implements FrontendInterface {
         @Override
         public String addMovieSlots(String customerID, String movieID, String movieName, int bookingCapacity) {
                 RequestData requestData = new RequestData("addMovieSlots", customerID, movieID, movieName, null, null,
-                                bookingCapacity, 0);
+                                bookingCapacity);
                 sendRequestToSequencer(requestData);
                 return "Success";
         }
@@ -32,15 +32,15 @@ public class FrontendImpl implements FrontendInterface {
         @Override
         public String removeMovieSlots(String customerID, String movieID, String movieName) {
                 RequestData requestData = new RequestData("removeMovieSlots", customerID, movieID, movieName, null,
-                                null, 0, 0);
+                                null, 0);
                 sendRequestToSequencer(requestData);
                 return null;
         }
 
         @Override
-        public String listMovieShowsAvailability(String movieName, boolean isOwnClient) {
-                RequestData requestData = new RequestData("listMovieShowsAvailability", null, null, movieName, null,
-                                null, 0, 0);
+        public String listMovieShowsAvailability(String customerID, String movieName, boolean isOwnClient) {
+                RequestData requestData = new RequestData("listMovieShowsAvailability", customerID, null, movieName, null,
+                                null, 0);
                 sendRequestToSequencer(requestData);
                 return null;
         }
@@ -49,15 +49,14 @@ public class FrontendImpl implements FrontendInterface {
         public String bookMovieTickets(String customerID, String movieID, String movieName, int numberOfTickets,
                         boolean isOwnClient) {
                 RequestData requestData = new RequestData("bookMovieTickets", customerID, movieID, movieName, null,
-                                null, numberOfTickets, 0);
+                                null, numberOfTickets);
                 sendRequestToSequencer(requestData);
                 return null;
         }
 
         @Override
         public String getBookingSchedule(String customerID, boolean isOwnClient) {
-                RequestData requestData = new RequestData("getBookingSchedule", customerID, null, null, null, null, 0,
-                                0);
+                RequestData requestData = new RequestData("getBookingSchedule", customerID, null, null, null, null,0);
                 sendRequestToSequencer(requestData);
                 return null;
         }
@@ -65,7 +64,7 @@ public class FrontendImpl implements FrontendInterface {
         @Override
         public String cancelMovieTickets(String customerID, String movieID, String movieName, int numberOfTickets) {
                 RequestData requestData = new RequestData("cancelMovieTickets", customerID, movieID, movieName, null,
-                                null, numberOfTickets, 0);
+                                null, numberOfTickets);
                 sendRequestToSequencer(requestData);
                 return null;
         }
@@ -74,7 +73,7 @@ public class FrontendImpl implements FrontendInterface {
         public String exchangeTickets(String customerID, String oldMovieName, String movieID, String newMovieID,
                         String newMovieName, int numberOfTickets) {
                 RequestData requestData = new RequestData("exchangeTickets", customerID, movieID, oldMovieName,
-                                newMovieID, newMovieName, numberOfTickets, 0);
+                                newMovieID, newMovieName, numberOfTickets);
                 sendRequestToSequencer(requestData);
                 return null;
         }
