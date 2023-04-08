@@ -12,3 +12,171 @@ DATE: 2023-04-07 11:05:45 PM ClientID:   | RequestType:  addMovieSlots  | Reques
 DATE: 2023-04-07 11:05:45 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM260323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
 DATE: 2023-04-07 11:05:49 PM  server has started successfully 
 DATE: 2023-04-07 11:05:49 PM  UDP started 
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWA250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWE250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:03 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM260323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:43:06 PM  server has started successfully 
+DATE: 2023-04-07 11:43:06 PM  UDP started 
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWA250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWE250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:38 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM260323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:47:42 PM  server has started successfully 
+DATE: 2023-04-07 11:47:42 PM  UDP started 
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWA250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWE250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:53 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM260323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:49:57 PM  server has started successfully 
+DATE: 2023-04-07 11:49:57 PM  UDP started 
+DATE: 2023-04-07 11:51:09 PM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM080423 movieName: Titanic bookingCapacity 3  | ServerResponse: Added a new movie!
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWA250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWE250323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:43 PM ClientID:   | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM260323 movieName: Avatar bookingCapacity 100  | ServerResponse: Cant add slots!
+DATE: 2023-04-07 11:59:47 PM  server has started successfully 
+DATE: 2023-04-07 11:59:47 PM  UDP started 
+DATE: 2023-04-08 12:08:01 AM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM090423 movieName: Titanic bookingCapacity 3  | ServerResponse: Added a new movie!
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse: Atwater Server Titanic:
+ ID: ATWM090423 during Morning of date 09/04/23 Total Capacity: 3 Remaining seats: 3  ### 
+ ------------------------------ 
+Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:08:50 AM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse: Atwater Server Titanic:
+ ID: ATWM090423 during Morning of date 09/04/23 Total Capacity: 3 Remaining seats: 3  ### 
+ ------------------------------ 
+Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:10:29 AM ClientID:   | RequestType:  removeMovieSlots  | RequestParameters:  movieID: ATWM090423 movieName: Titanic  | ServerResponse: Congrats ! Movie slots were removed
+DATE: 2023-04-08 12:10:29 AM ClientID:   | RequestType:  removeMovieSlots  | RequestParameters:  movieID: ATWM090423 movieName: Titanic  | ServerResponse: Sorry ! Movie Does Not Exist
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse: Atwater Server Titanic:
+No movie show called Titanic
+Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic 0  | ServerResponse:  
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:13:08 AM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse: Atwater Server Titanic:
+No movie show called Titanic
+Verdun Server Titanic:
+Can't find events Titanic
+ ################################# 
+Outremont Server Titanic:
+Can't find events Titanic
+ ################################# 
+
+DATE: 2023-04-08 12:15:33 AM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM090423 movieName: Avengers bookingCapacity 3  | ServerResponse: Added a new movie!
+DATE: 2023-04-08 12:15:55 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers 0  | ServerResponse:  
+DATE: 2023-04-08 12:15:55 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: Verdun Server Avengers:
+Can't find events Avengers
+ ################################# 
+
+DATE: 2023-04-08 12:15:55 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers 0  | ServerResponse:  
+DATE: 2023-04-08 12:15:55 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: Outremont Server Avengers:
+Can't find events Avengers
+ ################################# 
+
+DATE: 2023-04-08 12:15:55 AM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Avengers  | ServerResponse: Atwater Server Avengers:
+ ID: ATWM090423 during Morning of date 09/04/23 Total Capacity: 3 Remaining seats: 3  ### 
+ ------------------------------ 
+Verdun Server Avengers:
+Can't find events Avengers
+ ################################# 
+Outremont Server Avengers:
+Can't find events Avengers
+ ################################# 
+
+DATE: 2023-04-08 12:16:30 AM ClientID:   | RequestType:  removeMovieSlots  | RequestParameters:  movieID: ATWM090423 movieName: Avengers  | ServerResponse: Congrats ! Movie slots were removed
+DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers 0  | ServerResponse:  
+DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: Verdun Server Avengers:
+Can't find events Avengers
+ ################################# 
+
+DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers 0  | ServerResponse:  
+DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: Outremont Server Avengers:
+Can't find events Avengers
+ ################################# 
+
+DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Avengers  | ServerResponse: Atwater Server Avengers:
+No movie show called Avengers
+Verdun Server Avengers:
+Can't find events Avengers
+ ################################# 
+Outremont Server Avengers:
+Can't find events Avengers
+ ################################# 
+
+DATE: 2023-04-08 12:19:26 AM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM090423 movieName: Avengers bookingCapacity 5  | ServerResponse: Added a new movie!
+DATE: 2023-04-08 12:19:59 AM ClientID: ATWA1234 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWM090423 movieName: Avengers 3 | ServerResponse: Congrats ! Movie ATWM090423 Booked Successfully
+DATE: 2023-04-08 12:23:50 AM ClientID: ATWA1234 | RequestType:  getBookingSchedule  | RequestParameters:   | ServerResponse: Avengers:
+ATWM090423 Tickets: 3   ### 
+------------------------------
+
+DATE: 2023-04-08 12:25:07 AM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWA100423 movieName: Titanic bookingCapacity 5  | ServerResponse: Added a new movie!
+DATE: 2023-04-08 12:26:02 AM ClientID: ATWA1234 | RequestType:  getBookingSchedule  | RequestParameters:   | ServerResponse: Avengers:
+ATWM090423 Tickets: 3   ### 
+------------------------------
+
+DATE: 2023-04-08 12:26:02 AM ClientID: ATWA1234 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWA100423 movieName: Titanic 2 | ServerResponse: Congrats ! Movie ATWA100423 Booked Successfully
+DATE: 2023-04-08 12:26:02 AM ClientID: ATWA1234 | RequestType:  cancelMovieTickets  | RequestParameters:  movieID: ATWM090423 movieName: Avengers Tickets:2  | ServerResponse: Congrats ! Movie tickets ATWM090423 canceled for ATWA1234
+DATE: 2023-04-08 12:26:02 AM ClientID: ATWA1234 | RequestType:  exchangeTickets  | RequestParameters:  old_movieName: Avengers movieID: ATWM090423 new_movieID: ATWA100423 new_movieName: Titanic  | ServerResponse: Congrats ! movieID: ATWM090423 swapped with ATWA100423
+DATE: 2023-04-08 12:26:12 AM ClientID: ATWA1234 | RequestType:  getBookingSchedule  | RequestParameters:   | ServerResponse: Avengers:
+ATWM090423 Tickets: 1   ### 
+------------------------------
+Titanic:
+ATWA100423 Tickets: 2   ### 
+------------------------------
+
