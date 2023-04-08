@@ -15,6 +15,7 @@ import java.util.concurrent.locks.Condition;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import com.Request.RequestData;
 import org.omg.CORBA.Request;
 
 import com.Replica3.Impl.BookingImpl;
@@ -97,7 +98,7 @@ public class RManager {
     //     }
     // }
 
-    private static void contactRM(Request request) {
+    private static void contactRM(RequestData request) {
         int port = 0000;
         String ipAddress = " ";
         try {

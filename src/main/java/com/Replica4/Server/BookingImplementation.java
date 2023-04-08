@@ -2,10 +2,10 @@ package com.Replica4.Server;
 
 //import Interface.BookingInterface;
 
-import Client.WebInterface;
-import Log.Logger;
-import Model.ClientModel;
-import Model.MovieModel;
+import com.Replica4.Interface.Interface;
+import com.Replica4.Log.Logger;
+import com.Replica4.Model.ClientModel;
+import com.Replica4.Model.MovieModel;
 import org.omg.CORBA.ORB;
 
 import javax.jws.WebService;
@@ -39,7 +39,7 @@ public class BookingImplementation implements WebInterface {
     }
 
 
-    protected BookingImplementation(String serverId, String serverName)  {
+    public BookingImplementation(String serverId, String serverName)  {
         super();
         this.serverId = serverId;
         this.serverName = serverName;

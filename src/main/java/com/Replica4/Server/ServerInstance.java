@@ -1,7 +1,7 @@
 package com.Replica4.Server;
 
-import Client.Client;
-import Log.Logger;
+import com.Client.Client;
+import com.Replica4.Log.Logger;
 
 import javax.xml.ws.Endpoint;
 import java.io.IOException;
@@ -21,17 +21,14 @@ public class ServerInstance {
         this.serverId = serverId;
         if (serverId.equals("ATW")) {
             serverName = "ATWATER";
-            serverRegPort = Client.ATWATER_SERV;
             serverUDPPort = BookingImplementation.ATW_SERV_PORT;
             serverWebPort = 7300;
         } else if (serverId.equals("VER")) {
             serverName = "VERDUN";
-            serverRegPort = Client.VERDUN_SERV;
             serverUDPPort = BookingImplementation.VER_SERV_PORT;
             serverWebPort = 7400;
         } else if (serverId.equals("OUT")) {
             serverName = "OUTREMONT";
-            serverRegPort = Client.OUTREMONT_SERV;
             serverUDPPort = BookingImplementation.OUT_SERV_PORT;
             serverWebPort = 7500;
         }
