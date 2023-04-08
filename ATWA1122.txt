@@ -38,3 +38,21 @@ Apr 06, 2023 10:23:23 PM com.Client.MainClient main
 INFO: User is an admin from Atwater
 Apr 06, 2023 10:23:35 PM com.Client.MainClient operations
 INFO: User has called addMovieSlots for the movie Titanic ,movieID ATWM070423 and number of tickets 3
+Apr 07, 2023 8:12:41 PM com.Client.MainClient main
+INFO: -----User ATWA1122 has logged in-----
+Apr 07, 2023 8:12:41 PM com.Client.MainClient main
+INFO: User is an admin from Atwater
+Apr 07, 2023 8:13:13 PM com.Client.MainClient operations
+INFO: User has called addMovieSlots for the movie Titanic ,movieID ATWM070423 and number of tickets 3
+Apr 07, 2023 10:43:52 PM com.Client.MainClient main
+INFO: -----User ATWA1122 has logged in-----
+Apr 07, 2023 10:43:52 PM com.Client.MainClient main
+INFO: User is an admin from Atwater
+Apr 07, 2023 10:47:31 PM com.Client.MainClient operations
+INFO: User has called addMovieSlots for the movie Titanic ,movieID ATWM070423 and number of tickets 2
+Apr 07, 2023 10:54:18 PM com.Client.MainClient main
+INFO: -----User ATWA1122 has logged in-----
+Apr 07, 2023 10:54:18 PM com.Client.MainClient main
+INFO: User is an admin from Atwater
+Apr 07, 2023 10:54:34 PM com.Client.MainClient operations
+INFO: User has called addMovieSlots for the movie Titanic ,movieID ATWM100423 and number of tickets 2
