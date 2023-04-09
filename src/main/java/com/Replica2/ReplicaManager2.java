@@ -1,10 +1,8 @@
 package com.Replica2;
 
-import com.Replica2.Interfaces.Implementation;
 import com.Replica2.Interfaces.WebInterface;
 import com.Request.RequestData;
 
-import javax.jws.WebService;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.*;
@@ -45,58 +43,9 @@ public class ReplicaManager2 {
 
                 System.out.println("Received : " + dataReceived);
 
-                String[] requestParams = dataReceived.split(",");
-                String methodName = requestParams[0];
-                String customerID = requestParams[1];
-                String movieID = requestParams[2];
-                String movieName = requestParams[3];
-                String newMovieID = requestParams[4];
-                String newMovieName = requestParams[5];
-                int numberOfTickets = Integer.parseInt(requestParams[6]);
-                String sequenceID = requestParams[7];
+                String serverResponse = requestToReplica(dataReceived);
+                System.out.println(serverResponse);
 
-                String serverName = null;
-                if (customerID.substring(0,3).equalsIgnoreCase("ATW")) {
-                    serverName = "Atwater";
-                }
-                else if (customerID.substring(0,3).equalsIgnoreCase("OUT")) {
-                    serverName = "Outremont";
-                }
-                else if (customerID.substring(0,3).equalsIgnoreCase("VER")) {
-                    serverName = "Verdun";
-                }
-
-                WebInterface webInterface = new Implementation(customerID.substring(0,2), serverName);
-
-//                switch (methodName) {
-//                    case "addMovieSlots":
-//                        webInterface.addMovieSlots(movieID, movieName, numberOfTickets);
-//                        break;
-//
-//                    case "removeMovieSlots":
-//                        webInterface.removeMovieSlots(movieID, movieName);
-//                        break;
-//
-//                    case "listMovieShowsAvailability":
-//                        webInterface.listMovieShowsAvailability(movieName);
-//                        break;
-//
-//                    case "getBookingSchedule":
-//                        webInterface.getBookingSchedule(customerID);
-//                        break;
-//
-//                    case "bookMovieTickets":
-//                        webInterface.bookMovieTickets(customerID, movieID, movieName, numberOfTickets);
-//                        break;
-//
-//                    case "cancelMovieTickets":
-//                        webInterface.cancelMovieTickets(customerID, movieID, movieName, numberOfTickets);
-//                        break;
-//
-//                    case "exchangeTickets":
-//                        webInterface.exchangeTickets(customerID, newMovieID, newMovieName, movieID, movieName, numberOfTickets);
-//                        break;
-//                }
                 sendUnicast(dataReceived, "192.168.247.35");
 
             }
@@ -142,18 +91,28 @@ public class ReplicaManager2 {
         }
     }
 
-    private static String requestToReplica(RequestData myObject) throws MalformedURLException {
+    private static String requestToReplica(String dataReceived) throws MalformedURLException {
 
         URL url;
         QName qName;
 
-        if (myObject.getCustomerID().substring(0, 3).equals("ATW")) {
+        String[] requestParams = dataReceived.split(",");
+        String methodName = requestParams[0];
+        String customerID = requestParams[1];
+        String movieID = requestParams[2];
+        String movieName = requestParams[3];
+        String newMovieID = requestParams[4];
+        String newMovieName = requestParams[5];
+        int numberOfTickets = Integer.parseInt(requestParams[6]);
+        String sequenceID = requestParams[7];
+
+        if (customerID.startsWith("ATW")) {
             url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
             qName = new QName("http://Impl/", "BookingImplService");
-        } else if (myObject.getCustomerID().substring(0, 3).equals("VER")) {
+        } else if (customerID.startsWith("VER")) {
             url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
             qName = new QName("http://Impl/", "BookingImplService");
-        } else if (myObject.getCustomerID().substring(0, 3).equals("OUT")) {
+        } else if (customerID.startsWith("OUT")) {
             url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
             qName = new QName("http://Impl/", "BookingImplService");
         } else {
@@ -164,43 +123,44 @@ public class ReplicaManager2 {
 
         WebInterface impl = service.getPort(WebInterface.class);
 
-        String customerID = myObject.getCustomerID();
-        String serverID = customerID.substring(0, 3);
-        String serverName;
-
-        String typeOfUser = myObject.getCustomerID().substring(3, 4);
+        String typeOfUser =customerID.substring(3, 4);
 
         switch (typeOfUser) {
             case "A":
-                if (myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
-                    String serverReply = impl.addMovieSlots(myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
-                    return serverReply;
+                if(methodName.equalsIgnoreCase("addMovieSlots")) {
+                    return impl.addMovieSlots(movieID, movieName, numberOfTickets);
                 }
-                if (myObject.getMethod().equalsIgnoreCase("removeMovieSlots")) {
-                    String serverReply = impl.removeMovieSlots(myObject.getMovieID(), myObject.getMovieName());
-                    return serverReply;
+                if(methodName.equalsIgnoreCase("removeMovieSlots")) {
+                    return impl.removeMovieSlots(movieID, movieName);
                 }
-                if (myObject.getMethod().equalsIgnoreCase("listMovieShowsAvailability")) {
-                    String serverReply = impl.listMovieShowsAvailability(myObject.getMovieName());
-                    return serverReply;
+                if(methodName.equalsIgnoreCase("listMovieShowsAvailability")) {
+                    return impl.listMovieShowsAvailability(movieName);
+                }
+                if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                    return impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                }
+                if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                    return impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                }
+                if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                    return impl.getBookingSchedule(customerID);
+                }
+                if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                    return impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
                 }
                 break;
             case "C":
-                if (myObject.getMethod().equalsIgnoreCase("bookMovieTickets")) {
-                    String serverReply = impl.bookMovieTickets(myObject.getCustomerID(), myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
-                    return serverReply;
+                if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                    return impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
                 }
-                if (myObject.getMethod().equalsIgnoreCase("cancelMovieTickets")) {
-                    String serverReply = impl.cancelMovieTickets(myObject.getCustomerID(), myObject.getMovieID(), myObject.getMovieName(), myObject.getnumberOfTickets());
-                    return serverReply;
+                if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                    return impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
                 }
-                if (myObject.getMethod().equalsIgnoreCase("getBookingSchedule")) {
-                    String serverReply = impl.getBookingSchedule(myObject.getCustomerID());
-                    return serverReply;
+                if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                    return impl.getBookingSchedule(customerID);
                 }
-                if (myObject.getMethod().equalsIgnoreCase("exchangeTickets")) {
-                    String serverReply = impl.exchangeTickets(myObject.getCustomerID(), myObject.getMovieName(), myObject.getMovieID(), myObject.getnewMovieID(), myObject.getnewMovieName(), myObject.getnumberOfTickets());
-                    return serverReply;
+                if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                    return impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
                 }
                 break;
         }
