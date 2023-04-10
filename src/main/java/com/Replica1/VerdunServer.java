@@ -21,10 +21,10 @@ public class VerdunServer {
             userLogger.logger.info("----Logger for Verdun Server----");
 
             WebserviceImpl serverImpl = InitializeImplObject();
-            Endpoint endpoint = Endpoint.publish("http://localhost:8081/verdun", serverImpl);
+            Endpoint endpoint = Endpoint.publish("http://localhost:8082/verdun", serverImpl);
             System.out.println("Verdun server is published: " + endpoint.isPublished());
 
-            Runnable thread1 = new ThreadClass(44553, userLogger, serverImpl);
+            Runnable thread1 = new ThreadClass(8001, userLogger, serverImpl);
             Runnable thread2 = new ThreadClass(44554, userLogger, serverImpl);
 
             Executor executor = Executors.newFixedThreadPool(2);

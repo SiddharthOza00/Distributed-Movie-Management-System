@@ -21,7 +21,7 @@ public class AtwaterServer {
             userLogger.logger.info("----Logger for Atwater Server----");
 
             WebserviceImpl serverImpl = InitializeImplObject();
-            Endpoint endpoint = Endpoint.publish("http://localhost:8080/atwater", serverImpl);
+            Endpoint endpoint = Endpoint.publish("http://localhost:8081/atwater", serverImpl);
             System.out.println("Atwater server is published: " + endpoint.isPublished());
 
             // Calling 2 threads
