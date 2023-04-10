@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Response;
 import javax.xml.ws.Service;
 
 import com.Replica3.Impl.IBooking;
@@ -30,6 +29,14 @@ public class RManager {
         allRequests = new ConcurrentHashMap<>();
         allOrderedRequests = new ArrayList<>();
         lastExecutedSeqNum = 0;
+        new Thread( () -> {
+            try {
+                receiveMulticast();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         new Thread( () -> {
             try {
                 receiveMulticast();
@@ -117,6 +124,28 @@ public class RManager {
             lastExecutedSeqNum = Integer.parseInt(allParams[7]);
         }
         System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
+    }
+
+    private static void receiveFromFE() {
+        int RMport = 11111;
+        try {
+            DatagramSocket ds = new DatagramSocket(RMport);
+            byte[] arr = new byte[1000];
+            while(true) {
+                DatagramPacket dp = new DatagramPacket(arr, arr.length);
+                ds.receive(dp);
+                String dataReceived = new String(dp.getData(), 0, dp.getLength());
+
+                if(dataReceived.equalsIgnoreCase("Crash Failure")) {
+                    //handle crash failure
+                }
+                else if(dataReceived.equalsIgnoreCase("Software Failure")) {
+                    //handle software failure
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void contactRM(RequestData request) {
