@@ -20,9 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Implementation implements WebInterface {
 
-    public static final int Atwater_Server_Port = 1111;
-    public static final int Verdun_Server_Port = 2222;
-    public static final int Outremont_Server_Port = 3333;
+    public static final int Atwater_Server_Port = 1000;
+    public static final int Verdun_Server_Port = 2000;
+    public static final int Outremont_Server_Port = 3000;
     private final String serverID;
     private final String serverName;
     private final Map<String, Map<String, MovieObject>> allMovies;
@@ -468,7 +468,7 @@ public class Implementation implements WebInterface {
     private String sendUDPMessage(int serverPort, String method, String customerID, String movieName, String movieID, int numberOfTickets) {
         DatagramSocket aSocket = null;
         String result = "";
-        String dataFromClient = method + ";" + customerID + ";" + movieName + ";" + movieID + ";" + (numberOfTickets);
+        String dataFromClient = method + "," + customerID + "," + movieName + "," + movieID + "," + (numberOfTickets);
         try {
             Logger.serverLog(serverID, customerID, " UDP request sent " + method + " ", " movieID: " + movieID + " movieName: " + movieName + " ", " ... ");
         } catch (IOException e) {
@@ -486,7 +486,7 @@ public class Implementation implements WebInterface {
 
             aSocket.receive(reply);
             result = new String(reply.getData());
-            String[] parts = result.split(";");
+            String[] parts = result.split(",");
             result = parts[0];
         } catch (SocketException e) {
             System.out.println("Socket: " + e.getMessage());

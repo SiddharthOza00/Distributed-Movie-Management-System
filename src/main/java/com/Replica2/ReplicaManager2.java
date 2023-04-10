@@ -46,7 +46,7 @@ public class ReplicaManager2 {
                 String serverResponse = requestToReplica(dataReceived);
                 System.out.println(serverResponse);
 
-                sendUnicast(dataReceived, "192.168.247.35");
+                sendUnicast(serverResponse, "192.168.247.35");
 
             }
         } catch (Exception e) {
@@ -108,13 +108,13 @@ public class ReplicaManager2 {
 
         if (customerID.startsWith("ATW")) {
             url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
-            qName = new QName("http://Impl/", "BookingImplService");
+            qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
         } else if (customerID.startsWith("VER")) {
             url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
-            qName = new QName("http://Impl/", "BookingImplService");
+            qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
         } else if (customerID.startsWith("OUT")) {
             url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
-            qName = new QName("http://Impl/", "BookingImplService");
+            qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
         } else {
             return "No response";
         }

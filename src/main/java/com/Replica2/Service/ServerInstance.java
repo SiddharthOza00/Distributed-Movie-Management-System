@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+
 public class ServerInstance {
 
     private String serverID;
@@ -21,17 +22,17 @@ public class ServerInstance {
             case "ATW":
                 serverName = "Atwater";
                 serverUdpPort = Implementation.Atwater_Server_Port;
-                serverEndpoint = "http://localhost:8080/atwater";
+                serverEndpoint = "http://localhost:8080/ServerAtwater";
                 break;
             case "OUT":
                 serverName = "Outremont";
                 serverUdpPort = Implementation.Outremont_Server_Port;
-                serverEndpoint = "http://localhost:8080/outremont";
+                serverEndpoint = "http://localhost:8080/ServerVerdun";
                 break;
             case "VER":
                 serverName = "Verdun";
                 serverUdpPort = Implementation.Verdun_Server_Port;
-                serverEndpoint = "http://localhost:8080/verdun";
+                serverEndpoint = "http://localhost:8080/ServerOutremont";
                 break;
         }
 
@@ -65,7 +66,7 @@ public class ServerInstance {
                 aSocket.receive(request);
                 String sentence = new String(request.getData(), 0,
                         request.getLength());
-                String[] parts = sentence.split(";");
+                String[] parts = sentence.split(",");
                 String method = parts[0];
                 String customerID = parts[1];
                 String movieName = parts[2];
@@ -74,19 +75,19 @@ public class ServerInstance {
                 if (method.equalsIgnoreCase("bookMovieTickets")) {
                     String result = obj.bookMovieTickets(customerID, movieID, movieName, numberOfTickets);
                     Logger.serverLog(serverID, customerID, " UDP reply sent " + method + " ", " movieID: " + movieID + " movieName: " + movieName + " ", sendingResult);
-                    sendingResult = result + ";";
+                    sendingResult = result + ",";
                 } else if (method.equalsIgnoreCase("listMovieShowsAvailability")) {
                     String result = obj.listMovieShowsAvailabilityUDP(movieName);
                     Logger.serverLog(serverID, customerID, " UDP reply sent " + method + " ", " movieID: " + movieID + " movieName: " + movieName + " ", sendingResult);
-                    sendingResult = result + ";";
+                    sendingResult = result + ",";
                 } else if (method.equalsIgnoreCase(("removeMovieSlots"))) {
                     String result = obj.removeMovieSlots(movieID, movieName);
                     Logger.serverLog(serverID, customerID, " UDP reply sent " + method + " ", " movieID: " + movieID + " movieName: " + movieName + " ", sendingResult);
-                    sendingResult = result + ";";
+                    sendingResult = result + ",";
                 } else if (method.equalsIgnoreCase("cancelMovieTickets")) {
                     String result = obj.cancelMovieTickets(customerID, movieID, movieName, numberOfTickets);
                     Logger.serverLog(serverID, customerID, " UDP reply sent " + method + " ", " movieID: " + movieID + " movieName: " + movieName + " ", sendingResult);
-                    sendingResult = result + ";";
+                    sendingResult = result + ",";
                 }
                 sendingResult = sendingResult.trim();
                 byte[] sendData = sendingResult.getBytes();
