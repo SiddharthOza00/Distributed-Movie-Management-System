@@ -66,3 +66,24 @@ DATE: 2023-04-08 12:18:21 AM ClientID: Admin | RequestType:  UDP reply sent list
 Can't find events Avengers
  ################################# 
 _
+DATE: 2023-04-09 10:26:26 PM  server has started successfully 
+DATE: 2023-04-09 10:26:26 PM  UDP started 
+DATE: 2023-04-09 10:36:29 PM  server has started successfully 
+DATE: 2023-04-09 10:36:29 PM  UDP started 
+DATE: 2023-04-09 10:43:10 PM  server has started successfully 
+DATE: 2023-04-09 10:43:10 PM  UDP started 
+DATE: 2023-04-09 11:18:08 PM  server has started successfully 
+DATE: 2023-04-09 11:18:08 PM  UDP started 
+DATE: 2023-04-09 11:35:16 PM  server has started successfully 
+DATE: 2023-04-09 11:35:16 PM  UDP started 
+DATE: 2023-04-09 11:36:15 PM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avatar  | ServerResponse:  
+DATE: 2023-04-09 11:36:15 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: Outremont Server Avatar:
+Can't find events Avatar
+ ################################# 
+_
+DATE: 2023-04-09 11:59:45 PM  server has started successfully 
+DATE: 2023-04-09 11:59:45 PM  UDP started 
+DATE: 2023-04-10 12:00:42 AM  server has started successfully 
+DATE: 2023-04-10 12:00:42 AM  UDP started 
+DATE: 2023-04-10 12:07:09 AM  server has started successfully 
+DATE: 2023-04-10 12:07:09 AM  UDP started 
