@@ -34,9 +34,9 @@ public class Client {
         URL url1 = new URL("http://localhost:8080/ServerAtwater/?wsdl");
         URL url2 = new URL("http://localhost:8080/ServerVerdun/?wsdl");
         URL url3 = new URL("http://localhost:8080/ServerOutremont/?wsdl");
-        QName qName1 = new QName("http://Impl/","BookingImplService");
-        QName qName2 = new QName("http://Impl/","BookingImplService");
-        QName qName3 = new QName("http://Impl/","BookingImplService");
+        QName qName1 = new QName("http://Impl.Replica3.com/","BookingImplService");
+        QName qName2 = new QName("http://Impl.Replica3.com/","BookingImplService");
+        QName qName3 = new QName("http://Impl.Replica3.com/","BookingImplService");
 
         sAtwater = Service.create(url1, qName1);
         sVerdun = Service.create(url2, qName2);
