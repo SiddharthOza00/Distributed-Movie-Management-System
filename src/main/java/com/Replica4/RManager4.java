@@ -105,7 +105,7 @@ public class RManager4 {
 //                        break;
 //                }
 
-                sendUnicast(dataReceived, "192.168.247.35");
+                sendUnicast(serverReply, "192.168.247.36");
 
             }
         } catch(Exception e) {
@@ -167,18 +167,18 @@ public class RManager4 {
 
 
         if( customerID.substring(0,3).equals("ATW")) {
-            url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
-            qName = new QName("http://Impl.Replica4.com/","BookingImplService");
+            url = new URL("http://localhost:7300/ATW?wsdl");
+            qName = new QName("http://Server.Replica4.com/","BookingImplementationService");
         }
 
         else if(customerID.substring(0,3).equals("VER")) {
-            url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
-            qName = new QName("http://Impl.Replica4.com/","BookingImplService");
+            url = new URL("http://localhost:7400/VER?wsdl");
+            qName = new QName("http://Server.Replica4.com/","BookingImplementationService");
         }
 
         else if(customerID.substring(0,3).equals("OUT")) {
-            url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
-            qName = new QName("http://Impl.Replica4.com/","BookingImplService");
+            url = new URL("http://localhost:7500/OUT?wsdl");
+            qName = new QName("http://Server.Replica4.com/","BookingImplementationService");
         }
         else {
             return "No response";

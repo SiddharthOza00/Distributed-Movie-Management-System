@@ -13,7 +13,6 @@ import java.net.SocketException;
 public class ServerInstance {
     private String serverId;
     private String serverName;
-    private int serverRegPort;
     private int serverUDPPort;
     private int serverWebPort;
 

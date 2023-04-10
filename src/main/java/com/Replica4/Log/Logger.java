@@ -61,14 +61,14 @@ public class Logger {
         String fileName = dir;
         if (logType == LOG_TYPE_SERVER) {
             if (ID.equalsIgnoreCase("ATW")) {
-                fileName = dir + "\\src\\Logs\\Server\\Atwater.txt";
+                fileName = dir + "\\src\\Logger\\Server\\Atwater.txt";
             } else if (ID.equalsIgnoreCase("VER")) {
-                fileName = dir + "\\src\\Logs\\Server\\Verdun.txt";
+                fileName = dir + "\\src\\Logger\\Server\\Verdun.txt";
             } else if (ID.equalsIgnoreCase("OUT")) {
-                fileName = dir + "\\src\\Logs\\Server\\Outremont.txt";
+                fileName = dir + "\\src\\Logger\\Server\\Outremont.txt";
             }
         } else {
-            fileName = dir + "\\src\\Logs\\Client\\" + ID + ".txt";
+            fileName = dir + "\\src\\Logger\\Client\\" + ID + ".txt";
         }
         return fileName;
     }

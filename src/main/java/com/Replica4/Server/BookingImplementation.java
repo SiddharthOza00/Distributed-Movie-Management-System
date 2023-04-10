@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@WebService(endpointInterface = "Client.WebInterface")
+@WebService(endpointInterface = "com.Replica4.Server.WebInterface")
 public class BookingImplementation implements WebInterface {
     public static final int ATW_SERV_PORT = 9955;
     public static final int VER_SERV_PORT = 9944;
@@ -78,7 +78,7 @@ public class BookingImplementation implements WebInterface {
         String dateOfMovie = movieId.substring(8,10)+""+movieId.substring(6,8)+""+movieId.substring(4,6);
         int movieDate = Integer.parseInt(dateOfMovie);
         if(movieDate-today>7 || movieDate-today<0){
-            response = "FAILURE: Movie Slot Can only be added for a week from current date";
+            response = "FAILURE : Movie Slot Can only be added for a week from current date";
             try {
                 Logger.serverLog(movieId, "null", " RMI addMovie ", " movieId: " + movieId + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", response);
             }catch (IOException e){
@@ -90,7 +90,7 @@ public class BookingImplementation implements WebInterface {
         if (moviesEvents.get(movieName).containsKey(movieId)) {
             if (moviesEvents.get(movieName).get(movieId).getMovieCapacity() <= bookingCapacity) {
                 moviesEvents.get(movieName).get(movieId).setMovieCapacity(bookingCapacity);
-                response = "SUCCESS: Movie" + movieId + " New Capacity is " + bookingCapacity;
+                response = "SUCCESS : Movie" + movieId + " New Capacity is " + bookingCapacity;
                 try {
                     Logger.serverLog(movieId, "null", " RMI addMovie ", " movieId: " + movieId + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", response);
                 }catch (IOException e){
@@ -98,7 +98,7 @@ public class BookingImplementation implements WebInterface {
                 }
             }
             else{
-                response = "FAILURE: Movie Capacity already more than "+ bookingCapacity;
+                response = "FAILURE : Movie Capacity already more than "+ bookingCapacity;
                 try {
                     Logger.serverLog(movieId, "null", " RMI addMovie ", " movieId: " + movieId + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", response);
                 }catch (IOException e){
@@ -112,7 +112,7 @@ public class BookingImplementation implements WebInterface {
             Map<String, MovieModel> moviesHashMap = moviesEvents.get(movieName);
             moviesHashMap.put(movieId, movieModel);
             moviesEvents.put(movieName, moviesHashMap);
-            response = "SUCCESS: Movie "+movieId+" added successfully.";
+            response = "SUCCESS : Movie "+movieId+" added successfully.";
             try {
                 Logger.serverLog(movieId, "null", " RMI addMovie ", " movieId: " + movieId + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", response);
             } catch (IOException e) {
@@ -120,7 +120,7 @@ public class BookingImplementation implements WebInterface {
             }
         }
         else{
-            response = "FAILURE: Cannot add Movie to other Servers";
+            response = "FAILURE : Cannot add Movie to other Servers";
             try {
                 Logger.serverLog(movieId, "null", " RMI addMovie ", " movieId: " + movieId + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", response);
             } catch (IOException e) {
@@ -145,7 +145,7 @@ public class BookingImplementation implements WebInterface {
                 List<String> clientsList = moviesEvents.get(movieName).get(movieId).getRegisteredClients();
                 moviesEvents.get(movieName).remove(movieId);
                 addCustomersToNextMovieSlot(movieId, movieName, clientsList);
-                response = "SUCCESS: Movie Slot Removed";
+                response = "SUCCESS : Movie Slot Removed";
                 try {
                     Logger.serverLog(movieId, "null", " RMI removeMovieSlots ", " movieId: " + movieId + " movieName: " + movieName + " ", response);
                 } catch (IOException e) {
@@ -153,7 +153,7 @@ public class BookingImplementation implements WebInterface {
                 }
             }
             else{
-                response = "FAILURE: Movie Slot with Id: "+movieId+" does not exist";
+                response = "FAILURE : Movie Slot with Id: "+movieId+" does not exist";
                 try {
                     Logger.serverLog(movieId, "null", " RMI removeMovieSlots ", " movieId: " + movieId + " movieName: " + movieName + " ", response);
                 } catch (IOException e) {
@@ -163,7 +163,7 @@ public class BookingImplementation implements WebInterface {
             return response;
         }
         else {
-            response = "FAILURE: Cannot Remove Event from servers other than " + serverName;
+            response = "FAILURE : Cannot Remove Event from servers other than " + serverName;
             try {
                 Logger.serverLog(movieId, "null", " RMI removeMovieSlots ", " movieId: " + movieId + " movieName: " + movieName + " ", response);
             } catch (IOException e) {
@@ -331,20 +331,20 @@ public class BookingImplementation implements WebInterface {
                 }
                 if(bookingAgain){
                     int oldQty = movieBookings.get(customerId+movieId+movieName);
-                    response = "SUCCESS: Movie " + movieId + " Booked "+numberOfTickets+" more tickets, Total Tickets = "+(numberOfTickets+oldQty);
+                    response = "SUCCESS : Movie " + movieId + " Booked "+numberOfTickets+" more tickets, Total Tickets = "+(numberOfTickets+oldQty);
                     movieBookings.put(customerId+movieId+movieName,numberOfTickets+oldQty);
                     moviesEvents.get(movieName).get(movieId).setMovieCapacity(moviesEvents.get(movieName).get(movieId).getMovieCapacity() - (oldQty+numberOfTickets));
 
                     return response;
                 }
                 else if (moviesEvents.get(movieName).get(movieId).addRegisteredClientId(customerId) == MovieModel.SUCCESS) {
-                    response = "SUCCESS: Movie " + movieId + " Booked Successfully"+ " For "+numberOfTickets+" Tickets";
+                    response = "SUCCESS : Movie " + movieId + " Booked Successfully"+ " For "+numberOfTickets+" Tickets";
                     moviesEvents.get(movieName).get(movieId).setMovieCapacity(moviesEvents.get(movieName).get(movieId).getMovieCapacity() - numberOfTickets);
                     movieBookings.put(customerId+movieId+movieName,numberOfTickets);
                 } else if (moviesEvents.get(movieName).get(movieId).addRegisteredClientId(customerId) == MovieModel.HOUSE_FULL) {
-                    response = "FAILURE: Movie " + movieId + " Does not have "+numberOfTickets+" Tickets available!";
+                    response = "FAILURE : Movie " + movieId + " Does not have "+numberOfTickets+" Tickets available!";
                 } else {
-                    response = "FAILURE: Cannot Add You To Event " + movieId;
+                    response = "FAILURE : Cannot Add You To Event " + movieId;
                 }
                 try {
                     Logger.serverLog(serverId, customerId, " CORBA bookMovieTicket ", " movieId: " + movieId + " movieName: " + movieName + " ", response);
@@ -352,7 +352,7 @@ public class BookingImplementation implements WebInterface {
                     e.printStackTrace();
                 }
             } else {
-                response = "FAILURE: Movie " + movieId + " Does not have "+numberOfTickets+" Tickets available!";
+                response = "FAILURE : Movie " + movieId + " Does not have "+numberOfTickets+" Tickets available!";
                 try {
                     Logger.serverLog(serverId, customerId, " CORBA bookMovieTicket ", " movieId: " + movieId + " movieName: " + movieName + " ", response);
                 } catch (IOException e) {
@@ -362,7 +362,7 @@ public class BookingImplementation implements WebInterface {
         }else {
             if(clientHasSlot(customerId,movieName,movieId)){
                 int oldQty = movieBookings.get(customerId+movieId+movieName);
-                response = "SUCCESS: Movie " + movieId + " Booked "+numberOfTickets+" more tickets, Total Tickets = "+(numberOfTickets+oldQty);
+                response = "SUCCESS : Movie " + movieId + " Booked "+numberOfTickets+" more tickets, Total Tickets = "+(numberOfTickets+oldQty);
                 movieBookings.put(customerId+movieId+movieName,numberOfTickets+oldQty);
                 moviesEvents.get(movieName).get(movieId).setMovieCapacity(moviesEvents.get(movieName).get(movieId).getMovieCapacity() - (oldQty+numberOfTickets));
                 return response;
@@ -389,7 +389,7 @@ public class BookingImplementation implements WebInterface {
                 System.out.println(movieBookings);
                 return serverResponse;
             } else {
-                response = "FAILURE: Unable to Book Movie For This Week In Another Servers(Max Weekly Limit = 3)";
+                response = "FAILURE : Unable to Book Movie For This Week In Another Servers(Max Weekly Limit = 3)";
                 try {
                     Logger.serverLog(serverId, customerId, " CORBA bookMovieTicket ", " movieId: " + movieId + " movieName: " + movieName + " ", response);
                 } catch (IOException e) {
@@ -598,11 +598,11 @@ public class BookingImplementation implements WebInterface {
                     }
                 }
                 else if(numberOfTickets>qty){
-                    response = "FAILURE: You don't have "+numberOfTickets+" Tickets booked.";
+                    response = "FAILURE : You don't have "+numberOfTickets+" Tickets booked.";
                 }
                 else if(numberOfTickets<qty){
                     movieBookings.put(customerId+movieId+movieName,qty-numberOfTickets);
-                    response = "SUCCESS: "+numberOfTickets+" Movie Tickets cancelled for "+customerId;
+                    response = "SUCCESS : "+numberOfTickets+" Movie Tickets cancelled for "+customerId;
                 }
 
                 else{
@@ -612,14 +612,14 @@ public class BookingImplementation implements WebInterface {
                         moviesEvents.get(movieName).get(movieId).removeRegisteredClientId(customerId);
                         movieBookings.remove(customerId+movieId+movieName);
                         clientEvents.get(customerId).get(movieName).remove(movieId);
-                        response = "SUCCESS: MOVIE " + movieId + " Canceled for " + customerId;
+                        response = "SUCCESS : MOVIE " + movieId + " Canceled for " + customerId;
                         try {
                             Logger.serverLog(serverId, customerId, " RMI cancelMovieTickets ", " movieID: " + movieId + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     } else {
-                        response = "FAILURE: You " + customerId + " Are Not Registered in " + movieId;
+                        response = "FAILURE : You " + customerId + " Are Not Registered in " + movieId;
                         try {
                             Logger.serverLog(serverId, customerId, " RMI cancelMovieTickets ", " movieID: " + movieId + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
@@ -632,14 +632,14 @@ public class BookingImplementation implements WebInterface {
             else {
                 if (moviesEvents.get(movieName).get(movieId).removeRegisteredClientId(customerId)) {
                     movieBookings.remove(customerId+movieId+movieName);
-                    response = "SUCCESS: Movie " + movieId + " Cancelled for " + customerId;
+                    response = "SUCCESS : Movie " + movieId + " Cancelled for " + customerId;
                     try {
                         Logger.serverLog(serverId, customerId, " RMI cancelMovieTickets ", " movieID: " + movieId + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    response = "FAILURE: You " + customerId + " Are Not Registered in " + movieId;
+                    response = "FAILURE : You " + customerId + " Are Not Registered in " + movieId;
                     try {
                         Logger.serverLog(serverId, customerId, " RMI cancelMovieTickets ", " movieID: " + movieId + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
@@ -658,7 +658,7 @@ public class BookingImplementation implements WebInterface {
                     }
                 }
             }
-            return "FAILURE: You " + customerId + " Are Not Registered in " + movieId;
+            return "FAILURE : You " + customerId + " Are Not Registered in " + movieId;
         }
 
     }
@@ -668,7 +668,7 @@ public class BookingImplementation implements WebInterface {
         String response;
         String resCancel="",resBook="";
         if(!checkIfClientExists(customerId)){
-            response = "FAILURE: You "+ customerId+" Are not Registered in "+movieId;
+            response = "FAILURE : You "+ customerId+" Are not Registered in "+movieId;
             try{
                 Logger.serverLog(serverId,customerId," CORBA Exchange Tickets", "oldMovieId: "+movieId+" oldMovieName: "+oldMovieName+" newMovieId: "+newMovieId+" newMovieName "+ newMovieName+" numberOfTickets: "+numberOfTickets,response);
             }
@@ -691,21 +691,21 @@ public class BookingImplementation implements WebInterface {
 
                 }
                 if (resBook.startsWith("SUCCESS:") && resCancel.startsWith("SUCCESS")) {
-                    response = "SUCCESS: " + numberOfTickets + " Movie Tickets " + movieId + " Exchanged with " + newMovieId;
+                    response = "SUCCESS : " + numberOfTickets + " Movie Tickets " + movieId + " Exchanged with " + newMovieId;
                 } else if (resBook.startsWith("FAILURE:") && resCancel.startsWith("SUCCESS:")) {
                     String res = bookMoviesTickets(customerId, movieId, oldMovieName, numberOfTickets);
-                    response = "FAILURE: New Movie " + newMovieId + " could not be booked due to reason" + resBook + " So Old Movie Booking is Re-booked: " + res;
+                    response = "FAILURE : New Movie " + newMovieId + " could not be booked due to reason" + resBook + " So Old Movie Booking is Re-booked: " + res;
                 } else if (resBook.startsWith("SUCCESS:") && resCancel.startsWith("FAILED:")) {
                     String res = cancelMovieTickets(customerId, newMovieId, newMovieName, numberOfTickets);
-                    response = "FAILURE: Old Movie " + newMovieId + " could not be cancelled due to reason" + resCancel + " So New Movie Booking is Cancelled: " + res;
+                    response = "FAILURE : Old Movie " + newMovieId + " could not be cancelled due to reason" + resCancel + " So New Movie Booking is Cancelled: " + res;
                 } else {
-                    response = "FAILURE: Cannot Exchange Movie Tickets: Due to reasons: " + resBook + "/n" + resCancel;
+                    response = "FAILURE : Cannot Exchange Movie Tickets: Due to reasons: " + resBook + "/n" + resCancel;
                 }
 
 
             }else{
                 if(!clientHasSlot(customerId,oldMovieName,movieId)){
-                    response = "FAILURE: You are not registered in "+oldMovieName+" with movieId "+movieId;
+                    response = "FAILURE : You are not registered in "+oldMovieName+" with movieId "+movieId;
                 }
                 else if(moviesEvents.get(newMovieName).get(newMovieId).getMovieCapacity() < numberOfTickets){
                     response = "New Booking Server Cannot facilitate "+numberOfTickets+" Tickets. Less Capacity Available";
@@ -768,12 +768,12 @@ public class BookingImplementation implements WebInterface {
     public String removeMovieUDP(String oldMovieId, String movieName, String customerId) {
         if (!serverClients.containsKey(customerId)) {
             addNewCustomerToClients(customerId);
-            return "FAILURE: You " + customerId + " Are Not Registered in " + oldMovieId;
+            return "FAILURE : You " + customerId + " Are Not Registered in " + oldMovieId;
         } else {
             if (clientEvents.get(customerId).get(movieName).remove(oldMovieId)) {
-                return "SUCCESS: Event " + oldMovieId + " Was Removed from " + customerId + " Schedule";
+                return "SUCCESS : Event " + oldMovieId + " Was Removed from " + customerId + " Schedule";
             } else {
-                return "FAILURE: You " + customerId + " Are Not Registered in " + oldMovieId;
+                return "FAILURE : You " + customerId + " Are Not Registered in " + oldMovieId;
             }
         }
     }
