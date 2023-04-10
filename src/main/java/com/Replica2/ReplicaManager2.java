@@ -48,7 +48,7 @@ public class ReplicaManager2 {
 
             socket.joinGroup(group);
 
-            restartServer();
+//            restartServer();
             while (true) {
                 System.out.println("Test");
                 DatagramPacket recv = new DatagramPacket(buf, buf.length);
@@ -164,7 +164,7 @@ public class ReplicaManager2 {
             url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
             qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
         } else {
-            return "No response";
+            return "FAILURE";
         }
 
         Service service = Service.create(url, qName);
@@ -212,6 +212,6 @@ public class ReplicaManager2 {
                 }
                 break;
         }
-        return "No response";
+        return "FAILURE";
     }
 }
