@@ -8,20 +8,28 @@ import java.net.MulticastSocket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.namespace.QName;
+import javax.xml.ws.Response;
 import javax.xml.ws.Service;
 
 import com.Replica3.Impl.IBooking;
 import com.Request.RequestData;
+import com.Request.ResponseData;
 
 public class RManager {
 
-    ArrayList<Object> requestQueue = new ArrayList<>();
-    ConcurrentHashMap<String, Object> allMessages = new ConcurrentHashMap<>();
+    private static Map<Integer, String> allRequests;
+    private static ArrayList<String> allOrderedRequests;
+    private static int lastExecutedSeqNum;
+    // ConcurrentHashMap<String, Object> allMessages = new ConcurrentHashMap<>();
     
     public static void main(String[] args) throws Exception {
+        allRequests = new ConcurrentHashMap<>();
+        allOrderedRequests = new ArrayList<>();
+        lastExecutedSeqNum = 0;
         new Thread( () -> {
             try {
                 receiveMulticast();
@@ -50,10 +58,24 @@ public class RManager {
 
                 System.out.println("Received : " + dataReceived);
 
-                String serverReply = requestToReplica(dataReceived);
-                System.out.println(serverReply);
 
-                sendUnicast(serverReply, "192.168.247.35");
+                String[] requestParams = dataReceived.split(",");
+                int sequenceID = Integer.parseInt(requestParams[7]);
+
+                if((sequenceID-lastExecutedSeqNum) == 1) {
+                    allRequests.put(sequenceID, dataReceived);
+                    allOrderedRequests.add(dataReceived);
+
+                    String serverReply = requestToReplica(dataReceived);
+                    lastExecutedSeqNum++;
+                    InetAddress aHost = InetAddress.getLocalHost();
+                    String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
+                    System.out.println(reply);
+                    sendUnicast(reply, "192.168.247.36");
+                }
+                else {
+                    //ask from other RM
+                }
 
             }
         } catch(Exception e) {
@@ -83,15 +105,16 @@ public class RManager {
         }
     }
 
-    // private static void allRequestsTillNow() {
-    //     System.out.println("Executing all requests again");
-    //     while(true) {
-    //         //queue iterator
-    //         while() {
+    private static void allRequestsTillNow() throws MalformedURLException {
+        System.out.println("Executing all requests again");
 
-    //         }
-    //     }
-    // }
+        for(int i = 0; i< allOrderedRequests.size(); i++) {
+            requestToReplica(allOrderedRequests.get(i));
+            String[] allParams = allOrderedRequests.get(i).split(",");
+            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
+        }
+        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
+    }
 
     private static void contactRM(RequestData request) {
         int port = 0000; //change this
@@ -106,6 +129,11 @@ public class RManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String makeResponseData(String result, String senderReplica, Integer sequenceID ) {
+        ResponseData data = new ResponseData(result, senderReplica, sequenceID);
+        return data.toString();
     }
 
     private static String requestToReplica(String dataReceived) throws MalformedURLException {
