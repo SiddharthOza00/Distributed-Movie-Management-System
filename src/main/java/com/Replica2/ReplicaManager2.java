@@ -1,11 +1,13 @@
 package com.Replica2;
 
 import com.Replica2.Interfaces.WebInterface;
+import com.Replica2.Service.Server;
 import com.Request.RequestData;
 import com.Request.ResponseData;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,6 +31,13 @@ public class ReplicaManager2 {
         }).start();
     }
 
+    private static void restartServer() {
+        System.out.println("Before");
+        String[] arg = new String[]{"Start"};
+        Server.main(arg);
+        System.out.println("Here");
+    }
+
     private static void receiveMulticast() throws UnknownHostException {
 
         InetAddress group = InetAddress.getByName("228.5.6.7");
@@ -39,11 +48,11 @@ public class ReplicaManager2 {
 
             socket.joinGroup(group);
 
+            restartServer();
             while (true) {
                 System.out.println("Test");
                 DatagramPacket recv = new DatagramPacket(buf, buf.length);
                 socket.receive(recv);
-
                 String dataReceived = new String(recv.getData(), 0, recv.getLength());
 
                 System.out.println("Received : " + dataReceived);
@@ -143,6 +152,7 @@ public class ReplicaManager2 {
         String newMovieName = requestParams[5];
         int numberOfTickets = Integer.parseInt(requestParams[6]);
         String sequenceID = requestParams[7];
+
 
         if (customerID.startsWith("ATW")) {
             url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
