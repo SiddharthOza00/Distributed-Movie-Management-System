@@ -1,46 +1,24 @@
-package com.Replica3;
+package com.Replica4;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.MulticastSocket;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.Replica3.Impl.IBooking;
+import com.Replica4.Interface.Interface;
+import com.Replica4.Server.BookingImplementation;
+import com.Replica4.Server.WebInterface;
+import com.Request.RequestData;
+
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
-import com.Request.RequestData;
-import org.omg.CORBA.Request;
+public class RManager4 {
 
-import com.Replica3.Impl.BookingImpl;
-import com.Replica3.Impl.IBooking;
-import com.Request.RequestData;
-import com.Request.ResponseData;
+    ArrayList<Object> requestQueue = new ArrayList<>();
+    ConcurrentHashMap<String, Object> allMessages = new ConcurrentHashMap<>();
 
-public class RManager {
-
-    private static Map<Integer, String> allRequests;
-    private static ArrayList<String> allOrderedRequests;
-    private static int lastExecutedSeqNum;
-    // ConcurrentHashMap<String, Object> allMessages = new ConcurrentHashMap<>();
-    
     public static void main(String[] args) throws Exception {
-        allRequests = new ConcurrentHashMap<>();
-        allOrderedRequests = new ArrayList<>();
-        lastExecutedSeqNum = 0;
-        new Thread( () -> {
-            try {
-                receiveMulticast();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-
         new Thread( () -> {
             try {
                 receiveMulticast();
@@ -72,24 +50,62 @@ public class RManager {
 
                 System.out.println("Received : " + dataReceived);
 
+                String serverReply = requestToReplica(dataReceived);
+                System.out.println(serverReply);
 
-                String[] requestParams = dataReceived.split(",");
-                int sequenceID = Integer.parseInt(requestParams[7]);
 
-                if((sequenceID-lastExecutedSeqNum) == 1) {
-                    allRequests.put(sequenceID, dataReceived);
-                    allOrderedRequests.add(dataReceived);
+//                String[] requestParams = dataReceived.split(",");
+//                String methodName = requestParams[0];
+//                String customerID = requestParams[1];
+//                String movieID = requestParams[2];
+//                String movieName = requestParams[3];
+//                String newMovieID = requestParams[4];
+//                String newMovieName = requestParams[5];
+//                int numberOfTickets = Integer.parseInt(requestParams[6]);
+//                String sequenceID = requestParams[7];
 
-                    String serverReply = requestToReplica(dataReceived);
-                    lastExecutedSeqNum++;
-                    InetAddress aHost = InetAddress.getLocalHost();
-                    String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
-                    System.out.println(reply);
-                    sendUnicast(reply, "192.168.247.36");
-                }
-                else {
-                    //ask from other RM
-                }
+//                String serverName = null;
+//                if(customerID.substring(0,3).equalsIgnoreCase("ATW")){
+//                    serverName = "Atwater";
+//                } else if (customerID.substring(0,3).equalsIgnoreCase("OUT")) {
+//                    serverName = "Outremont";
+//                } else if (customerID.substring(0,3).equalsIgnoreCase("VER")) {
+//                    serverName = "Verdun";
+//                }
+//
+//                WebInterface webInterface = new BookingImplementation(customerID.substring(0,2), serverName);
+//
+//                switch (methodName) {
+//                    case "addMovieSlots":
+//                        webInterface.addMovieSlots(movieID, movieName, numberOfTickets);
+//                        break;
+//
+//                    case "removeMovieSlots":
+//                        webInterface.removeMovieSlots(movieID, movieName);
+//                        break;
+//
+//                    case "listMovieShowsAvailability":
+//                        webInterface.listMovieShowsAvailability(movieName);
+//                        break;
+//
+//                    case "getBookingSchedule":
+//                        webInterface.getBookingSchedule(customerID);
+//                        break;
+//
+//                    case "bookMovieTickets":
+//                        webInterface.bookMoviesTickets(customerID, movieID, movieName, numberOfTickets);
+//                        break;
+//
+//                    case "cancelMovieTickets":
+//                        webInterface.cancelMovieTickets(customerID, movieID, movieName, numberOfTickets);
+//                        break;
+//
+//                    case "exchangeTickets":
+//                        webInterface.exchangeTickets(customerID, newMovieID, newMovieName, movieID, movieName, numberOfTickets);
+//                        break;
+//                }
+
+                sendUnicast(serverReply, "192.168.247.36");
 
             }
         } catch(Exception e) {
@@ -98,9 +114,9 @@ public class RManager {
     }
 
     private static void sendUnicast(String reply, String ipAddress) {
-        // System.out.println("Trying Unicast - " + reply);
+        System.out.println("Trying Unicast - " + reply);
         int FEport = 44553;
-        int RMport = 9955;
+        int RMport = 9958;
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(RMport);
@@ -119,40 +135,7 @@ public class RManager {
         }
     }
 
-    private static void allRequestsTillNow() throws MalformedURLException {
-        System.out.println("Executing all requests again");
-
-        for(int i = 0; i< allOrderedRequests.size(); i++) {
-            requestToReplica(allOrderedRequests.get(i));
-            String[] allParams = allOrderedRequests.get(i).split(",");
-            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
-        }
-        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
-    }
-
-    private static void receiveFromFE() {
-        int RMport = 11111;
-        try {
-            DatagramSocket ds = new DatagramSocket(RMport);
-            byte[] arr = new byte[1000];
-            while(true) {
-                DatagramPacket dp = new DatagramPacket(arr, arr.length);
-                ds.receive(dp);
-                String dataReceived = new String(dp.getData(), 0, dp.getLength());
-
-                if(dataReceived.equalsIgnoreCase("Crash Failure")) {
-                    //handle crash failure
-                }
-                else if(dataReceived.equalsIgnoreCase("Software Failure")) {
-                    //handle software failure
-                }
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void contactRM(RequestData request) {
+    private static void contactRM(RequestData request){
         int port = 0000; //change this
         String ipAddress = " "; //change this
         try {
@@ -167,12 +150,7 @@ public class RManager {
         }
     }
 
-    private static String makeResponseData(String result, String senderReplica, Integer sequenceID ) {
-        ResponseData data = new ResponseData(result, senderReplica, sequenceID);
-        return data.toString();
-    }
-
-    private static String requestToReplica(String dataReceived) throws MalformedURLException {
+    private static String requestToReplica(String dataReceived) throws MalformedURLException{
 
         URL url;
         QName qName;
@@ -186,21 +164,21 @@ public class RManager {
         String newMovieName = requestParams[5];
         int numberOfTickets = Integer.parseInt(requestParams[6]);
         String sequenceID = requestParams[7];
-        
 
-        if(customerID.substring(0,3).equals("ATW")) {
-           url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
-           qName = new QName("http://Impl.Replica3.com/","BookingImplService");
+
+        if( customerID.substring(0,3).equals("ATW")) {
+            url = new URL("http://localhost:7300/ATW?wsdl");
+            qName = new QName("http://Server.Replica4.com/","BookingImplementationService");
         }
 
         else if(customerID.substring(0,3).equals("VER")) {
-            url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
-            qName = new QName("http://Impl.Replica3.com/","BookingImplService");
+            url = new URL("http://localhost:7400/VER?wsdl");
+            qName = new QName("http://Server.Replica4.com/","BookingImplementationService");
         }
 
         else if(customerID.substring(0,3).equals("OUT")) {
-            url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
-            qName = new QName("http://Impl.Replica3.com/","BookingImplService");
+            url = new URL("http://localhost:7500/OUT?wsdl");
+            qName = new QName("http://Server.Replica4.com/","BookingImplementationService");
         }
         else {
             return "No response";
@@ -208,10 +186,14 @@ public class RManager {
 
         Service service = Service.create(url, qName);
 
-        IBooking impl = service.getPort(IBooking.class);
+        WebInterface impl = service.getPort(WebInterface.class);
+
+//        String customerID = myObj.getCustomerID();
+//        String serverID = customerID.substring(0,3);
+//        String serverName;
 
         String typeOfUser = customerID.substring(3,4);
-        
+
         switch(typeOfUser) {
             case "A":
                 if(methodName.equalsIgnoreCase("addMovieSlots")) {
@@ -227,7 +209,7 @@ public class RManager {
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("bookMovieTickets")) {
-                    String serverReply = impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    String serverReply = impl.bookMoviesTickets(customerID,movieID, movieName, numberOfTickets);
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
@@ -245,7 +227,7 @@ public class RManager {
                 break;
             case "C":
                 if(methodName.equalsIgnoreCase("bookMovieTickets")) {
-                    String serverReply = impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    String serverReply = impl.bookMoviesTickets(customerID,movieID, movieName, numberOfTickets);
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
@@ -261,10 +243,11 @@ public class RManager {
                     return serverReply;
                 }
                 break;
-            }
+        }
 
 
         return "No response";
+
     }
-    
+
 }
