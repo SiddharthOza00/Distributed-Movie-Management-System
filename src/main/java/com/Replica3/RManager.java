@@ -16,7 +16,6 @@ import javax.xml.ws.Response;
 import javax.xml.ws.Service;
 
 import com.Request.RequestData;
-import org.omg.CORBA.Request;
 
 import com.Replica3.Impl.BookingImpl;
 import com.Replica3.Impl.IBooking;

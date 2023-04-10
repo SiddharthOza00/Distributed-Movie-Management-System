@@ -32,10 +32,17 @@ public class ReplicaManager2 {
     }
 
     private static void restartServer() {
-        System.out.println("Before");
+        System.out.println("Trying to restart the server!\n");
         String[] arg = new String[]{"Start"};
-        Server.main(arg);
-        System.out.println("Here");
+        com.Replica2.Service.Server.main(arg);
+        System.out.println("Server successfully started!\n");
+    }
+
+    private static void replaceServer() {
+        System.out.println("Trying to replace replica!\n");
+        String[] args = new String[]{"Start"};
+        com.Replica5.Server.Server.main(args);
+        System.out.println("Replica Replaced!\n");
     }
 
     private static void receiveMulticast() throws UnknownHostException {
@@ -69,15 +76,10 @@ public class ReplicaManager2 {
                     InetAddress aHost = InetAddress.getLocalHost();
                     String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
                     System.out.println(reply);
-                    sendUnicast(reply, "192.168.247.36");
+                    sendUnicast(reply, "172.20.80.1");
                 } else {
                     // ask from other RM
                 }
-
-                String serverResponse = requestToReplica(dataReceived);
-                System.out.println(serverResponse);
-
-                sendUnicast(serverResponse, "192.168.247.35");
 
             }
         } catch (Exception e) {
