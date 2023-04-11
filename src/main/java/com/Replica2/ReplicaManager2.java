@@ -165,7 +165,7 @@ public class ReplicaManager2 {
                     allRequestsTillNow();
                 }
                 else if(dataReceived.equalsIgnoreCase("Software Failure")) {
-                    //TODO: handle software failure
+                    replaceServer();
                 }
             }
         } catch(Exception e) {
