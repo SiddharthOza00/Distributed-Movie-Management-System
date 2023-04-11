@@ -173,7 +173,7 @@ public class MainClient {
                             System.out.println(
                                     "List of all the movies shows for the movie " + name + " in all the servers.");
                             System.out.println("Final result - " + finalRes);
-                            String[] movieSlotsAvailable = finalRes.split(",");
+                            String[] movieSlotsAvailable = finalRes.split(";");
 
                             for (String r : movieSlotsAvailable) {
                                 String id = r.split("-")[0];

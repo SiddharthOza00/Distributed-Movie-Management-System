@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-@WebService(endpointInterface = "com.frontend.FrontendInterface")
+@WebService(endpointInterface = "com.Replica1.Webservice")
 @SOAPBinding(style = Style.RPC)
 public class WebserviceImpl implements Webservice {
 
@@ -433,7 +433,7 @@ public class WebserviceImpl implements Webservice {
                     sb.append(capacity);
                     res.add(sb.toString());
                 }
-                finalResultStr = String.join(",", res);
+                finalResultStr = String.join(";", res);
             }
         }
         return finalResultStr;
@@ -944,7 +944,7 @@ public class WebserviceImpl implements Webservice {
 
             switch (serverName) {
                 case "Atwater":
-                    port1 = 44553;
+                    port1 = 8001;
                     port2 = 44555;
                     break;
 
@@ -1054,7 +1054,7 @@ public class WebserviceImpl implements Webservice {
 
                 case "VER":
                     if (fromServer.equals("Atwater")) {
-                        port = 44553;
+                        port = 8001;
                     } else {
                         port = 44554;
                     }
