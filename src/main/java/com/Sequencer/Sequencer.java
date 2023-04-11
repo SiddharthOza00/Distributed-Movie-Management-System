@@ -8,7 +8,7 @@ import java.net.SocketException;
 
 public class Sequencer {
     private static int sequencerId = 0;
-    private static final String sequencerIP = "192.168.247.53";
+    private static final String sequencerIP = "192.168.48.53";
 
     public static void main(String[] args) throws IOException {
         try (DatagramSocket aSocket = new DatagramSocket(2233, InetAddress.getByName(sequencerIP))) {
@@ -21,24 +21,7 @@ public class Sequencer {
                 aSocket.receive(request);
                 String sentence = new String(request.getData(), 0, request.getLength());
                 sendMessage(sentence, 0);
-//                System.out.println(sentence);
 
-                //new comment
-//                String[] parts = sentence.split(",");
-//                int sequencerId1 = Integer.parseInt(parts[7]);
-//                String ip = request.getAddress().getHostAddress();
-//
-//                String sentence1 = parts[0] + "," +
-//                        parts[1] + "," +
-//                        parts[2] + "," +
-//                        parts[3] + "," +
-//                        parts[4] + "," +
-//                        parts[5] + "," +
-//                        parts[6] + ",";
-////
-//                System.out.println(sentence);
-//                sendMessage(sentence1, sequencerId1);
-////
 //                byte[] SeqId = (Integer.toString(sequencerId)).getBytes();
 //                InetAddress aHost1 = request.getAddress();
 //                int port1 = request.getPort();

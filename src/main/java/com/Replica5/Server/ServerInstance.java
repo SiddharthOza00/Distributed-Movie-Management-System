@@ -22,17 +22,17 @@ public class ServerInstance {
             case "ATW":
                 serverName = "Atwater";
                 serverUdpPort = Implementation.Atwater_Server_Port;
-                serverEndpoint = "http://localhost:8080/ServerAtwater";
+                serverEndpoint = "http://localhost:8081/ServerAtwater";
                 break;
             case "OUT":
                 serverName = "Outremont";
                 serverUdpPort = Implementation.Outremont_Server_Port;
-                serverEndpoint = "http://localhost:8080/ServerVerdun";
+                serverEndpoint = "http://localhost:8081/ServerVerdun";
                 break;
             case "VER":
                 serverName = "Verdun";
                 serverUdpPort = Implementation.Verdun_Server_Port;
-                serverEndpoint = "http://localhost:8080/ServerOutremont";
+                serverEndpoint = "http://localhost:8081/ServerOutremont";
                 break;
         }
 

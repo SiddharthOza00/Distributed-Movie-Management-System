@@ -1,13 +1,12 @@
 package com.Replica2;
 
 import com.Replica2.Interfaces.WebInterface;
-import com.Replica2.Service.Server;
+import com.Request.Config;
 import com.Request.RequestData;
 import com.Request.ResponseData;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,6 +16,7 @@ public class ReplicaManager2 {
     private static ArrayList<String> allOrderedRequests;
     private static ConcurrentHashMap<Integer, String> allRequests;
     private static int lastExecutedSeqNum;
+    private static boolean serverReplaced = false;
 
     public static void main(String[] args) throws Exception {
         allRequests = new ConcurrentHashMap<>();
@@ -42,6 +42,7 @@ public class ReplicaManager2 {
         System.out.println("Trying to replace replica!\n");
         String[] args = new String[]{"Start"};
         com.Replica5.Server.Server.main(args);
+        serverReplaced = true;
         System.out.println("Replica Replaced!\n");
     }
 
@@ -76,7 +77,7 @@ public class ReplicaManager2 {
                     InetAddress aHost = InetAddress.getLocalHost();
                     String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
                     System.out.println(reply);
-                    sendUnicast(reply, "172.20.80.1");
+                    sendUnicast(reply, Config.FRONTEND_IP);
                 } else {
                     // ask from other RM
                 }
@@ -101,7 +102,7 @@ public class ReplicaManager2 {
     private static void sendUnicast(String reply, String ipAddress) {
         System.out.println("Trying Unicast - " + reply);
         int FEport = 44553;
-        int RMport = 9957;
+        int RMport = 9956;
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(RMport);
@@ -155,18 +156,32 @@ public class ReplicaManager2 {
         int numberOfTickets = Integer.parseInt(requestParams[6]);
         String sequenceID = requestParams[7];
 
-
-        if (customerID.startsWith("ATW")) {
-            url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
-            qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
-        } else if (customerID.startsWith("VER")) {
-            url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
-            qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
-        } else if (customerID.startsWith("OUT")) {
-            url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
-            qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
+        if(!serverReplaced) {
+            if (customerID.startsWith("ATW")) {
+                url = new URL("http://localhost:8080/ServerAtwater/?wsdl");
+                qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
+            } else if (customerID.startsWith("VER")) {
+                url = new URL("http://localhost:8080/ServerVerdun/?wsdl");
+                qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
+            } else if (customerID.startsWith("OUT")) {
+                url = new URL("http://localhost:8080/ServerOutremont/?wsdl");
+                qName = new QName("http://Interfaces.Replica2.com/", "ImplementationService");
+            } else {
+                return "FAILURE";
+            }
         } else {
-            return "FAILURE";
+            if (customerID.startsWith("ATW")) {
+                url = new URL("http://localhost:8081/ServerAtwater/?wsdl");
+                qName = new QName("http://Interfaces.Replica5.com/", "ImplementationService");
+            } else if (customerID.startsWith("VER")) {
+                url = new URL("http://localhost:8081/ServerVerdun/?wsdl");
+                qName = new QName("http://Interfaces.Replica5.com/", "ImplementationService");
+            } else if (customerID.startsWith("OUT")) {
+                url = new URL("http://localhost:8081/ServerOutremont/?wsdl");
+                qName = new QName("http://Interfaces.Replica5.com/", "ImplementationService");
+            } else {
+                return "FAILURE";
+            }
         }
 
         Service service = Service.create(url, qName);
