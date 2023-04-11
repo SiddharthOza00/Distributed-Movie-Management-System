@@ -84,7 +84,7 @@ public class ReplicaManager {
                     lastExecutedSeqNum++;
                     String reply = makeResponseData(serverReply, "RM1", sequenceID);
                     System.out.println(reply);
-                    sendToFrontend(serverReply, Config.FRONTEND_IP);
+                    sendToFrontend(reply, Config.FRONTEND_IP);
                 }
                 else {
                     //ask from other RM
@@ -254,8 +254,8 @@ public class ReplicaManager {
 
     private static void sendToFrontend(String dataReceived, String ipAddress) {
         System.out.println("Trying Unicast - " + dataReceived);
-        int FEport = 44553;
-        int RMport = 9956;
+        int FEport = Config.FRONTEND_PORT;
+        int RMport = Config.RM1_PORT_FE;
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(RMport);
