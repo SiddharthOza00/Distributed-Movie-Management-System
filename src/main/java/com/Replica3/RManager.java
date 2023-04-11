@@ -106,7 +106,7 @@ public class RManager {
     private static void sendUnicast(String reply, String ipAddress) {
         // System.out.println("Trying Unicast - " + reply);
         int FEport = 44553;
-        int RMport = 9957;
+        int RMport = Config.RM3_PORT_SQ;
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(RMport);

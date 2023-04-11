@@ -95,3 +95,15 @@ DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  incoming UDP listMo
 DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: _
 DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avatar  | ServerResponse:  
 DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: _
+DATE: 2023-04-10 11:15:16 PM  server has started successfully 
+DATE: 2023-04-10 11:15:16 PM  UDP started 
+DATE: 2023-04-10 11:20:12 PM  server has started successfully 
+DATE: 2023-04-10 11:20:12 PM  UDP started 
+DATE: 2023-04-10 11:28:22 PM  server has started successfully 
+DATE: 2023-04-10 11:28:22 PM  UDP started 
+DATE: 2023-04-10 11:33:51 PM  server has started successfully 
+DATE: 2023-04-10 11:33:51 PM  UDP started 
+DATE: 2023-04-10 11:37:27 PM  server has started successfully 
+DATE: 2023-04-10 11:37:27 PM  UDP started 
+DATE: 2023-04-10 11:39:50 PM  server has started successfully 
+DATE: 2023-04-10 11:39:50 PM  UDP started 

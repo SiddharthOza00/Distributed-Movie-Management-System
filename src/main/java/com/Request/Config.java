@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 public class Config {
     public static final Integer SEQUENCE_PORT = 2233;
     
-    public static final String FRONTEND_IP = "172.20.80.1";
+    public static final String FRONTEND_IP = "192.168.48.35";
 
     public static final Integer FRONTEND_PORT = 44553;
 

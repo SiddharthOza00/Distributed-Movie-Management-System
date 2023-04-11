@@ -247,3 +247,17 @@ DATE: 2023-04-10 08:07:39 PM ClientID: ATWC1111 | RequestType:  getBookingSchedu
 ATWA110423 Tickets: 4   ### 
 ------------------------------
 
+DATE: 2023-04-10 11:15:16 PM  server has started successfully 
+DATE: 2023-04-10 11:15:16 PM  UDP started 
+DATE: 2023-04-10 11:20:12 PM  server has started successfully 
+DATE: 2023-04-10 11:20:12 PM  UDP started 
+DATE: 2023-04-10 11:22:50 PM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM110423 movieName: Avengers bookingCapacity 5  | ServerResponse: Success
+DATE: 2023-04-10 11:28:22 PM  server has started successfully 
+DATE: 2023-04-10 11:28:22 PM  UDP started 
+DATE: 2023-04-10 11:33:51 PM  server has started successfully 
+DATE: 2023-04-10 11:33:51 PM  UDP started 
+DATE: 2023-04-10 11:34:44 PM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM110423 movieName: Avengers bookingCapacity 6  | ServerResponse: Success
+DATE: 2023-04-10 11:37:27 PM  server has started successfully 
+DATE: 2023-04-10 11:37:27 PM  UDP started 
+DATE: 2023-04-10 11:39:50 PM  server has started successfully 
+DATE: 2023-04-10 11:39:50 PM  UDP started 
