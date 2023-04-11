@@ -76,7 +76,7 @@ public class RequestData {
     
     @Override
     public String toString() {
-        return getMethod()+","+getCustomerID()+","+getMovieID()+","+getMovieName()+","+getnewMovieID()+","+getnewMovieName()+","+getnumberOfTickets()+","+getSequenceId();
+        return getMethod()+","+getCustomerID()+","+getMovieID()+","+getMovieName()+","+getnewMovieID()+","+getnewMovieName()+","+getnumberOfTickets();
     }
 
 }

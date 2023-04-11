@@ -82,11 +82,17 @@ public class RManager {
                     allRequests.put(sequenceID, dataReceived);
                     allOrderedRequests.add(dataReceived);
 
-                    String serverReply = requestToReplica(dataReceived);
-                    InetAddress aHost = InetAddress.getLocalHost();
-                    String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
-                    System.out.println(reply);
-                    sendUnicast(reply, Config.FRONTEND_IP);
+                    try {
+                        String serverReply = requestToReplica(dataReceived);
+                        InetAddress aHost = InetAddress.getLocalHost();
+                        // String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
+                        String reply = makeResponseData(serverReply, "RM3", sequenceID);
+                        System.out.println(reply);
+                        sendUnicast(reply, Config.FRONTEND_IP);
+                    } catch (Exception e) {
+                        System.out.println("Exception occurred (Possibly servers are down)");
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     //ask from other RM
@@ -133,7 +139,7 @@ public class RManager {
     }
 
     private static void receiveFromFE() {
-        int RMport = 11111;
+        int RMport = Config.RM3_PORT_FE;
         try {
             DatagramSocket ds = new DatagramSocket(RMport);
             byte[] arr = new byte[1000];

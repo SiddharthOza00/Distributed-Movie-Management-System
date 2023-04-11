@@ -19,7 +19,7 @@ public class OutremontServer {
             userLogger.logger.info("----Logger for Outremont Server----");
 
             WebserviceImpl serverImpl = InitializeImplObject();
-            Endpoint endpoint = Endpoint.publish("http://localhost:8082/outremont", serverImpl);
+            Endpoint endpoint = Endpoint.publish("http://localhost:8083/outremont", serverImpl);
             System.out.println("Outremont server is published: " + endpoint.isPublished());
 
             // Calling 2 threads

@@ -3,6 +3,7 @@ package com.FrontEnd;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 
 public class FrontendThread implements Runnable {
 
@@ -24,31 +25,41 @@ public class FrontendThread implements Runnable {
         // UDP Implementation
         System.out
                 .println("-------Inside-------- thread------ this server is Frontend and port number is " + portNumber);
+        int responseCount = 0;
+        int timeout = 10;
         try {
+
             while (true) {
-                DatagramSocket serverSocket = new DatagramSocket(portNumber);
-                byte[] data = new byte[1024];
-                DatagramPacket packet = new DatagramPacket(data, data.length);
-                serverSocket.receive(packet);
 
-                System.out.println("VIA UDP -- Packets received at Frontend socket!!");
+                // receiveResponsesFromRms(responseCount, timeout);
 
-                String arr = new String(packet.getData()).trim();
-                System.out.print("VIA UDP - Message received from port -- " + packet.getPort()+ " to Frontend server: " + arr);
+                DatagramSocket serverSocket;
+                try {
+                    serverSocket = new DatagramSocket(portNumber);
+                    byte[] data = new byte[1024];
+                    DatagramPacket packet = new DatagramPacket(data, data.length);
+                    serverSocket.receive(packet);
+                    System.out.println("VIA UDP -- Packets received at Frontend socket!!");
 
+                    String arr = new String(packet.getData()).trim();
+                    System.out.print(
+                            "VIA UDP - Message received from port -- " + packet.getPort() + " to Frontend server: "
+                                    + arr);
 
+                    // call frontend impl's response update
+                    responseCount += 1;
+                    System.out.println("Got a response. New response count - " + responseCount);
+                    feImpl.setResponseCounter(feImpl.getResponseCounter()+1);
 
-                // String result = MethodMapper(arr, feImpl);
-                // String result = "Hello check";
+                    //Call function that compares results
+                    feImpl.responseUpdateFromFrontend(arr);
 
-                // byte[] b = result.getBytes();
+                    serverSocket.close();
+                } catch (Exception e) {
+                    System.out.println("Error occured in Frontend Server. Error is: " + e.getMessage());
+                    e.printStackTrace();
+                }
 
-                //REsult to be checked
-                // InetAddress ip = InetAddress.getLocalHost();
-                // DatagramPacket packetResult = new DatagramPacket(b, b.length, ip, packet.getPort());
-                // serverSocket.send(packetResult);
-                // System.out.print("VIA UDP - Message sent from Frontend server to : " + packet.getPort());
-                serverSocket.close();
             }
 
         } catch (Exception e) {
@@ -57,6 +68,33 @@ public class FrontendThread implements Runnable {
         }
     }
 
+    // private void receiveResponsesFromRms(int responseCount, int timeout) {
+
+    //     DatagramSocket serverSocket;
+    //     try {
+    //         serverSocket = new DatagramSocket(portNumber);
+    //         byte[] data = new byte[1024];
+    //         DatagramPacket packet = new DatagramPacket(data, data.length);
+    //         serverSocket.receive(packet);
+    //         System.out.println("VIA UDP -- Packets received at Frontend socket!!");
+
+    //         String arr = new String(packet.getData()).trim();
+    //         System.out.print(
+    //                 "VIA UDP - Message received from port -- " + packet.getPort() + " to Frontend server: " + arr);
+
+    //         // call frontend impl's response update
+    //         responseCount += 1;
+    //         System.out.println("Got a response. New response count - " + responseCount);
+    //         feImpl.responseUpdateFromFrontend(responseCount + 1, arr);
+
+    //         serverSocket.close();
+    //     } catch (Exception e) {
+    //         System.out.println("Error occured in Frontend Server. Error is: " + e.getMessage());
+    //         e.printStackTrace();
+    //     }
+
+    // }
+
     // MapperMethod
     private static String MethodMapper(String arr, FrontendImpl methImpl) {
         String res = new String();
@@ -64,7 +102,7 @@ public class FrontendThread implements Runnable {
             System.out.println("Calling  server's listMovieShowsAvailability method");
             String[] meth = arr.split(",");
             String movieName = meth[1];
-            //TODO: PASS CUSTOMER ID IN ARR
+            // TODO: PASS CUSTOMER ID IN ARR
             String customerID = meth[2];
             try {
                 res = methImpl.listMovieShowsAvailability(customerID, movieName, false);
