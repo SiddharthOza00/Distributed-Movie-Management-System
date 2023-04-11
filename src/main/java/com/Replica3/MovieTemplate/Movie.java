@@ -28,7 +28,8 @@ public class Movie {
 
     @Override
     public String toString() {
-        return " ID: " + getMovieID() + " during " + getTimeSlot() + " of date " + getDate() + " Total Capacity: " + getMovieCapacity() + " Remaining seats: " + getMovieRemainCapacity() + " ";
+        // return " ID: " + getMovieID() + " during " + getTimeSlot() + " of date " + getDate() + " Total Capacity: " + getMovieCapacity() + " Remaining seats: " + getMovieRemainCapacity() + " ";
+        return getMovieID() + "-" + getMovieCapacity();
     }
 
     public String getMovieID() {

@@ -1,5 +1,21 @@
 package com.Replica3;
 
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.MulticastSocket;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
+import com.Request.Config;
+import com.Request.RequestData;
 import com.Replica3.Impl.IBooking;
 import com.Request.RequestData;
 import com.Request.ResponseData;
@@ -25,6 +41,14 @@ public class RManager {
         new Thread( () -> {
             try {
                 receiveMulticast();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        new Thread( () -> {
+            try {
+                receiveFromFE();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -59,11 +83,10 @@ public class RManager {
                     allOrderedRequests.add(dataReceived);
 
                     String serverReply = requestToReplica(dataReceived);
-                    lastExecutedSeqNum++;
                     InetAddress aHost = InetAddress.getLocalHost();
                     String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
                     System.out.println(reply);
-                    sendUnicast(reply, "192.168.247.36");
+                    sendUnicast(reply, Config.FRONTEND_IP);
                 }
                 else {
                     //ask from other RM
@@ -78,7 +101,7 @@ public class RManager {
     private static void sendUnicast(String reply, String ipAddress) {
         // System.out.println("Trying Unicast - " + reply);
         int FEport = 44553;
-        int RMport = 9955;
+        int RMport = 9957;
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(RMport);
@@ -101,11 +124,40 @@ public class RManager {
         System.out.println("Executing all requests again");
 
         for(int i = 0; i< allOrderedRequests.size(); i++) {
-            requestToReplica(allOrderedRequests.get(i));
+            String temp = requestToReplica(allOrderedRequests.get(i));
+            System.out.println(temp);
             String[] allParams = allOrderedRequests.get(i).split(",");
             lastExecutedSeqNum = Integer.parseInt(allParams[7]);
         }
         System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
+    }
+
+    private static void receiveFromFE() {
+        int RMport = 11111;
+        try {
+            DatagramSocket ds = new DatagramSocket(RMport);
+            byte[] arr = new byte[1000];
+            while(true) {
+                DatagramPacket dp = new DatagramPacket(arr, arr.length);
+                ds.receive(dp);
+                String dataReceived = new String(dp.getData(), 0, dp.getLength());
+
+                if(dataReceived.equalsIgnoreCase("Crash Failure")) {
+                    //start all servers here
+                    String[] args = new String[]{};
+                    LaunchServer.main(args);
+
+                    Thread.sleep(5000);
+
+                    allRequestsTillNow();
+                }
+                else if(dataReceived.equalsIgnoreCase("Software Failure")) {
+                    //TODO: handle software failure
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void contactRM(RequestData request) {
@@ -172,48 +224,59 @@ public class RManager {
             case "A":
                 if(methodName.equalsIgnoreCase("addMovieSlots")) {
                     String serverReply = impl.addMovieSlots(movieID, movieName, numberOfTickets);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("removeMovieSlots")) {
                     String serverReply = impl.removeMovieSlots(movieID, movieName);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("listMovieShowsAvailability")) {
                     String serverReply = impl.listMovieShowsAvailability(movieName);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("bookMovieTickets")) {
                     String serverReply = impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
                     String serverReply = impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("getBookingSchedule")) {
                     String serverReply = impl.getBookingSchedule(customerID);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("exchangeTickets")) {
                     String serverReply = impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 break;
             case "C":
                 if(methodName.equalsIgnoreCase("bookMovieTickets")) {
                     String serverReply = impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
                     String serverReply = impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("getBookingSchedule")) {
                     String serverReply = impl.getBookingSchedule(customerID);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 if(methodName.equalsIgnoreCase("exchangeTickets")) {
                     String serverReply = impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
+                    lastExecutedSeqNum++;
                     return serverReply;
                 }
                 break;
