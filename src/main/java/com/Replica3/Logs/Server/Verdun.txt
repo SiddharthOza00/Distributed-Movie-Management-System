@@ -87,3 +87,11 @@ DATE: 2023-04-10 12:00:42 AM  server has started successfully
 DATE: 2023-04-10 12:00:42 AM  UDP started 
 DATE: 2023-04-10 12:07:09 AM  server has started successfully 
 DATE: 2023-04-10 12:07:09 AM  UDP started 
+DATE: 2023-04-10 07:29:40 PM  server has started successfully 
+DATE: 2023-04-10 07:29:40 PM  UDP started 
+DATE: 2023-04-10 08:03:23 PM  server has started successfully 
+DATE: 2023-04-10 08:03:23 PM  UDP started 
+DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avatar  | ServerResponse:  
+DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: _
+DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avatar  | ServerResponse:  
+DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: _

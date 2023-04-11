@@ -1,0 +1,9 @@
+DATE: 2023-04-10 08:06:40 PM  tried to log in 
+DATE: 2023-04-10 08:06:40 PM  Customer has logged in 
+DATE: 2023-04-10 08:06:52 PM Client Action:  bookMovieTickets | RequestParameters:  movieID: ATWM110423 movieName: Avatar  | Server Response: Failure
+DATE: 2023-04-10 08:07:16 PM Client Action:  getBookingSchedule  | RequestParameters:  null  | Server Response: No Bookings for ID : ATWC1111
+DATE: 2023-04-10 08:07:38 PM Client Action:  bookMovieTickets | RequestParameters:  movieID: ATWA110423 movieName: Avatar  | Server Response: Success
+DATE: 2023-04-10 08:07:39 PM Client Action:  getBookingSchedule  | RequestParameters:  null  | Server Response: Avatar:
+ATWA110423 Tickets: 4   ### 
+------------------------------
+
