@@ -224,3 +224,26 @@ DATE: 2023-04-10 12:07:09 AM  UDP started
 DATE: 2023-04-10 12:16:33 AM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM110423 movieName: Titanic bookingCapacity 5  | ServerResponse: Success ! Added a new movie!
 DATE: 2023-04-10 12:18:42 AM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM110423 movieName: Titanic bookingCapacity 4  | ServerResponse: Failure ! New booking capacity is less than the set capacity. Operation not done!
 DATE: 2023-04-10 12:19:29 AM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM110423 movieName: Avengers bookingCapacity 5  | ServerResponse: Success ! Added a new movie!
+DATE: 2023-04-10 07:29:40 PM  server has started successfully 
+DATE: 2023-04-10 07:29:40 PM  UDP started 
+DATE: 2023-04-10 08:03:23 PM  server has started successfully 
+DATE: 2023-04-10 08:03:23 PM  UDP started 
+DATE: 2023-04-10 08:04:12 PM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWA110423 movieName: Avatar bookingCapacity 5  | ServerResponse: Success
+DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar 0  | ServerResponse:  
+DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar 0  | ServerResponse:  
+DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-04-10 08:04:18 PM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Avatar  | ServerResponse: ATWA110423-5
+DATE: 2023-04-10 08:05:03 PM ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM120423 movieName: Avatar bookingCapacity 5  | ServerResponse: Success
+DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar 0  | ServerResponse:  
+DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  UDP to be sent -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar 0  | ServerResponse:  
+DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  UDP reply success -> listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: 
+DATE: 2023-04-10 08:05:06 PM ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Avatar  | ServerResponse: ATWM120423-5;ATWA110423-5
+DATE: 2023-04-10 08:06:52 PM ClientID: ATWC1111 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWM110423 movieName: Avatar  | ServerResponse: Failure
+DATE: 2023-04-10 08:07:16 PM ClientID: ATWC1111 | RequestType:  getBookingSchedule  | RequestParameters:   | ServerResponse: No Bookings for ID : ATWC1111
+DATE: 2023-04-10 08:07:38 PM ClientID: ATWC1111 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWA110423 movieName: Avatar 4 | ServerResponse: Success
+DATE: 2023-04-10 08:07:39 PM ClientID: ATWC1111 | RequestType:  getBookingSchedule  | RequestParameters:   | ServerResponse: Avatar:
+ATWA110423 Tickets: 4   ### 
+------------------------------
+
