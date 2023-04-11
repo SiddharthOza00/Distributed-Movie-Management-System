@@ -27,12 +27,12 @@ public class Config {
 
     public static final Integer RM4_PORT_SQ = 9958;
 
-    public static final Integer RM1_PORT_FE = ;
+    public static final Integer RM1_PORT_FE = 11111;
     
-    public static final Integer RM2_PORT_FE = ;
+    public static final Integer RM2_PORT_FE = 11112;
 
-    public static final Integer RM3_PORT_FE = ;
+    public static final Integer RM3_PORT_FE = 11113;
 
-    public static final Integer RM4_PORT_FE = ;
+    public static final Integer RM4_PORT_FE = 11114;
 
 }

@@ -40,6 +40,14 @@ public class ReplicaManager {
             }
         }).start();
 
+        new Thread( () -> {
+            try {
+                receiveFromFE();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
     }
 
     private static void receive() throws UnknownHostException {
@@ -92,32 +100,52 @@ public class ReplicaManager {
         }
     }
 
+    private static void receiveFromFE() {
+        int RMport = Config.RM1_PORT_FE;
+        try {
+            DatagramSocket ds = new DatagramSocket(RMport);
+            byte[] arr = new byte[1000];
+            while(true) {
+                DatagramPacket dp = new DatagramPacket(arr, arr.length);
+                ds.receive(dp);
+                String dataReceived = new String(dp.getData(), 0, dp.getLength());
+
+                if(dataReceived.equalsIgnoreCase("Crash Failure")) {
+                    //start all servers here
+                    String[] args = new String[]{};
+                    AtwaterServer.main(args);
+                    VerdunServer.main(args);
+                    OutremontServer.main(args);
+
+                    Thread.sleep(5000);
+
+                    allRequestsTillNow();
+                }
+                else if(dataReceived.equalsIgnoreCase("Software Failure")) {
+                    //TODO: handle software failure
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private static String makeResponseData(String result, String senderReplica, Integer sequenceID ) {
         ResponseData data = new ResponseData(result, senderReplica, sequenceID);
         return data.toString();
     }
 
-    // private static void sendUnicast(String reply, String ipAddress) {
-    //     // System.out.println("Trying Unicast - " + reply);
-    //     int FEport = 44553;
-    //     int RMport = 9955;
-    //     DatagramSocket ds = null;
-    //     try {
-    //         ds = new DatagramSocket(RMport);
-    //         byte[] arr = reply.getBytes();
-    //         InetAddress address = InetAddress.getByName(ipAddress);
+    private static void allRequestsTillNow() throws MalformedURLException {
+        System.out.println("Executing all requests again");
 
-    //         DatagramPacket dp = new DatagramPacket(arr, arr.length, address, FEport);
-    //         ds.send(dp);
-    //         System.out.println("Unicast sent to FE (IP:" + ipAddress + ")");
-    //     } catch(Exception e) {
-    //         e.printStackTrace();
-    //     }
-
-    //     if(ds!=null) {
-    //         ds.close();
-    //     }
-    // }
+        for(int i = 0; i< allOrderedRequests.size(); i++) {
+            String temp = requestToReplica(allOrderedRequests.get(i));
+            System.out.println(temp);
+            String[] allParams = allOrderedRequests.get(i).split(",");
+            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
+        }
+        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
+    }
 
     private static String requestToReplica(String dataReceived) throws MalformedURLException {
         URL url;
