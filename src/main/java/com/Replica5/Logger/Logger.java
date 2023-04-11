@@ -1,4 +1,4 @@
-package com.Replica2.Logger;
+package com.Replica5.Logger;
 
 import java.io.File;
 import java.io.FileWriter;

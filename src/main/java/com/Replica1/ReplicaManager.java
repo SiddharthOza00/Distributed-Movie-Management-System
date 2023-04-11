@@ -51,15 +51,12 @@ public class ReplicaManager {
     }
 
     private static void receive() throws UnknownHostException {
-        MulticastSocket socket = null;
 
         InetAddress group = InetAddress.getByName("228.5.6.7");
 
         byte[] buf = new byte[1000];
 
-        try {
-
-            socket = new MulticastSocket(5555);
+        try(MulticastSocket socket = new MulticastSocket(5555)) {
 
             socket.joinGroup(group);
 

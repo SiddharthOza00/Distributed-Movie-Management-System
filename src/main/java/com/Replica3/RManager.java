@@ -16,12 +16,16 @@ import javax.xml.ws.Service;
 
 import com.Request.Config;
 import com.Request.RequestData;
-import org.omg.CORBA.Request;
-
-import com.Replica3.Impl.BookingImpl;
 import com.Replica3.Impl.IBooking;
 import com.Request.RequestData;
 import com.Request.ResponseData;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RManager {
 
@@ -52,15 +56,12 @@ public class RManager {
     }
 
     private static void receiveMulticast() throws UnknownHostException {
-        MulticastSocket socket = null;
 
         InetAddress group = InetAddress.getByName("228.5.6.7");
 
         byte[] buf = new byte[1000];
 
-        try {
-
-            socket = new MulticastSocket(5555);
+        try (MulticastSocket socket = new MulticastSocket(5555)){
 
             socket.joinGroup(group);
 
