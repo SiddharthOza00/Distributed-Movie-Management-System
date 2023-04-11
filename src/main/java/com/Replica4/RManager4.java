@@ -5,12 +5,15 @@ import com.Replica4.Interface.Interface;
 import com.Replica4.Server.BookingImplementation;
 import com.Replica4.Server.WebInterface;
 import com.Request.RequestData;
+import com.Request.ResponseData;
+import com.Request.Config;
 
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RManager4 {
@@ -18,7 +21,14 @@ public class RManager4 {
     ArrayList<Object> requestQueue = new ArrayList<>();
     ConcurrentHashMap<String, Object> allMessages = new ConcurrentHashMap<>();
 
+    private static Map<Integer, String> allRequests;
+    private static ArrayList<String> allOrderedRequests;
+    private static int lastExecutedSeqNum;
+
     public static void main(String[] args) throws Exception {
+        allRequests = new ConcurrentHashMap<>();
+        allOrderedRequests = new ArrayList<>();
+        lastExecutedSeqNum = 0;
         new Thread( () -> {
             try {
                 receiveMulticast();
@@ -50,62 +60,24 @@ public class RManager4 {
 
                 System.out.println("Received : " + dataReceived);
 
-                String serverReply = requestToReplica(dataReceived);
-                System.out.println(serverReply);
+                String[] requestParams = dataReceived.split(",");
 
+                int sequenceID = Integer.parseInt(requestParams[7]);
 
-//                String[] requestParams = dataReceived.split(",");
-//                String methodName = requestParams[0];
-//                String customerID = requestParams[1];
-//                String movieID = requestParams[2];
-//                String movieName = requestParams[3];
-//                String newMovieID = requestParams[4];
-//                String newMovieName = requestParams[5];
-//                int numberOfTickets = Integer.parseInt(requestParams[6]);
-//                String sequenceID = requestParams[7];
+                if((sequenceID-lastExecutedSeqNum) == 1) {
+                    allRequests.put(sequenceID, dataReceived);
+                    allOrderedRequests.add(dataReceived);
 
-//                String serverName = null;
-//                if(customerID.substring(0,3).equalsIgnoreCase("ATW")){
-//                    serverName = "Atwater";
-//                } else if (customerID.substring(0,3).equalsIgnoreCase("OUT")) {
-//                    serverName = "Outremont";
-//                } else if (customerID.substring(0,3).equalsIgnoreCase("VER")) {
-//                    serverName = "Verdun";
-//                }
-//
-//                WebInterface webInterface = new BookingImplementation(customerID.substring(0,2), serverName);
-//
-//                switch (methodName) {
-//                    case "addMovieSlots":
-//                        webInterface.addMovieSlots(movieID, movieName, numberOfTickets);
-//                        break;
-//
-//                    case "removeMovieSlots":
-//                        webInterface.removeMovieSlots(movieID, movieName);
-//                        break;
-//
-//                    case "listMovieShowsAvailability":
-//                        webInterface.listMovieShowsAvailability(movieName);
-//                        break;
-//
-//                    case "getBookingSchedule":
-//                        webInterface.getBookingSchedule(customerID);
-//                        break;
-//
-//                    case "bookMovieTickets":
-//                        webInterface.bookMoviesTickets(customerID, movieID, movieName, numberOfTickets);
-//                        break;
-//
-//                    case "cancelMovieTickets":
-//                        webInterface.cancelMovieTickets(customerID, movieID, movieName, numberOfTickets);
-//                        break;
-//
-//                    case "exchangeTickets":
-//                        webInterface.exchangeTickets(customerID, newMovieID, newMovieName, movieID, movieName, numberOfTickets);
-//                        break;
-//                }
-
-                sendUnicast(serverReply, "192.168.247.36");
+                    String serverReply = requestToReplica(dataReceived);
+                    lastExecutedSeqNum++;
+                    InetAddress aHost = InetAddress.getLocalHost();
+                    String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
+                    System.out.println(reply);
+                    sendUnicast(reply, Config.FRONTEND_IP);
+                }
+                else {
+                    //ask from other RM
+                }
 
             }
         } catch(Exception e) {
@@ -148,6 +120,11 @@ public class RManager4 {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String makeResponseData(String result, String senderReplica, Integer sequenceID ) {
+        ResponseData data = new ResponseData(result, senderReplica, sequenceID);
+        return data.toString();
     }
 
     private static String requestToReplica(String dataReceived) throws MalformedURLException{
