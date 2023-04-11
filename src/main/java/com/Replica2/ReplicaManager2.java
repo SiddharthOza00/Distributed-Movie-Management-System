@@ -1,6 +1,7 @@
 package com.Replica2;
 
 import com.Replica2.Interfaces.WebInterface;
+import com.Replica3.LaunchServer;
 import com.Request.Config;
 import com.Request.RequestData;
 import com.Request.ResponseData;
@@ -26,6 +27,14 @@ public class ReplicaManager2 {
             try {
                 receiveMulticast();
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        new Thread( () -> {
+            try {
+                receiveFromFE();
+            } catch(Exception e) {
                 e.printStackTrace();
             }
         }).start();
@@ -75,7 +84,7 @@ public class ReplicaManager2 {
                     String serverReply = requestToReplica(dataReceived);
                     lastExecutedSeqNum++;
                     InetAddress aHost = InetAddress.getLocalHost();
-                    String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
+                    String reply = makeResponseData(serverReply, "RM2", sequenceID);
                     System.out.println(reply);
                     sendUnicast(reply, Config.FRONTEND_IP);
                 } else {
@@ -86,17 +95,6 @@ public class ReplicaManager2 {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private static void allRequestsTillNow() throws MalformedURLException {
-        System.out.println("Executing all requests again");
-
-        for(int i = 0; i< allOrderedRequests.size(); i++) {
-            requestToReplica(allOrderedRequests.get(i));
-            String[] allParams = allOrderedRequests.get(i).split(",");
-            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
-        }
-        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
     }
 
     private static void sendUnicast(String reply, String ipAddress) {
@@ -132,6 +130,45 @@ public class ReplicaManager2 {
             ds.send(dp);
             System.out.println("Sent to other RM - " + request.toString());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void allRequestsTillNow() throws MalformedURLException {
+        System.out.println("Executing all requests again");
+
+        for (String allOrderedRequest : allOrderedRequests) {
+            String temp = requestToReplica(allOrderedRequest);
+            System.out.println(temp);
+            String[] allParams = allOrderedRequest.split(",");
+            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
+        }
+        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
+    }
+
+    private static void receiveFromFE() {
+        int RMport = Config.RM2_PORT_FE;
+        try (DatagramSocket ds = new DatagramSocket(RMport)){
+            byte[] arr = new byte[1000];
+            while(true) {
+                DatagramPacket dp = new DatagramPacket(arr, arr.length);
+                ds.receive(dp);
+                String dataReceived = new String(dp.getData(), 0, dp.getLength());
+
+                if(dataReceived.equalsIgnoreCase("Crash Failure")) {
+                    //start all servers here
+                    String[] args = new String[]{};
+                    LaunchServer.main(args);
+
+                    Thread.sleep(5000);
+
+                    allRequestsTillNow();
+                }
+                else if(dataReceived.equalsIgnoreCase("Software Failure")) {
+                    //TODO: handle software failure
+                }
+            }
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }

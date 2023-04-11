@@ -3,6 +3,7 @@ package com.Replica2.Interfaces;
 import com.Replica2.Logger.Logger;
 import com.Replica2.Object.ClientObject;
 import com.Replica2.Object.MovieObject;
+import com.Replica3.MovieTemplate.Movie;
 
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -146,19 +147,14 @@ public class Implementation implements WebInterface {
 
     @Override
     public String listMovieShowsAvailability(String movieName) {
-        String response;
         Map<String, MovieObject> movies = allMovies.get(movieName);
         StringBuilder builder = new StringBuilder();
-        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
-        if (movies.size() == 0) {
-            builder.append("No Movies of Type ").append(movieName).append("\n");
-        } else {
-            for (MovieObject movie :
-                    movies.values()) {
-                builder.append(movie.toString()).append(" || ");
+        if(movies.size() != 0) {
+            for(MovieObject movie : movies.values()) {
+                builder.append(movie.toString() + ";");
             }
+            builder.deleteCharAt(builder.length() - 1);
         }
-        builder.append("\n=====================================\n");
         String otherServer1, otherServer2;
         if (serverID.equals("ATW")) {
             otherServer1 = sendUDPMessage(Outremont_Server_Port, "listMovieShowsAvailability", "null", movieName, "null", 0);
@@ -171,13 +167,13 @@ public class Implementation implements WebInterface {
             otherServer2 = sendUDPMessage(Outremont_Server_Port, "listMovieShowsAvailability", "null", movieName, "null", 0);
         }
         builder.append(otherServer1).append(otherServer2);
-        response = builder.toString();
+        String serverReply = builder.toString();
         try {
-            Logger.serverLog(serverID, "null", " listMovieShowsAvailability ", " movieName: " + movieName + " ", response);
+            Logger.serverLog(serverID, "null", " listMovieShowsAvailability ", " movieName: " + movieName + " ", serverReply);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return response;
+        return serverReply;
 
     }
 
@@ -452,16 +448,22 @@ public class Implementation implements WebInterface {
     public String listMovieShowsAvailabilityUDP(String movieName) {
         Map<String, MovieObject> movies = allMovies.get(movieName);
         StringBuilder builder = new StringBuilder();
-        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
-        if (movies.size() == 0) {
-            builder.append("No Movies of Type ").append(movieName);
-        } else {
-            for (MovieObject movie :
-                    movies.values()) {
-                builder.append(movie.toString()).append(" || ");
+//        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
+//        if (movies.size() == 0) {
+//            builder.append("No Movies of Type ").append(movieName);
+//        } else {
+//            for (MovieObject movie :
+//                    movies.values()) {
+//                builder.append(movie.toString()).append(" || ");
+//            }
+//        }
+//        builder.append("\n=====================================\n");
+        if(movies.size() != 0 ) {
+            for(MovieObject movie : movies.values()) {
+                builder.append(movie.toString() + ";");
             }
+            builder.deleteCharAt(builder.length() -1);
         }
-        builder.append("\n=====================================\n");
         return builder.toString();
     }
 

@@ -189,6 +189,7 @@ public class MovieObject {
 
     @Override
     public String toString() {
-        return " (" + getMovieID() + ") in the " + getMovieTimeSlots() + " of " + getMovieDate() + " Total[Remaining] Capacity: " + getMovieCapacity() + "[" + getMovieRemainCapacity() + "]";
+//        return " (" + getMovieID() + ") in the " + getMovieTimeSlots() + " of " + getMovieDate() + " Total[Remaining] Capacity: " + getMovieCapacity() + "[" + getMovieRemainCapacity() + "]";
+    return getMovieID() + "-" + getMovieCapacity();
     }
 }
