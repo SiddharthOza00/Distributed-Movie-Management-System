@@ -52,7 +52,7 @@ public class FrontendThread implements Runnable {
                     feImpl.setResponseCounter(feImpl.getResponseCounter()+1);
 
                     //Call function that compares results
-                    
+                    feImpl.responseUpdateFromFrontend(arr);
 
                     serverSocket.close();
                 } catch (Exception e) {

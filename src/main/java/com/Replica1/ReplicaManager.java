@@ -10,7 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.URL;
+import java.util.Map;
 
+import com.Request.Config;
 import com.Request.ResponseData;
 
 import java.net.DatagramPacket;
@@ -19,10 +21,17 @@ import java.net.InetAddress;
 
 public class ReplicaManager {
 
+    private static Map<Integer, String> allRequests;
+    private static ArrayList<String> allOrderedRequests;
+    private static int lastExecutedSeqNum;
+
     ArrayList<Object> requestQueue = new ArrayList<>();
     ConcurrentHashMap<String, Object> allMessages = new ConcurrentHashMap<>();
 
     public static void main(String[] args) throws Exception {
+        allRequests = new ConcurrentHashMap<>();
+        allOrderedRequests = new ArrayList<>();
+        lastExecutedSeqNum = 0;
         new Thread(() -> {
             try {
                 receive();
@@ -31,11 +40,6 @@ public class ReplicaManager {
             }
         }).start();
 
-        // Start Atwater Server
-        // AtwaterServer.main(args);
-        // VerdunServer.main(args);
-        // OutremontServer.main(args);
-        // System.out.println("Atawater Server started!!");
     }
 
     private static void receive() throws UnknownHostException {
@@ -60,16 +64,60 @@ public class ReplicaManager {
 
                 System.out.println("Received : " + dataReceived);
 
-                String serverReply = requestToReplica(dataReceived);
-                System.out.println(serverReply);
+                String[] requestParams = dataReceived.split(",");
+                int sequenceID = Integer.parseInt(requestParams[7]);
 
-                sendToFrontend(serverReply, "192.168.247.36");
+                if((sequenceID-lastExecutedSeqNum) == 1) {
+                    allRequests.put(sequenceID, dataReceived);
+                    allOrderedRequests.add(dataReceived);
+
+                    String serverReply = requestToReplica(dataReceived);
+                    System.out.println(serverReply);
+                    lastExecutedSeqNum++;
+                    String reply = makeResponseData(serverReply, "RM1", sequenceID);
+                    System.out.println(reply);
+                    sendToFrontend(serverReply, Config.FRONTEND_IP);
+                }
+                else {
+                    //ask from other RM
+                }
+
+                
+
+                
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private static String makeResponseData(String result, String senderReplica, Integer sequenceID ) {
+        ResponseData data = new ResponseData(result, senderReplica, sequenceID);
+        return data.toString();
+    }
+
+    // private static void sendUnicast(String reply, String ipAddress) {
+    //     // System.out.println("Trying Unicast - " + reply);
+    //     int FEport = 44553;
+    //     int RMport = 9955;
+    //     DatagramSocket ds = null;
+    //     try {
+    //         ds = new DatagramSocket(RMport);
+    //         byte[] arr = reply.getBytes();
+    //         InetAddress address = InetAddress.getByName(ipAddress);
+
+    //         DatagramPacket dp = new DatagramPacket(arr, arr.length, address, FEport);
+    //         ds.send(dp);
+    //         System.out.println("Unicast sent to FE (IP:" + ipAddress + ")");
+    //     } catch(Exception e) {
+    //         e.printStackTrace();
+    //     }
+
+    //     if(ds!=null) {
+    //         ds.close();
+    //     }
+    // }
 
     private static String requestToReplica(String dataReceived) throws MalformedURLException {
         URL url;

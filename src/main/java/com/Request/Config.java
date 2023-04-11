@@ -1,21 +1,38 @@
 package com.Request;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 public class Config {
-    public static final String SEQUENCE_PORT = "2233";
-    public static final String FRONTEND_IP = "";
+    public static final Integer SEQUENCE_PORT = 2233;
+    
+    public static final String FRONTEND_IP = "172.20.80.1";
 
-    public static final String FRONTEND_PORT = "";
+    public static final Integer FRONTEND_PORT = 44553;
 
-    public static final String SEQUENCER_IP = "";
+    public static final String SEQUENCER_IP = "192.168.48.53";
 
-    public static final String RM1_PORT = "";
+    public static final String RM1_IP = "192.168.48.53";
+    
+    public static final String RM2_IP = "192.168.48.53";
 
-    public static final String RM2_PORT = "";
+    public static final String RM3_IP = "192.168.48.53";
 
-    public static final String RM3_PORT = "";
+    public static final String RM4_IP = "192.168.48.53";
 
+    public static final Integer RM1_PORT_SQ = 9955;
 
+    public static final Integer RM2_PORT_SQ = 9956;
 
+    public static final Integer RM3_PORT_SQ = 9957;
 
+    public static final Integer RM4_PORT_SQ = 9958;
+
+    public static final Integer RM1_PORT_FE = ;
+    
+    public static final Integer RM2_PORT_FE = ;
+
+    public static final Integer RM3_PORT_FE = ;
+
+    public static final Integer RM4_PORT_FE = ;
 
 }
