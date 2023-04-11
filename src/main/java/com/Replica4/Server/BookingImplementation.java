@@ -268,17 +268,25 @@ public class BookingImplementation implements WebInterface {
         String response;
         Map<String,MovieModel> slots = moviesEvents.get(movieName);
         StringBuffer sb = new StringBuffer();
-        sb.append(serverName+" Server "+ movieName+":\n");
-        if(slots.size()==0){
-            sb.append("No Movie Slots for Movie: "+ movieName);
-        }
-        else{
-            for(MovieModel movies: slots.values()){
-                sb.append(" "+movies.toString()+" || ");
-            }
-            sb.append("\n=====================================\n");
-        }
+//        sb.append(serverName+" Server "+ movieName+":\n");
+//        if(slots.size()==0){
+//            sb.append("No Movie Slots for Movie: "+ movieName);
+//        }
+//        else{
+//            for(MovieModel movies: slots.values()){
+//                sb.append(" "+movies.toString()+" || ");
+//            }
+//            sb.append("\n=====================================\n");
+//        }
+
         String server1, server2;
+
+        if(slots.size() != 0){
+            for(MovieModel movies: slots.values()){
+                sb.append(movies.toString()+";");
+            }
+            sb.deleteCharAt(sb.length()-1);
+        }
         if(serverId.equals("ATW")){
             server1 = sendUDPMessage(VER_SERV_PORT,"listMovieAvailability","null",movieName,"null",MINVALUE);
             server2 = sendUDPMessage(OUT_SERV_PORT,"listMovieAvailability","null",movieName,"null",MINVALUE);
@@ -781,17 +789,23 @@ public class BookingImplementation implements WebInterface {
     public String listMovieAvailabilityUDP(String movieName) {
         Map<String, MovieModel> movies = moviesEvents.get(movieName);
         StringBuffer builder = new StringBuffer();
-        builder.append("\n");
-        builder.append("\n"+serverName + " Server " + movieName + ":\n");
-        if (movies.size() == 0) {
-            builder.append("No Events of Type " + movieName);
-        } else {
-            for (MovieModel movie :
-                    movies.values()) {
-                builder.append(movie.toString() + " || ");
+//        builder.append("\n");
+//        builder.append("\n"+serverName + " Server " + movieName + ":\n");
+//        if (movies.size() == 0) {
+//            builder.append("No Events of Type " + movieName);
+//        } else {
+//            for (MovieModel movie :
+//                    movies.values()) {
+//                builder.append(movie.toString() + " || ");
+//            }
+//        }
+//        builder.append("\n=====================================\n");
+        if(movies.size() != 0){
+            for(MovieModel model : movies.values()){
+                builder.append(movies.toString()+";");
             }
+            builder.deleteCharAt(builder.length()-1);
         }
-        builder.append("\n=====================================\n");
         return builder.toString();
     }
 

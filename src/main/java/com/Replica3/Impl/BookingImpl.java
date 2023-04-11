@@ -55,7 +55,7 @@ public class BookingImpl implements IBooking {
         int bookDay = Integer.parseInt(movieID.substring(4,6));
 
         if((bookDay < currDay) || ((bookDay-currDay) >7 )) {
-            String serverReply = "Failure ! Cant add slots!";
+            String serverReply = "Failure";
             try {
                 LogData.serverLog(areaID, " ", " addMovieSlots ", " movieID: " + movieID + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", serverReply);
             } catch (IOException e) {
@@ -69,7 +69,7 @@ public class BookingImpl implements IBooking {
 
             //checking if old capacity is more than the new one
             if(movieMap.get(movieName).get(movieID).getMovieCapacity() > bookingCapacity) {
-                String serverReply = "Failure ! New booking capacity is less than the set capacity. Operation not done!";
+                String serverReply = "Failure";
                 try {
                     LogData.serverLog(areaID, "null", " addMovieSlots ", " movieID: " + movieID + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", serverReply);
                 } catch (IOException e) {
@@ -80,7 +80,7 @@ public class BookingImpl implements IBooking {
             //this block is used to increase movie capacity
             else {
                 movieMap.get(movieName).get(movieID).setMovieCapacity(bookingCapacity);
-                String serverReply = "Success ! added more seats to the movie!";
+                String serverReply = "Success";
                 try {
                     LogData.serverLog(areaID, "null", " addMovieSlots ", " movieID: " + movieID + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", serverReply);
                 } catch (IOException e) {
@@ -95,7 +95,7 @@ public class BookingImpl implements IBooking {
                 //adding a new Movie
                 Map<String, Movie> tempMap = movieMap.get(movieName);
                 tempMap.put(movieID, new Movie(movieName, movieID, bookingCapacity));
-                String serverReply = "Success ! Added a new movie!";
+                String serverReply = "Success";
                 movieMap.put(movieName, tempMap);
                 try {
                     LogData.serverLog(areaID, "null", " addMovieSlots ", " movieID: " + movieID + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", serverReply);
@@ -105,7 +105,7 @@ public class BookingImpl implements IBooking {
                 return serverReply;
             }
             else {
-                String serverReply = "Failure ! Cannot add a movie in other servers";
+                String serverReply = "Failure";
                 try {
                     LogData.serverLog(areaID, "null", " addMovieSlots ", " movieID: " + movieID + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", serverReply);
                 } catch (IOException e) {
@@ -127,7 +127,7 @@ public class BookingImpl implements IBooking {
                 Map<String, Integer> bookedSlots = movieMap.get(movieName).get(movieID).getBookedSlots();
                 movieMap.get(movieName).remove(movieID);
                 removeCustomers(movieID, movieName, bookedSlots);
-                serverReply = "Success ! Movie slots were removed";
+                serverReply = "Success";
                 try {
                     LogData.serverLog(areaID, " ", " removeMovieSlots ", " movieID: " + movieID + " movieName: " + movieName +  " ", serverReply);
                 } catch (IOException e) {
@@ -136,7 +136,7 @@ public class BookingImpl implements IBooking {
                 return serverReply;
             }
             else {
-                serverReply = "Failure ! Movie Does Not Exist";
+                serverReply = "Failure";
                 try {
                     LogData.serverLog(areaID, " ", " removeMovieSlots ", " movieID: " + movieID + " movieName: " + movieName +  " ", serverReply);
                 } catch (IOException e) {
@@ -145,7 +145,7 @@ public class BookingImpl implements IBooking {
                 return serverReply;
             }
         } else {
-            serverReply = "Success ! you cannot remove slots from other servers";
+            serverReply = "Success";
             try {
                 LogData.serverLog(areaID, " ", " removeMovieSlots "," movieID: " + movieID + " movieName: " + movieName +  " ", serverReply);
             } catch (IOException e) {
@@ -162,15 +162,21 @@ public class BookingImpl implements IBooking {
         String server2, server3;
 
         //for movies from current server
-        sb.append(areaName + " Server " + movieName + ":\n");
-        if (movies.size() == 0) {
-            sb.append("No movie show called " + movieName + "\n");
-        } else {
-            for (Movie movie :
-                    movies.values()) {
-                sb.append(movie.toString() + " ### ");
+        // sb.append(areaName + " Server " + movieName + ":\n");
+        // if (movies.size() == 0) {
+        //     sb.append("No movie show called " + movieName + "\n");
+        // } else {
+        //     for (Movie movie :
+        //             movies.values()) {
+        //         sb.append(movie.toString() + " ### ");
+        //     }
+        //     sb.append("\n ------------------------------ \n");
+        // }
+        if(movies.size() != 0) {
+            for(Movie movie : movies.values()) {
+                sb.append(movie.toString() + ";");
             }
-            sb.append("\n ------------------------------ \n");
+            sb.deleteCharAt(sb.length() - 1);
         }
 
         //for movies from other servers:
@@ -206,7 +212,7 @@ public class BookingImpl implements IBooking {
         String serverReply;
         if (Movie.detectServer(movieID).equalsIgnoreCase(areaName)) {
             if(movieMap.get(movieName).get(movieID) == null) {
-                serverReply = "Failure ! Movie" + movieID + " doesn't exist";
+                serverReply = "Failure";
                 try {
                     LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverReply);
                 } catch (IOException e) {
@@ -229,7 +235,7 @@ public class BookingImpl implements IBooking {
                                 customerBookingMap.get(customerID).get(movieName).put(movieID, currTick);
                             }
                             else {
-                                serverReply = "Failure ! Movie" + movieID + " doesnt have enough capacity ";
+                                serverReply = "Failure";
                                 try {
                                     LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverReply);
                                 } catch (IOException e) {
@@ -243,7 +249,7 @@ public class BookingImpl implements IBooking {
                                 customerBookingMap.get(customerID).get(movieName).put(movieID, numberOfTickets);
                             }
                             else {
-                                serverReply = "Failure ! Movie" + movieID + " doesnt have enough capacity ";
+                                serverReply = "Failure";
                                 try {
                                     LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverReply);
                                 } catch (IOException e) {
@@ -260,7 +266,7 @@ public class BookingImpl implements IBooking {
                             customerBookingMap.get(customerID).put(movieName, temp);
                         }
                         else {
-                            serverReply = "Failure ! Movie" + movieID + " doesnt have enough capacity ";
+                            serverReply = "Failure";
                             try {
                                 LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverReply);
                             } catch (IOException e) {
@@ -279,7 +285,7 @@ public class BookingImpl implements IBooking {
                         customerBookingMap.put(customerID, temp);
                     }
                     else {
-                        serverReply = "Failure ! Movie" + movieID + " doesnt have enough capacity ";
+                        serverReply = "Failure";
                         try {
                             LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverReply);
                         } catch (IOException e) {
@@ -290,10 +296,10 @@ public class BookingImpl implements IBooking {
                 }
                 //checking if the customer is added to the Movie Class object or not
                 if (movieMap.get(movieName).get(movieID).addCustomerID(customerID, numberOfTickets) == 1) {
-                    serverReply = "Success ! Movie " + movieID + " Booked Successfully";
+                    serverReply = "Success";
                 }
                 else {
-                    serverReply = "Failure ! Movie show " + movieID + " is Full";
+                    serverReply = "Failure";
                 }
                 try {
                     LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " " + numberOfTickets, serverReply);
@@ -303,7 +309,7 @@ public class BookingImpl implements IBooking {
                 return serverReply;
             }
             else {
-                serverReply = "Failure ! Movie show " + movieID + " is Full";
+                serverReply = "Failure";
                 try {
                     LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverReply);
                 } catch (IOException e) {
@@ -333,7 +339,7 @@ public class BookingImpl implements IBooking {
                 }
                 return reply;
             } else {
-                serverReply = "Failure ! You cannot book more than 3 movies in other servers";
+                serverReply = "Failure";
                 try {
                     LogData.serverLog(areaID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverReply);
                 } catch (IOException e) {
@@ -413,7 +419,7 @@ public class BookingImpl implements IBooking {
                             movieMap.get(movieName).get(movieID).removeCustomerTickets(customerID, currTick);
                         }
 
-                        serverReply = "Success ! Movie tickets " + movieID + " canceled for " + customerID;
+                        serverReply = "Success";
 
                         try {
                             LogData.serverLog(areaID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " Tickets:" + numberOfTickets + " ", serverReply);
@@ -424,7 +430,7 @@ public class BookingImpl implements IBooking {
                     }
                     else
                     {
-                        serverReply = "Failure ! We can't cancel the tickets";
+                        serverReply = "Failure";
                         try {
                             LogData.serverLog(areaID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " Tickets:"+ numberOfTickets + " ", serverReply);
                         } catch (IOException e) {
@@ -434,7 +440,7 @@ public class BookingImpl implements IBooking {
                     }
                 }
                 else {
-                    serverReply = "Failure ! you " + customerID + " have not booked this movie " + movieID;
+                    serverReply = "Failure";
                     try {
                         LogData.serverLog(areaID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " Tickets:"+ numberOfTickets + " ", serverReply);
                     } catch (IOException e) {
@@ -449,7 +455,7 @@ public class BookingImpl implements IBooking {
                     int currTick = movieMap.get(movieName).get(movieID).currTickForCustomer(customerID);
                     currTick = currTick - numberOfTickets;
                     movieMap.get(movieName).get(movieID).removeCustomerTickets(customerID, numberOfTickets);
-                    serverReply = "Success ! Movie tickets " + movieID + " canceled for " + customerID;
+                    serverReply = "Success";
                     try {
                         LogData.serverLog(areaID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " Tickets:" + numberOfTickets + " ", serverReply);
                     } catch (IOException e) {
@@ -458,7 +464,7 @@ public class BookingImpl implements IBooking {
                     return serverReply;
                 }
                 else {
-                    serverReply = "Failure ! you " + customerID + " have not booked this movie " + movieID;
+                    serverReply = "Failure";
                     try {
                         LogData.serverLog(areaID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " Tickets:"+ numberOfTickets + " ", serverReply);
                     } catch (IOException e) {
@@ -477,7 +483,7 @@ public class BookingImpl implements IBooking {
                         customerBookingMap.get(customerID).get(movieName).remove(movieID);
                     } 
                     else if(currTick < 0) {
-                        return "Failure ! Failed " + areaID + areaName ;
+                        return "Failure";
                     }
                     else {
                         customerBookingMap.get(customerID).get(movieName).put(movieID, currTick);
@@ -485,7 +491,7 @@ public class BookingImpl implements IBooking {
                     return udpRequest(getServerPort(movieID.substring(0, 3)), "cancelMovieTickets", customerID, movieName, movieID, currTick);
                 }
             }
-            return "Failure ! Failed " + areaID + areaName ;
+            return "Failure";
         }
     }
 
@@ -499,7 +505,7 @@ public class BookingImpl implements IBooking {
         String bookedCheck = getBookingSchedule(customerID);
         if(!bookedCheck.contains(movieID)) {
             System.out.println(bookedCheck.contains(movieID));
-            isCancelSuccessful = "Failure ! not successful, you haven't booked the old movie";
+            isCancelSuccessful = "Failure";
             serverReply = serverReply + isBookingSuccessful + isCancelSuccessful;
             try {
                 LogData.serverLog(areaID, customerID, " exchangeTickets ", " old_movieName: " + old_movieName + " movieID: " + movieID + " new_movieID: " + new_movieID + " new_movieName: " + new_movieName + " ", serverReply);
@@ -519,7 +525,7 @@ public class BookingImpl implements IBooking {
         }
 
         if(isBookingSuccessful.startsWith("Success") && isCancelSuccessful.startsWith("Success")) {
-            serverReply = "Success ! movieID: " + movieID + " swapped with " + new_movieID;
+            serverReply = "Success";
             try {
                 LogData.serverLog(areaID, customerID, " exchangeTickets ", " old_movieName: " + old_movieName + " movieID: " + movieID + " new_movieID: " + new_movieID + " new_movieName: " + new_movieName + " ", serverReply);
             } catch (IOException e) {
@@ -529,7 +535,7 @@ public class BookingImpl implements IBooking {
         }
         else if(isCancelSuccessful.startsWith("Failure")) {
             cancelMovieTickets(customerID, new_movieID, new_movieName, numberOfTickets);
-            serverReply = "Failure ! Cannot swap (Canceling tickets was not successful)";
+            serverReply = "Failure";
             try {
                 LogData.serverLog(areaID, customerID, " exchangeTickets ", " old_movieName: " + old_movieName + " movieID: " + movieID + " new_movieID: " + new_movieID + " new_movieName: " + new_movieName + " ", serverReply);
             } catch (IOException e) {
@@ -538,7 +544,7 @@ public class BookingImpl implements IBooking {
             return serverReply;
         }
         else {
-            serverReply = "Failure ! Cannot swap (Booking was not succesful)";
+            serverReply = "Failure";
             try {
                 LogData.serverLog(areaID, customerID, " exchangeTickets ", " old_movieName: " + old_movieName + " movieID: " + movieID + " new_movieID: " + new_movieID + " new_movieName: " + new_movieName + " ", serverReply);
             } catch (IOException e) {
@@ -604,14 +610,14 @@ public class BookingImpl implements IBooking {
     public String removeMovieSlotsUDP(String movieID, String movieName, String customerID) {
         if (!customerBookingMap.containsKey(customerID))
         {
-            return "Failure ! You are not registsered in this movie";
+            return "Failure";
         }
         else {
             if (customerBookingMap.get(customerID).get(movieName).containsKey(movieID)) {
                 customerBookingMap.get(customerID).get(movieName).remove(movieID);
-                return "Success ! movie tickets were removed from schedule";
+                return "Success";
             } else {
-                return "Failure ! You are not registered in this movie";
+                return "Failure";
             }
         }
     }
@@ -619,16 +625,22 @@ public class BookingImpl implements IBooking {
     public String listMovieShowsAvailabilityUDP(String movieName) {
         Map<String, Movie> movies = movieMap.get(movieName);
         StringBuilder sb = new StringBuilder();
-        sb.append(areaName + " Server " + movieName + ":\n");
-        if (movies.size() == 0) {
-            sb.append("Can't find events " + movieName);
-        } else {
-            for (Movie movie :
-                    movies.values()) {
-                sb.append(movie.toString() + " || ");
+        // sb.append(areaName + " Server " + movieName + ":\n");
+        // if (movies.size() == 0) {
+        //     sb.append("Can't find events " + movieName);
+        // } else {
+        //     for (Movie movie :
+        //             movies.values()) {
+        //         sb.append(movie.toString() + " || ");
+        //     }
+        // }
+        // sb.append("\n ################################# \n");
+        if(movies.size() != 0 ) {
+            for(Movie movie : movies.values()) {
+                sb.append(movie.toString() + ";");
             }
+            sb.deleteCharAt(sb.length() - 1);
         }
-        sb.append("\n ################################# \n");
         return sb.toString();
     }
 

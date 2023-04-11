@@ -1,6 +1,7 @@
 package com.Replica4;
 
 import com.Replica3.Impl.IBooking;
+import com.Replica3.LaunchServer;
 import com.Replica4.Interface.Interface;
 import com.Replica4.Server.BookingImplementation;
 import com.Replica4.Server.WebInterface;
@@ -32,6 +33,14 @@ public class RManager4 {
         new Thread( () -> {
             try {
                 receiveMulticast();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        new Thread( () -> {
+            try {
+                receiveFromFE();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -71,7 +80,7 @@ public class RManager4 {
                     String serverReply = requestToReplica(dataReceived);
                     lastExecutedSeqNum++;
                     InetAddress aHost = InetAddress.getLocalHost();
-                    String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
+                    String reply = makeResponseData(serverReply, "RM4", sequenceID);
                     System.out.println(reply);
                     sendUnicast(reply, Config.FRONTEND_IP);
                 }
@@ -86,7 +95,7 @@ public class RManager4 {
     }
 
     private static void sendUnicast(String reply, String ipAddress) {
-        System.out.println("Trying Unicast - " + reply);
+//        System.out.println("Trying Unicast - " + reply);
         int FEport = 44553;
         int RMport = 9958;
         DatagramSocket ds = null;
@@ -104,6 +113,48 @@ public class RManager4 {
 
         if(ds!=null) {
             ds.close();
+        }
+
+    }
+
+
+    private static void allRequestsTillNow() throws MalformedURLException {
+        System.out.println("Executing all requests again");
+
+        for(int i = 0; i< allOrderedRequests.size(); i++) {
+            String temp = requestToReplica(allOrderedRequests.get(i));
+            System.out.println(temp);
+            String[] allParams = allOrderedRequests.get(i).split(",");
+            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
+        }
+        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
+    }
+
+    private static void receiveFromFE() {
+        int RMport = 11111;
+        try {
+            DatagramSocket ds = new DatagramSocket(RMport);
+            byte[] arr = new byte[1000];
+            while(true) {
+                DatagramPacket dp = new DatagramPacket(arr, arr.length);
+                ds.receive(dp);
+                String dataReceived = new String(dp.getData(), 0, dp.getLength());
+
+                if(dataReceived.equalsIgnoreCase("Crash Failure")) {
+                    //start all servers here
+                    String[] args = new String[]{};
+                    LaunchServer.main(args);
+
+                    Thread.sleep(5000);
+
+                    allRequestsTillNow();
+                }
+                else if(dataReceived.equalsIgnoreCase("Software Failure")) {
+                    //TODO: handle software failure
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
