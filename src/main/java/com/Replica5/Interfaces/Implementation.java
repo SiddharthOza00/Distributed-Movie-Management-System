@@ -1,9 +1,8 @@
-package com.Replica2.Interfaces;
+package com.Replica5.Interfaces;
 
 import com.Replica2.Logger.Logger;
 import com.Replica2.Object.ClientObject;
 import com.Replica2.Object.MovieObject;
-import com.Replica3.MovieTemplate.Movie;
 
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -15,7 +14,7 @@ import java.net.SocketException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@WebService(endpointInterface = "com.Replica2.Interfaces.WebInterface")
+@WebService(endpointInterface = "com.Replica5.Interfaces.WebInterface")
 
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 
@@ -61,7 +60,7 @@ public class Implementation implements WebInterface {
             if (MovieExists(movieName, movieID)) {
                 if (allMovies.get(movieName).get(movieID).getMovieCapacity() <= bookingCapacity) {
                     allMovies.get(movieName).get(movieID).setMovieCapacity(bookingCapacity);
-                      response = "Success";
+                    response = "Success";
                     try {
                         Logger.serverLog(serverID, "null", " addMovieSlot ", " movieID: " + movieID + " movieName: " + movieName + " bookingCapacity " + bookingCapacity + " ", response);
                     } catch (IOException e) {
@@ -147,14 +146,19 @@ public class Implementation implements WebInterface {
 
     @Override
     public String listMovieShowsAvailability(String movieName) {
+        String response;
         Map<String, MovieObject> movies = allMovies.get(movieName);
         StringBuilder builder = new StringBuilder();
-        if(movies.size() != 0) {
-            for(MovieObject movie : movies.values()) {
-                builder.append(movie.toString() + ";");
+        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
+        if (movies.size() == 0) {
+            builder.append("No Movies of Type ").append(movieName).append("\n");
+        } else {
+            for (MovieObject movie :
+                    movies.values()) {
+                builder.append(movie.toString()).append(" || ");
             }
-            builder.deleteCharAt(builder.length() - 1);
         }
+        builder.append("\n=====================================\n");
         String otherServer1, otherServer2;
         if (serverID.equals("ATW")) {
             otherServer1 = sendUDPMessage(Outremont_Server_Port, "listMovieShowsAvailability", "null", movieName, "null", 0);
@@ -167,13 +171,13 @@ public class Implementation implements WebInterface {
             otherServer2 = sendUDPMessage(Outremont_Server_Port, "listMovieShowsAvailability", "null", movieName, "null", 0);
         }
         builder.append(otherServer1).append(otherServer2);
-        String serverReply = builder.toString();
+        response = builder.toString();
         try {
-            Logger.serverLog(serverID, "null", " listMovieShowsAvailability ", " movieName: " + movieName + " ", serverReply);
+            Logger.serverLog(serverID, "null", " listMovieShowsAvailability ", " movieName: " + movieName + " ", response);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return serverReply;
+        return response;
 
     }
 
@@ -240,7 +244,7 @@ public class Implementation implements WebInterface {
             if (clientHasMovie(customerID, movieName, movieID)) {
                 String serverResponse = "Failure";
                 try {
-                    Logger.serverLog(serverID, customerID, " CORBA bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverResponse);
+                    Logger.serverLog(serverID, customerID, "  bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverResponse);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -258,7 +262,7 @@ public class Implementation implements WebInterface {
                     }
                 }
                 try {
-                    Logger.serverLog(serverID, customerID, " CORBA bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverResponse);
+                    Logger.serverLog(serverID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverResponse);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -266,7 +270,7 @@ public class Implementation implements WebInterface {
             } else {
                 response = "Failure";
                 try {
-                    Logger.serverLog(serverID, customerID, " CORBA bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                    Logger.serverLog(serverID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -281,7 +285,7 @@ public class Implementation implements WebInterface {
         if (!checkClientExists(customerID)) {
             response = "Booking Schedule Empty For " + customerID;
             try {
-                Logger.serverLog(serverID, customerID, " CORBA getBookingSchedule ", "null", response);
+                Logger.serverLog(serverID, customerID, " getBookingSchedule ", "null", response);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -291,7 +295,7 @@ public class Implementation implements WebInterface {
         if (movies.size() == 0) {
             response = "Booking Schedule Empty For " + customerID;
             try {
-                Logger.serverLog(serverID, customerID, " CORBA getBookingSchedule ", "null", response);
+                Logger.serverLog(serverID, customerID, " getBookingSchedule ", "null", response);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -307,7 +311,7 @@ public class Implementation implements WebInterface {
         }
         response = builder.toString();
         try {
-            Logger.serverLog(serverID, customerID, " CORBA getBookingSchedule ", "null", response);
+            Logger.serverLog(serverID, customerID, " getBookingSchedule ", "null", response);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -321,7 +325,7 @@ public class Implementation implements WebInterface {
                 if (!checkClientExists(customerID)) {
                     response = "Failure";
                     try {
-                        Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                        Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -331,7 +335,7 @@ public class Implementation implements WebInterface {
                         allMovies.get(movieName).get(movieID).removeRegisteredClientID(customerID);
                         response = "Success";
                         try {
-                            Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                            Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -339,7 +343,7 @@ public class Implementation implements WebInterface {
                     } else {
                         response = "Failure";
                         try {
-                            Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                            Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -350,7 +354,7 @@ public class Implementation implements WebInterface {
                 if (allMovies.get(movieName).get(movieID).removeRegisteredClientID(customerID)) {
                     response = "Success";
                     try {
-                        Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                        Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -358,7 +362,7 @@ public class Implementation implements WebInterface {
                 } else {
                     response = "Failure";
                     try {
-                        Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                        Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -371,7 +375,7 @@ public class Implementation implements WebInterface {
                     if (removeMovieIfExists(customerID, movieName, movieID, numberOfTickets)) {
                         response = sendUDPMessage(getServerPort(movieID.substring(0, 3)), "cancelMovieTickets", customerID, movieName, movieID, numberOfTickets);
                         try {
-                            Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                            Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -381,7 +385,7 @@ public class Implementation implements WebInterface {
             }
             response = "Failure";
             try {
-                Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -448,22 +452,16 @@ public class Implementation implements WebInterface {
     public String listMovieShowsAvailabilityUDP(String movieName) {
         Map<String, MovieObject> movies = allMovies.get(movieName);
         StringBuilder builder = new StringBuilder();
-//        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
-//        if (movies.size() == 0) {
-//            builder.append("No Movies of Type ").append(movieName);
-//        } else {
-//            for (MovieObject movie :
-//                    movies.values()) {
-//                builder.append(movie.toString()).append(" || ");
-//            }
-//        }
-//        builder.append("\n=====================================\n");
-        if(movies.size() != 0 ) {
-            for(MovieObject movie : movies.values()) {
-                builder.append(movie.toString() + ";");
+        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
+        if (movies.size() == 0) {
+            builder.append("No Movies of Type ").append(movieName);
+        } else {
+            for (MovieObject movie :
+                    movies.values()) {
+                builder.append(movie.toString()).append(" || ");
             }
-            builder.deleteCharAt(builder.length() -1);
         }
+        builder.append("\n=====================================\n");
         return builder.toString();
     }
 
@@ -511,39 +509,39 @@ public class Implementation implements WebInterface {
         List<String> sortedIDs = new ArrayList<>(keySet);
         sortedIDs.add(oldMovieID);
         sortedIDs.sort((ID1, ID2) -> {
-                Integer timeSlot1 = 0;
-                switch (ID1.substring(3, 4).toUpperCase()) {
-                    case "M":
-                        timeSlot1 = 1;
-                        break;
-                    case "A":
-                        timeSlot1 = 2;
-                        break;
-                    case "E":
-                        timeSlot1 = 3;
-                        break;
-                }
-                int timeSlot2 = 0;
-                switch (ID2.substring(3, 4).toUpperCase()) {
-                    case "M":
-                        timeSlot2 = 1;
-                        break;
-                    case "A":
-                        timeSlot2 = 2;
-                        break;
-                    case "E":
-                        timeSlot2 = 3;
-                        break;
-                }
-                Integer date1 = Integer.parseInt(ID1.substring(8, 10) + ID1.substring(6, 8) + ID1.substring(4, 6));
-                Integer date2 = Integer.parseInt(ID2.substring(8, 10) + ID2.substring(6, 8) + ID2.substring(4, 6));
-                int dateCompare = date1.compareTo(date2);
-                int timeSlotCompare = timeSlot1.compareTo(timeSlot2);
-                if (dateCompare == 0) {
-                    return ((timeSlotCompare == 0) ? dateCompare : timeSlotCompare);
-                } else {
-                    return dateCompare;
-                }
+            Integer timeSlot1 = 0;
+            switch (ID1.substring(3, 4).toUpperCase()) {
+                case "M":
+                    timeSlot1 = 1;
+                    break;
+                case "A":
+                    timeSlot1 = 2;
+                    break;
+                case "E":
+                    timeSlot1 = 3;
+                    break;
+            }
+            int timeSlot2 = 0;
+            switch (ID2.substring(3, 4).toUpperCase()) {
+                case "M":
+                    timeSlot2 = 1;
+                    break;
+                case "A":
+                    timeSlot2 = 2;
+                    break;
+                case "E":
+                    timeSlot2 = 3;
+                    break;
+            }
+            Integer date1 = Integer.parseInt(ID1.substring(8, 10) + ID1.substring(6, 8) + ID1.substring(4, 6));
+            Integer date2 = Integer.parseInt(ID2.substring(8, 10) + ID2.substring(6, 8) + ID2.substring(4, 6));
+            int dateCompare = date1.compareTo(date2);
+            int timeSlotCompare = timeSlot1.compareTo(timeSlot2);
+            if (dateCompare == 0) {
+                return ((timeSlotCompare == 0) ? dateCompare : timeSlotCompare);
+            } else {
+                return dateCompare;
+            }
         });
         int index = sortedIDs.indexOf(oldMovieID) + 1;
         for (int i = index; i < sortedIDs.size(); i++) {
@@ -682,7 +680,7 @@ public class Implementation implements WebInterface {
         }
     }
 
-    
+
     public void addNewCustomerToClients(String customerID) {
         ClientObject newCustomer = new ClientObject(customerID);
         serverClients.put(newCustomer.getClientID(), newCustomer);
