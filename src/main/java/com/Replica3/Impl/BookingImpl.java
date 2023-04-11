@@ -162,15 +162,21 @@ public class BookingImpl implements IBooking {
         String server2, server3;
 
         //for movies from current server
-        sb.append(areaName + " Server " + movieName + ":\n");
-        if (movies.size() == 0) {
-            sb.append("No movie show called " + movieName + "\n");
-        } else {
-            for (Movie movie :
-                    movies.values()) {
-                sb.append(movie.toString() + " ### ");
+        // sb.append(areaName + " Server " + movieName + ":\n");
+        // if (movies.size() == 0) {
+        //     sb.append("No movie show called " + movieName + "\n");
+        // } else {
+        //     for (Movie movie :
+        //             movies.values()) {
+        //         sb.append(movie.toString() + " ### ");
+        //     }
+        //     sb.append("\n ------------------------------ \n");
+        // }
+        if(movies.size() != 0) {
+            for(Movie movie : movies.values()) {
+                sb.append(movie.toString() + ";");
             }
-            sb.append("\n ------------------------------ \n");
+            sb.deleteCharAt(sb.length() - 1);
         }
 
         //for movies from other servers:
@@ -619,16 +625,22 @@ public class BookingImpl implements IBooking {
     public String listMovieShowsAvailabilityUDP(String movieName) {
         Map<String, Movie> movies = movieMap.get(movieName);
         StringBuilder sb = new StringBuilder();
-        sb.append(areaName + " Server " + movieName + ":\n");
-        if (movies.size() == 0) {
-            sb.append("Can't find events " + movieName);
-        } else {
-            for (Movie movie :
-                    movies.values()) {
-                sb.append(movie.toString() + " || ");
+        // sb.append(areaName + " Server " + movieName + ":\n");
+        // if (movies.size() == 0) {
+        //     sb.append("Can't find events " + movieName);
+        // } else {
+        //     for (Movie movie :
+        //             movies.values()) {
+        //         sb.append(movie.toString() + " || ");
+        //     }
+        // }
+        // sb.append("\n ################################# \n");
+        if(movies.size() != 0 ) {
+            for(Movie movie : movies.values()) {
+                sb.append(movie.toString() + ";");
             }
+            sb.deleteCharAt(sb.length() - 1);
         }
-        sb.append("\n ################################# \n");
         return sb.toString();
     }
 
