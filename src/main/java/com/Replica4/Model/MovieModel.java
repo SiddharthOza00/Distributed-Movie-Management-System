@@ -142,7 +142,7 @@ public class MovieModel {
 
     @Override
     public String toString() {
-        return "Movie ID: "+getMovieId()+"\nMovie Time: "+getMovieTime()+"\nMovie Date: "+ getMovieDate()+"\nMovie Capacity: "+getMovieCapacity();
+        return getMovieId() + "-" + getMovieCapacity();
     }
 }
 

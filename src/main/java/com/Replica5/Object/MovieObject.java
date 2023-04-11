@@ -1,12 +1,8 @@
-package com.Replica2.Object;
+package com.Replica5.Object;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
-import java.util.*;
-import java.text.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MovieObject {
@@ -189,7 +185,6 @@ public class MovieObject {
 
     @Override
     public String toString() {
-//        return " (" + getMovieID() + ") in the " + getMovieTimeSlots() + " of " + getMovieDate() + " Total[Remaining] Capacity: " + getMovieCapacity() + "[" + getMovieRemainCapacity() + "]";
-    return getMovieID() + "-" + getMovieCapacity();
+        return " (" + getMovieID() + ") in the " + getMovieTimeSlots() + " of " + getMovieDate() + " Total[Remaining] Capacity: " + getMovieCapacity() + "[" + getMovieRemainCapacity() + "]";
     }
 }
