@@ -16,12 +16,16 @@ import javax.xml.ws.Service;
 
 import com.Request.Config;
 import com.Request.RequestData;
-import org.omg.CORBA.Request;
-
-import com.Replica3.Impl.BookingImpl;
 import com.Replica3.Impl.IBooking;
 import com.Request.RequestData;
 import com.Request.ResponseData;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RManager {
 
@@ -52,15 +56,12 @@ public class RManager {
     }
 
     private static void receiveMulticast() throws UnknownHostException {
-        MulticastSocket socket = null;
 
         InetAddress group = InetAddress.getByName("228.5.6.7");
 
         byte[] buf = new byte[1000];
 
-        try {
-
-            socket = new MulticastSocket(5555);
+        try (MulticastSocket socket = new MulticastSocket(5555)){
 
             socket.joinGroup(group);
 
@@ -81,11 +82,17 @@ public class RManager {
                     allRequests.put(sequenceID, dataReceived);
                     allOrderedRequests.add(dataReceived);
 
-                    String serverReply = requestToReplica(dataReceived);
-                    InetAddress aHost = InetAddress.getLocalHost();
-                    String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
-                    System.out.println(reply);
-                    sendUnicast(reply, Config.FRONTEND_IP);
+                    try {
+                        String serverReply = requestToReplica(dataReceived);
+                        InetAddress aHost = InetAddress.getLocalHost();
+                        // String reply = makeResponseData(serverReply, String.valueOf(aHost.getHostAddress()), sequenceID);
+                        String reply = makeResponseData(serverReply, "RM3", sequenceID);
+                        System.out.println(reply);
+                        sendUnicast(reply, Config.FRONTEND_IP);
+                    } catch (Exception e) {
+                        System.out.println("Exception occurred (Possibly servers are down)");
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     //ask from other RM
@@ -132,7 +139,7 @@ public class RManager {
     }
 
     private static void receiveFromFE() {
-        int RMport = 11111;
+        int RMport = Config.RM3_PORT_FE;
         try {
             DatagramSocket ds = new DatagramSocket(RMport);
             byte[] arr = new byte[1000];

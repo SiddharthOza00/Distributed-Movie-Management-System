@@ -1,7 +1,7 @@
-package com.Replica2.Service;
+package com.Replica5.Server;
 
-import com.Replica2.Logger.Logger;
-import com.Replica2.Interfaces.Implementation;
+import com.Replica5.Interfaces.Implementation;
+import com.Replica5.Logger.Logger;
 
 import javax.xml.ws.Endpoint;
 import java.io.IOException;
@@ -22,17 +22,17 @@ public class ServerInstance {
             case "ATW":
                 serverName = "Atwater";
                 serverUdpPort = Implementation.Atwater_Server_Port;
-                serverEndpoint = "http://localhost:8080/ServerAtwater";
+                serverEndpoint = "http://localhost:8081/ServerAtwater";
                 break;
             case "OUT":
                 serverName = "Outremont";
                 serverUdpPort = Implementation.Outremont_Server_Port;
-                serverEndpoint = "http://localhost:8080/ServerVerdun";
+                serverEndpoint = "http://localhost:8081/ServerVerdun";
                 break;
             case "VER":
                 serverName = "Verdun";
                 serverUdpPort = Implementation.Verdun_Server_Port;
-                serverEndpoint = "http://localhost:8080/ServerOutremont";
+                serverEndpoint = "http://localhost:8081/ServerOutremont";
                 break;
         }
 

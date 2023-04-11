@@ -22,6 +22,8 @@ public class FrontEnd {
         //TODO: Assign port numbers to all devices
         Runnable thread1 = new FrontendThread(44553, feImpl); //this port is frontend's
 
+
+
         Executor executor = Executors.newFixedThreadPool(1);
         executor.execute(thread1);
     }
