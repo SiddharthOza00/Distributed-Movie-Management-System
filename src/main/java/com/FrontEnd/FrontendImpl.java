@@ -25,7 +25,21 @@ public class FrontendImpl implements FrontendInterface {
         public static final int sequencerPort = Config.SEQUENCE_PORT;
 
         private int responseCounter = 0;
-        private List<String> responses = new ArrayList<>(4);
+        private List<String> responses = new ArrayList<>();
+        private int timeout = 10000;
+
+        private int replica1Incorrect = 0;
+        private int replica2Incorrect = 0;
+        private int replica3Incorrect = 0;
+        private int replica4Incorrect = 0;
+
+        public int getTimeout() {
+                return timeout;
+        }
+
+        public void setTimeout(int timeout) {
+                this.timeout = timeout;
+        }
 
         public int getResponseCounter() {
                 return responseCounter;
@@ -50,9 +64,10 @@ public class FrontendImpl implements FrontendInterface {
         public String addMovieSlots(String customerID, String movieID, String movieName, int bookingCapacity) {
                 RequestData requestData = new RequestData("addMovieSlots", customerID, movieID, movieName, null, null,
                                 bookingCapacity);
+
                 sendRequestToSequencer(requestData);
                 boolean timerOver = false;
-                startTimer(5000, timerOver);
+                startTimer(10000, timerOver);
                 System.out.println("After timer!!!");
                 int totalResponses = getResponseCounter();
                 System.out.println("Responses total that we got after timeout " + totalResponses);
@@ -197,25 +212,36 @@ public class FrontendImpl implements FrontendInterface {
                 int sequenceID2 = -1;
                 int sequenceID3 = -1;
                 int sequenceID4 = -1;
-                
 
                 for (String rep : responses) {
                         if (rep.split(",")[1].equals("RM1")) {
                                 response1 = rep.split(",")[0];
                                 sequenceID1 = Integer.parseInt(rep.split(",")[2]);
-                        }else if(rep.split(",")[1].equals("RM2")){
+                        } else if (rep.split(",")[1].equals("RM2")) {
                                 response2 = rep.split(",")[0];
                                 sequenceID2 = Integer.parseInt(rep.split(",")[2]);
-                        }else if(rep.split(",")[1].equals("RM3")){
+                        } else if (rep.split(",")[1].equals("RM3")) {
                                 response3 = rep.split(",")[0];
                                 sequenceID3 = Integer.parseInt(rep.split(",")[2]);
-                        }else if(rep.split(",")[1].equals("RM4")){
+                        } else if (rep.split(",")[1].equals("RM4")) {
                                 response4 = rep.split(",")[0];
                                 sequenceID4 = Integer.parseInt(rep.split(",")[2]);
                         }
                 }
 
+                if (!response2.equals("Success")) {
+                        replica2Incorrect += 1;
+                        if (replica2Incorrect == 3) {
+                                sendErrorMessage("Software Failure", Config.RM2_PORT_FE, Config.RM2_IP);
+                                System.out.println("Replica 2 gave incorrect answer");
+                                finalResult = response1;
+                                replica2Incorrect = 0;
+                        }
+
+                }
+
                 switch (responses.size()) {
+
                         case 4:
                                 System.out.println("Got responses from all replicas!!");
 
@@ -245,10 +271,10 @@ public class FrontendImpl implements FrontendInterface {
                                         if (response3.equals(response1)) {
                                                 // REsponse 2 is wrong
                                                 System.out.println("Replica 2 gave incorrect answer");
-                                                finalResult = response1;
+                                                finalResult = response3;
                                                 int RMPort = Config.RM2_PORT_FE;
                                                 String RMIP = Config.RM2_IP;
-                                                sendErrorMessage("Software Failure", RMPort, RMIP);
+                                                // sendErrorMessage("Software Failure", RMPort, RMIP);
                                         } else {
                                                 // Response 1 is wrong
                                                 System.out.println("Replica 1 gave incorrect answer");
@@ -259,29 +285,34 @@ public class FrontendImpl implements FrontendInterface {
                                         }
                                 }
                                 break;
-                        case 3:
+                        default:
                                 System.out.println("Crash Failure");
-                                if(response1.equals("")){
+                                if (response1.equals("")) {
                                         System.out.println("Replica 1 has crashed");
                                         finalResult = response2;
                                         sendErrorMessage("Crash Failure", Config.RM1_PORT_FE, Config.RM1_IP);
-                                }else if(response2.equals("")){
+                                }
+                                if (response2.equals("")) {
                                         System.out.println("Replica 2 hsa crashed");
                                         finalResult = response1;
                                         sendErrorMessage("Crash Failure", Config.RM2_PORT_FE, Config.RM2_IP);
-                                }else if(response2.equals("")){
-                                        System.out.println("Replica 3 hsa crashed");
+                                }
+                                if (response3.equals("")) {
+                                        System.out.println("Replica 3 has crashed");
                                         finalResult = response1;
                                         sendErrorMessage("Crash Failure", Config.RM3_PORT_FE, Config.RM3_IP);
-                                }else if(response2.equals("")){
-                                        System.out.println("Replica 4 hsa crashed");
+                                }
+                                if (response4.equals("")) {
+                                        System.out.println("Replica 4 has crashed");
                                         finalResult = response1;
                                         sendErrorMessage("Crash Failure", Config.RM4_PORT_FE, Config.RM4_IP);
                                 }
                                 break;
-                        default:
-                                break;
                 }
+
+                // Resetting the count
+                setResponseCounter(0);
+                responses.clear();
 
                 return finalResult;
         }

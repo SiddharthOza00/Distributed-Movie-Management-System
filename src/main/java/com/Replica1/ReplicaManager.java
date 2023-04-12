@@ -76,21 +76,21 @@ public class ReplicaManager {
                     allRequests.put(sequenceID, dataReceived);
                     allOrderedRequests.add(dataReceived);
 
-                    String serverReply = requestToReplica(dataReceived);
+                    try{
+                        String serverReply = requestToReplica(dataReceived);
                     System.out.println(serverReply);
                     lastExecutedSeqNum++;
                     String reply = makeResponseData(serverReply, "RM1", sequenceID);
                     System.out.println(reply);
-                    sendToFrontend(serverReply, Config.FRONTEND_IP);
+                    sendToFrontend(reply, Config.FRONTEND_IP);
+                    }catch(Exception e){
+                        System.out.println("Exception occurred (Possibly servers are down)");
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     //ask from other RM
                 }
-
-                
-
-                
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -251,11 +251,11 @@ public class ReplicaManager {
 
     private static void sendToFrontend(String dataReceived, String ipAddress) {
         System.out.println("Trying Unicast - " + dataReceived);
-        int FEport = 44553;
-        int RMport = 9956;
+        int FEport = Config.FRONTEND_PORT;
+        int RMport = Config.RM1_PORT_FE;
         DatagramSocket ds = null;
         try {
-            ds = new DatagramSocket(RMport);
+            ds = new DatagramSocket();
             byte[] arr = dataReceived.getBytes();
             InetAddress address = InetAddress.getByName(ipAddress);
 

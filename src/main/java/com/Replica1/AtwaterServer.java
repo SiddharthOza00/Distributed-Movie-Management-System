@@ -45,97 +45,99 @@ public class AtwaterServer {
         WebserviceImpl methImpl = null;
         try {
             methImpl = new WebserviceImpl();
-            Map<String, Map<String, List<String>>> serverData = new ConcurrentHashMap<String, Map<String, List<String>>>() {
-                {
-                    put("Avatar", new HashMap<String, List<String>>() {
-                        {
-                            put("ATWM220323", new ArrayList<String>() {
-                                {
-                                    add("3");
-                                    add("ATWC3000,ATWC3001");
-                                }
-                            });
-                            put("ATWM210323", new ArrayList<String>() {
-                                {
-                                    add("5");
-                                    add("ATWC3002,ATWC3000");
-                                }
-                            });
-                            // put("ATWM090223", new ArrayList<String>(){
-                            // {
-                            // add("5");
-                            // add("ATWC3004,ATWC3005");
-                            // }
-                            // });
-                            // put("ATWM100223", new ArrayList<String>(){
-                            // {
-                            // add("3");
-                            // add("ATWC3006,ATWC3007");
-                            // }
-                            // });
-                        }
-                    });
+            Map<String, Map<String, List<String>>> serverData = new ConcurrentHashMap<String, Map<String, List<String>>>();
+            // Map<String, Map<String, List<String>>> serverData = new ConcurrentHashMap<String, Map<String, List<String>>>(); {
+            //     {
+            //         put("Avatar", new HashMap<String, List<String>>() {
+            //             {
+            //                 put("ATWM220323", new ArrayList<String>() {
+            //                     {
+            //                         add("3");
+            //                         add("ATWC3000,ATWC3001");
+            //                     }
+            //                 });
+            //                 put("ATWM210323", new ArrayList<String>() {
+            //                     {
+            //                         add("5");
+            //                         add("ATWC3002,ATWC3000");
+            //                     }
+            //                 });
+            //                 // put("ATWM090223", new ArrayList<String>(){
+            //                 // {
+            //                 // add("5");
+            //                 // add("ATWC3004,ATWC3005");
+            //                 // }
+            //                 // });
+            //                 // put("ATWM100223", new ArrayList<String>(){
+            //                 // {
+            //                 // add("3");
+            //                 // add("ATWC3006,ATWC3007");
+            //                 // }
+            //                 // });
+            //             }
+            //         });
 
-                    put("Avengers", new HashMap<String, List<String>>() {
-                        {
-                            put("ATWM240323", new ArrayList<String>() {
-                                {
-                                    add("3");
-                                    add("ATWC3000");
-                                }
-                            });
-                            put("ATWM230323", new ArrayList<String>() {
-                                {
-                                    add("3");
-                                    add("ATWC3000");
-                                }
-                            });
-                        }
-                    });
-                }
-            };
+            //         put("Avengers", new HashMap<String, List<String>>() {
+            //             {
+            //                 put("ATWM240323", new ArrayList<String>() {
+            //                     {
+            //                         add("3");
+            //                         add("ATWC3000");
+            //                     }
+            //                 });
+            //                 put("ATWM230323", new ArrayList<String>() {
+            //                     {
+            //                         add("3");
+            //                         add("ATWC3000");
+            //                     }
+            //                 });
+            //             }
+            //         });
+            //     }
+            // };
 
             // Adding client data
-            Map<String, Map<String, Map<String, Integer>>> clientData = new ConcurrentHashMap<String, Map<String, Map<String, Integer>>>() {
-                {
-                    put("ATWC3000", new HashMap<String, Map<String, Integer>>() {
-                        {
-                            put("Avatar", new HashMap<String, Integer>() {
-                                {
-                                    put("ATWM220323", 2);
-                                    put("ATWM210323", 2);
-                                }
-                            });
+            Map<String, Map<String, Map<String, Integer>>> clientData = new ConcurrentHashMap<String, Map<String, Map<String, Integer>>>(); 
+            // Map<String, Map<String, Map<String, Integer>>> clientData = new ConcurrentHashMap<String, Map<String, Map<String, Integer>>>() {
+            //     {
+            //         put("ATWC3000", new HashMap<String, Map<String, Integer>>() {
+            //             {
+            //                 put("Avatar", new HashMap<String, Integer>() {
+            //                     {
+            //                         put("ATWM220323", 2);
+            //                         put("ATWM210323", 2);
+            //                     }
+            //                 });
 
-                            put("Avengers", new HashMap<String, Integer>() {
-                                {
-                                    put("ATWM240323", 2);
-                                    put("ATWM230323", 3);
-                                }
-                            });
-                        }
-                    });
+            //                 put("Avengers", new HashMap<String, Integer>() {
+            //                     {
+            //                         put("ATWM240323", 2);
+            //                         put("ATWM230323", 3);
+            //                     }
+            //                 });
+            //             }
+            //         });
 
-                    put("ATWC3001", new HashMap<String, Map<String, Integer>>() {
-                        {
-                            put("Avatar", new HashMap<String, Integer>() {
-                                {
-                                    put("ATWM220323", 2);
-                                }
-                            });
-                        }
-                    });
-                    put("ATWC3002", new HashMap<String, Map<String, Integer>>() {
-                        {
-                            put("Avatar", new HashMap<String, Integer>() {
-                                {
-                                    put("ATWM210323", 2);
-                                }
-                            });
-                        }
-                    });
-                }
-            };
+            //         put("ATWC3001", new HashMap<String, Map<String, Integer>>() {
+            //             {
+            //                 put("Avatar", new HashMap<String, Integer>() {
+            //                     {
+            //                         put("ATWM220323", 2);
+            //                     }
+            //                 });
+            //             }
+            //         });
+            //         put("ATWC3002", new HashMap<String, Map<String, Integer>>() {
+            //             {
+            //                 put("Avatar", new HashMap<String, Integer>() {
+            //                     {
+            //                         put("ATWM210323", 2);
+            //                     }
+            //                 });
+            //             }
+            //         });
+            //     }
+            // };
 
             methImpl.setMovieData(serverData);
             methImpl.setClientData(clientData);
