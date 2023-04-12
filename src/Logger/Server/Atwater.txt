@@ -239,3 +239,13 @@ DATE: 2023-04-12 01:07:24 a.m.  Server is Up & Running
 DATE: 2023-04-12 01:07:24 a.m.  UDP Server Started at port 1001
 DATE: 2023-04-12 01:08:46 a.m. ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM140423 movieName: Titanic bookingCapacity 5  | ServerResponse: Success
 DATE: 2023-04-12 01:09:27 a.m. ClientID: ATWA1122 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWA140423 movieName: Titanic  | ServerResponse: Failure
+DATE: 2023-04-12 01:10:16 a.m. ClientID: ATWA1223 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWM140423 movieName: Titanic  | ServerResponse: Success1
+DATE: 2023-04-12 01:10:21 a.m. ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM140423 movieName: Titanic bookingCapacity 5  | ServerResponse: Success
+DATE: 2023-04-12 01:10:21 a.m. ClientID: ATWA1122 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWA140423 movieName: Titanic  | ServerResponse: Failure
+DATE: 2023-04-12 01:10:21 a.m. ClientID: ATWA1223 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWM140423 movieName: Titanic  | ServerResponse: Success
+DATE: 2023-04-12 01:11:15 a.m. ClientID: Admin | RequestType:  UDP request sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse:  ... 
+DATE: 2023-04-12 01:11:15 a.m. ClientID: Admin | RequestType:  UDP reply receivedlistMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: 
+DATE: 2023-04-12 01:11:15 a.m. ClientID: Admin | RequestType:  UDP request sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse:  ... 
+DATE: 2023-04-12 01:11:15 a.m. ClientID: Admin | RequestType:  UDP reply receivedlistMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: 
+DATE: 2023-04-12 01:11:15 a.m. ClientID: Admin | RequestType:  listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse: ATWM140423-5
+DATE: 2023-04-12 01:12:26 a.m. ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWE130423 movieName: Avengers bookingCapacity 6  | ServerResponse: Success

@@ -131,3 +131,5 @@ DATE: 2023-04-12 01:07:08 a.m.  Server is Up & Running
 DATE: 2023-04-12 01:07:08 a.m.  UDP Server Started at port 2000
 DATE: 2023-04-12 01:07:24 a.m.  Server is Up & Running
 DATE: 2023-04-12 01:07:24 a.m.  UDP Server Started at port 2002
+DATE: 2023-04-12 01:11:15 a.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: 
+DATE: 2023-04-12 01:11:15 a.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: ,
