@@ -126,7 +126,6 @@ DATE: 2023-04-12 12:18:03 a.m. ClientID: Admin | RequestType:  UDP reply sent li
 DATE: 2023-04-12 12:18:03 a.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: Verdun Server Titanic:
 No Movies of Type Titanic
 =====================================
-,
 DATE: 2023-04-12 01:07:08 a.m.  Server is Up & Running
 DATE: 2023-04-12 01:07:08 a.m.  UDP Server Started at port 2000
 DATE: 2023-04-12 01:07:24 a.m.  Server is Up & Running
