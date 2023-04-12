@@ -107,3 +107,89 @@ DATE: 2023-04-10 11:37:27 PM  server has started successfully
 DATE: 2023-04-10 11:37:27 PM  UDP started 
 DATE: 2023-04-10 11:39:50 PM  server has started successfully 
 DATE: 2023-04-10 11:39:50 PM  UDP started 
+DATE: 2023-04-11 09:15:43 PM  server has started successfully 
+DATE: 2023-04-11 09:15:43 PM  UDP started 
+DATE: 2023-04-11 09:16:34 PM  server has started successfully 
+DATE: 2023-04-11 09:16:34 PM  UDP started 
+DATE: 2023-04-11 09:28:01 PM  server has started successfully 
+DATE: 2023-04-11 09:28:01 PM  UDP started 
+DATE: 2023-04-11 09:29:51 PM  server has started successfully 
+DATE: 2023-04-11 09:29:51 PM  UDP started 
+DATE: 2023-04-11 09:39:04 PM  server has started successfully 
+DATE: 2023-04-11 09:39:04 PM  UDP started 
+DATE: 2023-04-11 09:49:20 PM  server has started successfully 
+DATE: 2023-04-11 09:49:20 PM  UDP started 
+DATE: 2023-04-11 09:50:56 PM  server has started successfully 
+DATE: 2023-04-11 09:50:56 PM  UDP started 
+DATE: 2023-04-11 10:00:12 PM  server has started successfully 
+DATE: 2023-04-11 10:00:12 PM  UDP started 
+DATE: 2023-04-11 10:05:46 PM  server has started successfully 
+DATE: 2023-04-11 10:05:46 PM  UDP started 
+DATE: 2023-04-11 10:09:22 PM  server has started successfully 
+DATE: 2023-04-11 10:09:22 PM  UDP started 
+DATE: 2023-04-11 10:09:46 PM ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avatar  | ServerResponse:  
+DATE: 2023-04-11 10:09:46 PM ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avatar  | ServerResponse: _
+DATE: 2023-04-11 10:16:46 PM  server has started successfully 
+DATE: 2023-04-11 10:16:46 PM  UDP started 
+DATE: 2023-04-11 10:19:43 p.m.  server has started successfully 
+DATE: 2023-04-11 10:19:43 p.m.  UDP started 
+DATE: 2023-04-11 10:23:37 p.m.  server has started successfully 
+DATE: 2023-04-11 10:23:37 p.m.  UDP started 
+DATE: 2023-04-11 10:43:30 p.m.  server has started successfully 
+DATE: 2023-04-11 10:43:30 p.m.  UDP started 
+DATE: 2023-04-11 10:55:15 p.m.  server has started successfully 
+DATE: 2023-04-11 10:55:15 p.m.  UDP started 
+DATE: 2023-04-11 11:05:06 p.m.  server has started successfully 
+DATE: 2023-04-11 11:05:06 p.m.  UDP started 
+DATE: 2023-04-11 11:08:21 p.m.  server has started successfully 
+DATE: 2023-04-11 11:08:21 p.m.  UDP started 
+DATE: 2023-04-11 11:09:14 p.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-11 11:09:14 p.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: _
+DATE: 2023-04-11 11:10:32 p.m.  server has started successfully 
+DATE: 2023-04-11 11:10:32 p.m.  UDP started 
+DATE: 2023-04-11 11:12:01 p.m.  server has started successfully 
+DATE: 2023-04-11 11:12:01 p.m.  UDP started 
+DATE: 2023-04-11 11:12:27 p.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avengers  | ServerResponse:  
+DATE: 2023-04-11 11:12:27 p.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: _
+DATE: 2023-04-11 11:13:49 p.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-11 11:13:49 p.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: _
+DATE: 2023-04-11 11:13:59 p.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Avengers  | ServerResponse:  
+DATE: 2023-04-11 11:13:59 p.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Avengers  | ServerResponse: _
+DATE: 2023-04-11 11:13:59 p.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-11 11:13:59 p.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: _
+DATE: 2023-04-11 11:15:49 p.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-11 11:15:49 p.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: _
+DATE: 2023-04-11 11:21:19 p.m.  server has started successfully 
+DATE: 2023-04-11 11:21:19 p.m.  UDP started 
+DATE: 2023-04-11 11:24:36 p.m.  server has started successfully 
+DATE: 2023-04-11 11:24:36 p.m.  UDP started 
+DATE: 2023-04-11 11:26:26 p.m.  server has started successfully 
+DATE: 2023-04-11 11:26:26 p.m.  UDP started 
+DATE: 2023-04-11 11:26:41 p.m.  server has started successfully 
+DATE: 2023-04-11 11:26:41 p.m.  UDP started 
+DATE: 2023-04-11 11:30:54 p.m.  server has started successfully 
+DATE: 2023-04-11 11:30:54 p.m.  UDP started 
+DATE: 2023-04-11 11:37:18 p.m.  server has started successfully 
+DATE: 2023-04-11 11:37:18 p.m.  UDP started 
+DATE: 2023-04-11 11:46:57 p.m.  server has started successfully 
+DATE: 2023-04-11 11:46:57 p.m.  UDP started 
+DATE: 2023-04-11 11:50:13 p.m.  server has started successfully 
+DATE: 2023-04-11 11:50:13 p.m.  UDP started 
+DATE: 2023-04-11 11:52:19 p.m.  server has started successfully 
+DATE: 2023-04-11 11:52:19 p.m.  UDP started 
+DATE: 2023-04-11 11:53:35 p.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-11 11:53:35 p.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: _
+DATE: 2023-04-11 11:59:35 p.m.  server has started successfully 
+DATE: 2023-04-11 11:59:35 p.m.  UDP started 
+DATE: 2023-04-12 12:04:36 a.m.  server has started successfully 
+DATE: 2023-04-12 12:04:37 a.m.  UDP started 
+DATE: 2023-04-12 12:10:49 a.m.  server has started successfully 
+DATE: 2023-04-12 12:10:49 a.m.  UDP started 
+DATE: 2023-04-12 12:13:08 a.m.  server has started successfully 
+DATE: 2023-04-12 12:13:08 a.m.  UDP started 
+DATE: 2023-04-12 12:17:15 a.m. ClientID: Admin | RequestType:  incoming UDP listMovieShowsAvailability  | RequestParameters:  movieName: Titanic  | ServerResponse:  
+DATE: 2023-04-12 12:17:15 a.m. ClientID: Admin | RequestType:  UDP reply sent listMovieShowsAvailability  | RequestParameters:  movieID: null movieName: Titanic  | ServerResponse: _
+DATE: 2023-04-12 01:08:08 a.m.  server has started successfully 
+DATE: 2023-04-12 01:08:08 a.m.  UDP started 
+DATE: 2023-04-12 01:16:13 a.m.  server has started successfully 
+DATE: 2023-04-12 01:16:13 a.m.  UDP started 

@@ -10,6 +10,10 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -17,15 +21,7 @@ import javax.xml.ws.Service;
 import com.Request.Config;
 import com.Request.RequestData;
 import com.Replica3.Impl.IBooking;
-import com.Request.RequestData;
 import com.Request.ResponseData;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import java.net.*;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class RManager {
 
@@ -38,6 +34,22 @@ public class RManager {
         allRequests = new ConcurrentHashMap<>();
         allOrderedRequests = new ArrayList<>();
         lastExecutedSeqNum = 0;
+//        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+//        executor.execute(new Thread( () -> {
+//            try {
+//                receiveMulticast();
+//            } catch(Exception e) {
+//                e.printStackTrace();
+//            }
+//        }));
+//        executor.schedule(new Thread( () -> {
+//            try {
+//                receiveFromFE();
+//            } catch(Exception e) {
+//                e.printStackTrace();
+//            }
+//        }), 500, TimeUnit.MILLISECONDS);
+
         new Thread( () -> {
             try {
                 receiveMulticast();
@@ -45,7 +57,6 @@ public class RManager {
                 e.printStackTrace();
             }
         }).start();
-
         new Thread( () -> {
             try {
                 receiveFromFE();
@@ -66,7 +77,8 @@ public class RManager {
             socket.joinGroup(group);
 
             while(true) {
-                System.out.println("Test");
+                System.out.println("receiveMulticast()");
+                                
                 DatagramPacket recv = new DatagramPacket(buf, buf.length);
                 socket.receive(recv);
 
@@ -106,7 +118,7 @@ public class RManager {
 
     private static void sendUnicast(String reply, String ipAddress) {
         // System.out.println("Trying Unicast - " + reply);
-        int FEport = 44553;
+        int FEport = Config.FRONTEND_PORT;
         int RMport = Config.RM3_PORT_SQ;
         DatagramSocket ds = null;
         try {
@@ -140,16 +152,19 @@ public class RManager {
 
     private static void receiveFromFE() {
         int RMport = Config.RM3_PORT_FE;
+        DatagramSocket ds = null;
         try {
-            DatagramSocket ds = new DatagramSocket(RMport);
+            ds = new DatagramSocket(RMport);
             byte[] arr = new byte[1000];
             while(true) {
+                System.out.println("receiveFromFE()");
                 DatagramPacket dp = new DatagramPacket(arr, arr.length);
                 ds.receive(dp);
                 String dataReceived = new String(dp.getData(), 0, dp.getLength());
 
                 if(dataReceived.equalsIgnoreCase("Crash Failure")) {
                     //start all servers here
+                    System.out.println("Crash Failure received");
                     String[] args = new String[]{};
                     LaunchServer.main(args);
 
@@ -164,6 +179,10 @@ public class RManager {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+//        if(ds!=null) {
+//            ds.close();
+//        }
     }
 
     private static void contactRM(RequestData request) {
