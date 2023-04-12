@@ -235,6 +235,7 @@ public class FrontendImpl implements FrontendInterface {
                                 sendErrorMessage("Software Failure", Config.RM2_PORT_FE, Config.RM2_IP);
                                 System.out.println("Replica 2 gave incorrect answer");
                                 finalResult = response1;
+                                replica2Incorrect = 0;
                         }
 
                 }

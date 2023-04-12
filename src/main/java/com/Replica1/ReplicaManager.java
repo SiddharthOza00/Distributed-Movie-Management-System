@@ -76,12 +76,17 @@ public class ReplicaManager {
                     allRequests.put(sequenceID, dataReceived);
                     allOrderedRequests.add(dataReceived);
 
-                    String serverReply = requestToReplica(dataReceived);
+                    try{
+                        String serverReply = requestToReplica(dataReceived);
                     System.out.println(serverReply);
                     lastExecutedSeqNum++;
                     String reply = makeResponseData(serverReply, "RM1", sequenceID);
                     System.out.println(reply);
                     sendToFrontend(reply, Config.FRONTEND_IP);
+                    }catch(Exception e){
+                        System.out.println("Exception occurred (Possibly servers are down)");
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     //ask from other RM
