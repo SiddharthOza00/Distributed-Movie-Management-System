@@ -9,7 +9,7 @@ public class StartAll {
         VerdunServer.main(args);
         OutremontServer.main(args);
         // FrontEnd.main(args);
-        ReplicaManager.main(args);
+        // ReplicaManager.main(args);
         // Client.main(args);
     }
 }

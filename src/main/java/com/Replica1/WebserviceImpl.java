@@ -513,18 +513,18 @@ public class WebserviceImpl implements Webservice {
 
                     } else {
                         System.out.println("Sorry! No capacity left to book the tickets!");
-                        return "Failed to book because no capacity left to book the tickets";
+                        return "Failure";
                     }
 
                     printMovieDataForAClient(customerID);
-                    return "Successfully booked!";
+                    return "Success";
                 } else {
                     System.out.println("This show is not available!");
-                    return "Failed to Book because show is not available";
+                    return "Failure";
                 }
             } else {
                 System.out.println("This movie does not exist");
-                return "Failed to book because movie does not exist";
+                return "Failure";
             }
         } else {
             // Call other server
@@ -769,20 +769,20 @@ public class WebserviceImpl implements Webservice {
                             result = "Success";
                         } else {
                             System.out.println("You cannot remove more slots than booked!!");
-                            result = "Fail. You cannot remove more slots than booked";
+                            result = "Failure";
                         }
 
                     } else {
                         System.out.println("This movie show is not booked by this customer!!");
-                        result = "Fail. This movie show is not booked by this customer";
+                        result = "Failure";
                     }
                 } else {
                     System.out.println("This movie ID does not exist!");
-                    result = "Fail. Movie Slot not available for this movie in the theatre";
+                    result = "Failure";
                 }
             } else {
                 System.out.println("No bookings are done for this movie!");
-                result = "Fail. Movie not available in the theatre";
+                result = "Failure";
             }
         } else {
             // Different server
@@ -840,10 +840,10 @@ public class WebserviceImpl implements Webservice {
             } else {
                 // will have to book again
                 String bookAgain = bookMovieTickets(customerID, movieID, oldMovieName, numberOfTickets, true);
-                exchangeResult = "Fail";
+                exchangeResult = "Failure";
             }
         } else {
-            exchangeResult = "Fail";
+            exchangeResult = "Failure";
         }
 
         return exchangeResult;

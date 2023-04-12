@@ -86,11 +86,6 @@ public class ReplicaManager {
                 else {
                     //ask from other RM
                 }
-
-                
-
-                
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -255,7 +250,7 @@ public class ReplicaManager {
         int RMport = Config.RM1_PORT_FE;
         DatagramSocket ds = null;
         try {
-            ds = new DatagramSocket(RMport);
+            ds = new DatagramSocket();
             byte[] arr = dataReceived.getBytes();
             InetAddress address = InetAddress.getByName(ipAddress);
 
