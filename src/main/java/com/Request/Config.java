@@ -11,13 +11,13 @@ public class Config {
 
     public static final String SEQUENCER_IP = "192.168.48.53";
 
-    public static final String RM1_IP = "192.168.48.53";
+    public static final String RM1_IP = "192.168.48.35";
     
     public static final String RM2_IP = "192.168.48.53";
 
-    public static final String RM3_IP = "192.168.48.53";
+    public static final String RM3_IP = "192.168.48.254";
 
-    public static final String RM4_IP = "192.168.48.53";
+    public static final String RM4_IP = "192.168.48.36";
 
     public static final Integer RM1_PORT_SQ = 9955;
 

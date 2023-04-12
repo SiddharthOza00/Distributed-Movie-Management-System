@@ -1,7 +1,6 @@
 package com.Replica2;
 
 import com.Replica2.Interfaces.WebInterface;
-import com.Replica3.LaunchServer;
 import com.Request.Config;
 import com.Request.RequestData;
 import com.Request.ResponseData;
@@ -47,12 +46,12 @@ public class ReplicaManager2 {
         System.out.println("Server successfully started!\n");
     }
 
-    private static void replaceServer() {
+    private static void replaceServer() throws MalformedURLException {
         System.out.println("Trying to replace replica!\n");
         String[] args = new String[]{"Start"};
-        com.Replica5.Server.Server.main(args);
         serverReplaced = true;
         System.out.println("Replica Replaced!\n");
+        allRequestsTillNow();
     }
 
     private static void receiveMulticast() throws UnknownHostException {
@@ -65,7 +64,6 @@ public class ReplicaManager2 {
 
             socket.joinGroup(group);
 
-//            restartServer();
             while (true) {
                 System.out.println("Test");
                 DatagramPacket recv = new DatagramPacket(buf, buf.length);
@@ -83,12 +81,11 @@ public class ReplicaManager2 {
 
                     String serverReply = requestToReplica(dataReceived);
                     lastExecutedSeqNum++;
-                    InetAddress aHost = InetAddress.getLocalHost();
                     String reply = makeResponseData(serverReply, "RM2", sequenceID);
                     System.out.println(reply);
                     sendUnicast(reply, Config.FRONTEND_IP);
                 } else {
-                    // ask from other RM
+                    // ToDo ask from other RM
                 }
 
             }
@@ -122,8 +119,7 @@ public class ReplicaManager2 {
     private static void contactRM(RequestData request) {
         int port = 0000;
         String ipAddress = " ";
-        try {
-            DatagramSocket ds = new DatagramSocket();
+        try (DatagramSocket ds = new DatagramSocket()){
             byte[] arr = request.toString().getBytes();
             InetAddress addr = InetAddress.getByName(ipAddress);
             DatagramPacket dp = new DatagramPacket(arr, arr.length, addr, port);
@@ -158,7 +154,7 @@ public class ReplicaManager2 {
                 if(dataReceived.equalsIgnoreCase("Crash Failure")) {
                     //start all servers here
                     String[] args = new String[]{};
-                    LaunchServer.main(args);
+                    restartServer();
 
                     Thread.sleep(5000);
 
@@ -178,7 +174,7 @@ public class ReplicaManager2 {
         return data.toString();
     }
 
-    private static String requestToReplica(String dataReceived) throws MalformedURLException {
+    public static String requestToReplica(String dataReceived) throws MalformedURLException {
 
         URL url;
         QName qName;
@@ -222,49 +218,92 @@ public class ReplicaManager2 {
         }
 
         Service service = Service.create(url, qName);
-
-        WebInterface impl = service.getPort(WebInterface.class);
-
         String typeOfUser =customerID.substring(3, 4);
+        if(!serverReplaced) {
+            WebInterface impl = service.getPort(WebInterface.class);
 
-        switch (typeOfUser) {
-            case "A":
-                if(methodName.equalsIgnoreCase("addMovieSlots")) {
-                    return impl.addMovieSlots(movieID, movieName, numberOfTickets);
-                }
-                if(methodName.equalsIgnoreCase("removeMovieSlots")) {
-                    return impl.removeMovieSlots(movieID, movieName);
-                }
-                if(methodName.equalsIgnoreCase("listMovieShowsAvailability")) {
-                    return impl.listMovieShowsAvailability(movieName);
-                }
-                if(methodName.equalsIgnoreCase("bookMovieTickets")) {
-                    return impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
-                }
-                if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
-                    return impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
-                }
-                if(methodName.equalsIgnoreCase("getBookingSchedule")) {
-                    return impl.getBookingSchedule(customerID);
-                }
-                if(methodName.equalsIgnoreCase("exchangeTickets")) {
-                    return impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
-                }
-                break;
-            case "C":
-                if(methodName.equalsIgnoreCase("bookMovieTickets")) {
-                    return impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
-                }
-                if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
-                    return impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
-                }
-                if(methodName.equalsIgnoreCase("getBookingSchedule")) {
-                    return impl.getBookingSchedule(customerID);
-                }
-                if(methodName.equalsIgnoreCase("exchangeTickets")) {
-                    return impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
-                }
-                break;
+            switch (typeOfUser) {
+                case "A":
+                    if(methodName.equalsIgnoreCase("addMovieSlots")) {
+                        return impl.addMovieSlots(movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("removeMovieSlots")) {
+                        return impl.removeMovieSlots(movieID, movieName);
+                    }
+                    if(methodName.equalsIgnoreCase("listMovieShowsAvailability")) {
+                        return impl.listMovieShowsAvailability(movieName);
+                    }
+                    if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                        return impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                        return impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                        return impl.getBookingSchedule(customerID);
+                    }
+                    if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                        return impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
+                    }
+                    break;
+                case "C":
+                    if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                        return impl.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                        return impl.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                        return impl.getBookingSchedule(customerID);
+                    }
+                    if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                        return impl.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
+                    }
+                    break;
+            }
+        }
+        else {
+            com.Replica5.Interfaces.WebInterface impl1 = service.getPort(com.Replica5.Interfaces.WebInterface.class);
+
+            switch (typeOfUser) {
+                case "A":
+                    if(methodName.equalsIgnoreCase("addMovieSlots")) {
+                        return impl1.addMovieSlots(movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("removeMovieSlots")) {
+                        return impl1.removeMovieSlots(movieID, movieName);
+                    }
+                    if(methodName.equalsIgnoreCase("listMovieShowsAvailability")) {
+                        return impl1.listMovieShowsAvailability(movieName);
+                    }
+                    if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                        return impl1.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                        return impl1.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                        return impl1.getBookingSchedule(customerID);
+                    }
+                    if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                        return impl1.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
+                    }
+                    break;
+                case "C":
+                    if(methodName.equalsIgnoreCase("bookMovieTickets")) {
+                        return impl1.bookMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("cancelMovieTickets")) {
+                        return impl1.cancelMovieTickets(customerID,movieID, movieName, numberOfTickets);
+                    }
+                    if(methodName.equalsIgnoreCase("getBookingSchedule")) {
+                        return impl1.getBookingSchedule(customerID);
+                    }
+                    if(methodName.equalsIgnoreCase("exchangeTickets")) {
+                        return impl1.exchangeTickets(customerID, movieName, movieID, newMovieID, newMovieName, numberOfTickets);
+                    }
+                    break;
+            }
         }
         return "FAILURE";
     }

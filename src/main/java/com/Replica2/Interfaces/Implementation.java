@@ -215,7 +215,7 @@ public class Implementation implements WebInterface {
                         addCustomerAndMovie(customerID, movieName, movieID, numberOfTickets);
                 }
                 if (allMovies.get(movieName).get(movieID).addRegisteredClientID(customerID, numberOfTickets) == MovieObject.ADD_SUCCESS) {
-                    response = "Success";
+                    response = "Success1";
                 } else if (allMovies.get(movieName).get(movieID).addRegisteredClientID(customerID, numberOfTickets) == MovieObject.MOVIE_FULL) {
                     response = "Failure";
                 } else {
@@ -240,7 +240,7 @@ public class Implementation implements WebInterface {
             if (clientHasMovie(customerID, movieName, movieID)) {
                 String serverResponse = "Failure";
                 try {
-                    Logger.serverLog(serverID, customerID, " CORBA bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverResponse);
+                    Logger.serverLog(serverID, customerID, " bookMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", serverResponse);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -248,7 +248,7 @@ public class Implementation implements WebInterface {
             }
             if (exceedWeeklyLimit(customerID, movieID.substring(4))) {
                 String serverResponse = sendUDPMessage(getServerPort(movieID.substring(0, 3)), "bookMovieTickets", customerID, movieName, movieID, numberOfTickets);
-                if (serverResponse.startsWith("Success")) {
+                if (serverResponse.startsWith("Success1")) {
                     if (clientMovies.get(customerID).containsKey(movieName)) {
                         clientMovies.get(customerID).get(movieName).put(movieID, numberOfTickets);
                     } else {
