@@ -416,3 +416,5 @@ DATE: 2023-04-12 01:09:26 a.m. ClientID: ATWA1122 | RequestType:  bookMovieTicke
 DATE: 2023-04-12 01:10:16 a.m. ClientID: ATWA1223 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWM140423 movieName: Titanic 1 | ServerResponse: Success
 DATE: 2023-04-12 01:16:13 a.m.  server has started successfully 
 DATE: 2023-04-12 01:16:13 a.m.  UDP started 
+DATE: 2023-04-12 01:17:52 a.m. ClientID: Admin | RequestType:  addMovieSlots  | RequestParameters:  movieID: ATWM140423 movieName: Titanic bookingCapacity 6  | ServerResponse: Success
+DATE: 2023-04-12 01:18:56 a.m. ClientID: ATWA1223 | RequestType:  bookMovieTickets  | RequestParameters:  movieID: ATWM140423 movieName: Titanic 1 | ServerResponse: Success
