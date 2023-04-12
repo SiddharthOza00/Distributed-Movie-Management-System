@@ -1,14 +1,16 @@
 package com.Sequencer;
 
+import com.Replica2.ReplicaManager2;
+
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.*;
+import java.util.ArrayList;
 
 public class Sequencer {
     private static int sequencerId = 0;
     private static final String sequencerIP = "192.168.48.53";
+
+//    private static ArrayList<String> allOrderedRequests;
 
     public static void main(String[] args) throws IOException {
         try (DatagramSocket aSocket = new DatagramSocket(2233, InetAddress.getByName(sequencerIP))) {
@@ -21,21 +23,6 @@ public class Sequencer {
                 aSocket.receive(request);
                 String sentence = new String(request.getData(), 0, request.getLength());
                 sendMessage(sentence, 0);
-
-//                byte[] SeqId = (Integer.toString(sequencerId)).getBytes();
-//                InetAddress aHost1 = request.getAddress();
-//                int port1 = request.getPort();
-//
-//                System.out.println(aHost1 + ":" + port1);
-//                DatagramPacket request1 = new DatagramPacket(SeqId,
-//                        SeqId.length, aHost1, port1);
-//                aSocket.send(request1);
-//            }
-//
-//        } catch (SocketException e) {
-//            System.out.println("Socket: " + e.getMessage());
-//        } catch (IOException e) {
-//            System.out.println("IO: " + e.getMessage());
             }
         }
     }
@@ -48,6 +35,7 @@ public class Sequencer {
         }
 //        String finalMessage = "this is a test";
         String finalMessage = message + "," + sequencerId1;
+//        allOrderedRequests.add(finalMessage);
 //          String finalMessage = message;
         System.out.println("Message: " + finalMessage);
         try (DatagramSocket aSocket = new DatagramSocket()) {
@@ -62,7 +50,16 @@ public class Sequencer {
             e.printStackTrace();
         }
     }
-//}
+
+//    private static void allRequestsTillNow(int lastExecutedSeqNum) throws MalformedURLException {
+//        System.out.println("Executing all requests again");
+//
+//        for (String allOrderedRequest : allOrderedRequests) {
+//            String temp = ReplicaManager2.requestToReplica(allOrderedRequest);
+//            System.out.println(temp);
+//            String[] allParams = allOrderedRequest.split(",");
+//            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
 //        }
+//        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
 //    }
 }

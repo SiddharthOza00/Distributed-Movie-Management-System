@@ -20,9 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Implementation implements WebInterface {
 
-    public static final int Atwater_Server_Port = 1000;
-    public static final int Verdun_Server_Port = 2000;
-    public static final int Outremont_Server_Port = 3000;
+    public static final int Atwater_Server_Port = 1001;
+    public static final int Verdun_Server_Port = 2002;
+    public static final int Outremont_Server_Port = 3003;
     private final String serverID;
     private final String serverName;
     private final Map<String, Map<String, MovieObject>> allMovies;
@@ -146,19 +146,14 @@ public class Implementation implements WebInterface {
 
     @Override
     public String listMovieShowsAvailability(String movieName) {
-        String response;
         Map<String, MovieObject> movies = allMovies.get(movieName);
         StringBuilder builder = new StringBuilder();
-        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
-        if (movies.size() == 0) {
-            builder.append("No Movies of Type ").append(movieName).append("\n");
-        } else {
-            for (MovieObject movie :
-                    movies.values()) {
-                builder.append(movie.toString()).append(" || ");
+        if(movies.size() != 0) {
+            for(MovieObject movie : movies.values()) {
+                builder.append(movie.toString() + ";");
             }
+            builder.deleteCharAt(builder.length() - 1);
         }
-        builder.append("\n=====================================\n");
         String otherServer1, otherServer2;
         if (serverID.equals("ATW")) {
             otherServer1 = sendUDPMessage(Outremont_Server_Port, "listMovieShowsAvailability", "null", movieName, "null", 0);
@@ -171,13 +166,13 @@ public class Implementation implements WebInterface {
             otherServer2 = sendUDPMessage(Outremont_Server_Port, "listMovieShowsAvailability", "null", movieName, "null", 0);
         }
         builder.append(otherServer1).append(otherServer2);
-        response = builder.toString();
+        String serverReply = builder.toString();
         try {
-            Logger.serverLog(serverID, "null", " listMovieShowsAvailability ", " movieName: " + movieName + " ", response);
+            Logger.serverLog(serverID, "null", " listMovieShowsAvailability ", " movieName: " + movieName + " ", serverReply);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return response;
+        return serverReply;
 
     }
 
@@ -452,16 +447,12 @@ public class Implementation implements WebInterface {
     public String listMovieShowsAvailabilityUDP(String movieName) {
         Map<String, MovieObject> movies = allMovies.get(movieName);
         StringBuilder builder = new StringBuilder();
-        builder.append(serverName).append(" Server ").append(movieName).append(":\n");
-        if (movies.size() == 0) {
-            builder.append("No Movies of Type ").append(movieName);
-        } else {
-            for (MovieObject movie :
-                    movies.values()) {
-                builder.append(movie.toString()).append(" || ");
+        if(movies.size() != 0 ) {
+            for(MovieObject movie : movies.values()) {
+                builder.append(movie.toString() + ";");
             }
+            builder.deleteCharAt(builder.length() -1);
         }
-        builder.append("\n=====================================\n");
         return builder.toString();
     }
 
@@ -673,7 +664,6 @@ public class Implementation implements WebInterface {
         if (movieID.substring(6, 8).equals(newMovieDate.substring(2, 4)) && movieID.substring(8, 10).equals(newMovieDate.substring(4, 6))) {
             int week1 = Integer.parseInt(movieID.substring(4, 6)) / 7;
             int week2 = Integer.parseInt(newMovieDate.substring(0, 2)) / 7;
-//                    int diff = Math.abs(day2 - day1);
             return week1 == week2;
         } else {
             return false;
