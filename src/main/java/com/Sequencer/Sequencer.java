@@ -1,16 +1,13 @@
 package com.Sequencer;
 
-import com.Replica2.ReplicaManager2;
-
 import java.io.IOException;
-import java.net.*;
-import java.util.ArrayList;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class Sequencer {
     private static int sequencerId = 0;
     private static final String sequencerIP = "192.168.48.53";
-
-//    private static ArrayList<String> allOrderedRequests;
 
     public static void main(String[] args) throws IOException {
         try (DatagramSocket aSocket = new DatagramSocket(2233, InetAddress.getByName(sequencerIP))) {
@@ -33,10 +30,8 @@ public class Sequencer {
         if (sequencerId1 == 0) {
             sequencerId1 = ++sequencerId;
         }
-//        String finalMessage = "this is a test";
+
         String finalMessage = message + "," + sequencerId1;
-//        allOrderedRequests.add(finalMessage);
-//          String finalMessage = message;
         System.out.println("Message: " + finalMessage);
         try (DatagramSocket aSocket = new DatagramSocket()) {
 
@@ -50,16 +45,4 @@ public class Sequencer {
             e.printStackTrace();
         }
     }
-
-//    private static void allRequestsTillNow(int lastExecutedSeqNum) throws MalformedURLException {
-//        System.out.println("Executing all requests again");
-//
-//        for (String allOrderedRequest : allOrderedRequests) {
-//            String temp = ReplicaManager2.requestToReplica(allOrderedRequest);
-//            System.out.println(temp);
-//            String[] allParams = allOrderedRequest.split(",");
-//            lastExecutedSeqNum = Integer.parseInt(allParams[7]);
-//        }
-//        System.out.println("allRequestsTillNow() - done : lastExecutedSeqNum = " + lastExecutedSeqNum);
-//    }
 }
