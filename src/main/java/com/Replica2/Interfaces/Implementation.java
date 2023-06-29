@@ -215,7 +215,7 @@ public class Implementation implements WebInterface {
                         addCustomerAndMovie(customerID, movieName, movieID, numberOfTickets);
                 }
                 if (allMovies.get(movieName).get(movieID).addRegisteredClientID(customerID, numberOfTickets) == MovieObject.ADD_SUCCESS) {
-                    response = "Success1";
+                    response = "Failure"; //
                 } else if (allMovies.get(movieName).get(movieID).addRegisteredClientID(customerID, numberOfTickets) == MovieObject.MOVIE_FULL) {
                     response = "Failure";
                 } else {
@@ -248,7 +248,7 @@ public class Implementation implements WebInterface {
             }
             if (exceedWeeklyLimit(customerID, movieID.substring(4))) {
                 String serverResponse = sendUDPMessage(getServerPort(movieID.substring(0, 3)), "bookMovieTickets", customerID, movieName, movieID, numberOfTickets);
-                if (serverResponse.startsWith("Success1")) {
+                if (serverResponse.startsWith("Failure")) { //
                     if (clientMovies.get(customerID).containsKey(movieName)) {
                         clientMovies.get(customerID).get(movieName).put(movieID, numberOfTickets);
                     } else {
@@ -321,7 +321,7 @@ public class Implementation implements WebInterface {
                 if (!checkClientExists(customerID)) {
                     response = "Failure";
                     try {
-                        Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                        Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -331,7 +331,7 @@ public class Implementation implements WebInterface {
                         allMovies.get(movieName).get(movieID).removeRegisteredClientID(customerID);
                         response = "Success";
                         try {
-                            Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                            Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -339,7 +339,7 @@ public class Implementation implements WebInterface {
                     } else {
                         response = "Failure";
                         try {
-                            Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                            Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -350,7 +350,7 @@ public class Implementation implements WebInterface {
                 if (allMovies.get(movieName).get(movieID).removeRegisteredClientID(customerID)) {
                     response = "Success";
                     try {
-                        Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                        Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -358,7 +358,7 @@ public class Implementation implements WebInterface {
                 } else {
                     response = "Failure";
                     try {
-                        Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                        Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -371,7 +371,7 @@ public class Implementation implements WebInterface {
                     if (removeMovieIfExists(customerID, movieName, movieID, numberOfTickets)) {
                         response = sendUDPMessage(getServerPort(movieID.substring(0, 3)), "cancelMovieTickets", customerID, movieName, movieID, numberOfTickets);
                         try {
-                            Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                            Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -381,7 +381,7 @@ public class Implementation implements WebInterface {
             }
             response = "Failure";
             try {
-                Logger.serverLog(serverID, customerID, " CORBA cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
+                Logger.serverLog(serverID, customerID, " cancelMovieTickets ", " movieID: " + movieID + " movieName: " + movieName + " ", response);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -682,7 +682,7 @@ public class Implementation implements WebInterface {
         }
     }
 
-    
+
     public void addNewCustomerToClients(String customerID) {
         ClientObject newCustomer = new ClientObject(customerID);
         serverClients.put(newCustomer.getClientID(), newCustomer);
