@@ -1,0 +1,26 @@
+DATE: 2023-04-09 11:36:00 PM  tried to log in 
+DATE: 2023-04-09 11:36:00 PM  Admin has logged in 
+DATE: 2023-04-09 11:36:11 PM  addMovieSlots 
+DATE: 2023-04-09 11:36:11 PM Client Action:  addMovieSlots | RequestParameters:  movieID: ATWM100423 movieName: Avatar movieCapacity: 5  | Server Response: Added a new movie!
+DATE: 2023-04-09 11:36:15 PM  listMovieShowsAvailability 
+DATE: 2023-04-09 11:36:15 PM Client Action:  listMovieShowsAvailability | RequestParameters:  movieName: Avatar  | Server Response: Atwater Server Avatar:
+ ID: ATWM100423 during Morning of date 10/04/23 Total Capacity: 5 Remaining seats: 5  ### 
+ ------------------------------ 
+Verdun Server Avatar:
+Can't find events Avatar
+ ################################# 
+Outremont Server Avatar:
+Can't find events Avatar
+ ################################# 
+
+DATE: 2023-04-10 08:03:31 PM  tried to log in 
+DATE: 2023-04-10 08:03:31 PM  Admin has logged in 
+DATE: 2023-04-10 08:04:12 PM  addMovieSlots 
+DATE: 2023-04-10 08:04:12 PM Client Action:  addMovieSlots | RequestParameters:  movieID: ATWA110423 movieName: Avatar movieCapacity: 5  | Server Response: Success
+DATE: 2023-04-10 08:04:18 PM  listMovieShowsAvailability 
+DATE: 2023-04-10 08:04:18 PM Client Action:  listMovieShowsAvailability | RequestParameters:  movieName: Avatar  | Server Response: ATWA110423-5
+DATE: 2023-04-10 08:05:03 PM  addMovieSlots 
+DATE: 2023-04-10 08:05:03 PM Client Action:  addMovieSlots | RequestParameters:  movieID: ATWM120423 movieName: Avatar movieCapacity: 5  | Server Response: Success
+DATE: 2023-04-10 08:05:06 PM  listMovieShowsAvailability 
+DATE: 2023-04-10 08:05:06 PM Client Action:  listMovieShowsAvailability | RequestParameters:  movieName: Avatar  | Server Response: ATWM120423-5;ATWA110423-5
+DATE: 2023-04-10 08:06:38 PM  Logged out 

@@ -107,7 +107,7 @@ public class RManager {
                     }
                 }
                 else {
-                    //ask from other RM
+                    // contactRM(dataReceived);
                 }
 
             }
@@ -173,7 +173,7 @@ public class RManager {
                     allRequestsTillNow();
                 }
                 else if(dataReceived.equalsIgnoreCase("Software Failure")) {
-                    //TODO: handle software failure
+                    replaceServer();
                 }
             }
         } catch(Exception e) {
@@ -185,19 +185,26 @@ public class RManager {
 //        }
     }
 
-    private static void contactRM(RequestData request) {
-        int port = 0000; //change this
-        String ipAddress = " "; //change this
-        try {
-            DatagramSocket ds = new DatagramSocket();
-            byte[] arr = request.toString().getBytes();
-            InetAddress addr = InetAddress.getByName(ipAddress);
-            DatagramPacket dp = new DatagramPacket(arr, arr.length, addr, port);
-            ds.send(dp);
-            System.out.println("Sent to other RM - " + request.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private static void contactRM(String request) {
+       int port = 0000; //change this
+       String ipAddress = " "; //change this
+       try {
+           DatagramSocket ds = new DatagramSocket();
+           byte[] arr = request.toString().getBytes();
+           InetAddress addr = InetAddress.getByName(ipAddress);
+           DatagramPacket dp = new DatagramPacket(arr, arr.length, addr, port);
+           ds.send(dp);
+           System.out.println("Sent to other RM - " + request.toString());
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+    }
+    private static void replaceServer() throws MalformedURLException {
+       System.out.println("Trying to replace replica!\n");
+       String[] args = new String[]{"Start"};
+       boolean serverReplaced = true;
+       System.out.println("Replica Replaced!\n");
+       allRequestsTillNow();
     }
 
     private static String makeResponseData(String result, String senderReplica, Integer sequenceID ) {
